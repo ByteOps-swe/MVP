@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: "Temperature"
+    type: file
+    updateIntervalSeconds: 5
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/dashboards_config
+      foldersFromFilesStructure: true

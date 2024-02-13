@@ -1,0 +1,296 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "*",
+                "type": "String"
+              }
+            ],
+            "database": "innovacity",
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "nome_sensore",
+                "operator": "=",
+                "type": "String",
+                "value": "$nome_sensore"
+              }
+            ],
+            "groupBy": [],
+            "limit": 100,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [
+              {
+                "dir": "DESC",
+                "name": "timestamp"
+              }
+            ],
+            "queryType": "table",
+            "table": "temperatures"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "*",
+                  "type": "String"
+                }
+              ],
+              "database": "innovacity",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "nome_sensore",
+                  "operator": "=",
+                  "type": "String",
+                  "value": "$nome_sensore"
+                }
+              ],
+              "groupBy": [],
+              "limit": 100,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [
+                {
+                  "dir": "DESC",
+                  "name": "timestamp"
+                }
+              ],
+              "queryType": "table",
+              "table": "temperatures"
+            }
+          },
+          "pluginVersion": "4.0.0-beta",
+          "queryType": "table",
+          "rawSql": "SELECT * FROM \"innovacity\".\"temperatures\" WHERE type IN (${tipo_sensore}) AND nome_sensore IN (${nome_sensore}) ORDER BY timestamp DESC LIMIT ${limit}",
+          "refId": "A"
+        }
+      ],
+      "title": "Dati Grezzi",
+      "type": "table"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "*",
+        "current": {
+          "selected": true,
+          "text": [
+            "Sensore di Temperatura 3",
+            "Sensore di Temperatura 5"
+          ],
+          "value": [
+            "Sensore di Temperatura 3",
+            "Sensore di Temperatura 5"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "(SELECT nome_sensore AS __text, nome_sensore AS __value FROM innovacity.temperatures) UNION ALL (SELECT nome_sensore AS _text, nome_sensore AS __value FROM innovacity.rain)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Nome Sensore",
+        "multi": true,
+        "name": "nome_sensore",
+        "options": [],
+        "query": "(SELECT nome_sensore AS __text, nome_sensore AS __value FROM innovacity.temperatures) UNION ALL (SELECT nome_sensore AS _text, nome_sensore AS __value FROM innovacity.rain)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "100",
+          "value": "100"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Limite",
+        "multi": false,
+        "name": "limit",
+        "options": [
+          {
+            "selected": true,
+            "text": "100",
+            "value": "100"
+          },
+          {
+            "selected": false,
+            "text": "1000",
+            "value": "1000"
+          },
+          {
+            "selected": false,
+            "text": "2000",
+            "value": "2000"
+          },
+          {
+            "selected": false,
+            "text": "5000",
+            "value": "5000"
+          },
+          {
+            "selected": false,
+            "text": "10000",
+            "value": "10000"
+          }
+        ],
+        "query": "100,1000,2000,5000,10000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "TemperatureSimulator"
+          ],
+          "value": [
+            "TemperatureSimulator"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "(SELECT type AS __text, type AS __value FROM innovacity.temperatures) UNION ALL (SELECT type AS __text, type AS __value FROM innovacity.rain) ",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Tipo Sensore",
+        "multi": true,
+        "name": "tipo_sensore",
+        "options": [],
+        "query": "(SELECT type AS __text, type AS __value FROM innovacity.temperatures) UNION ALL (SELECT type AS __text, type AS __value FROM innovacity.rain) ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": true,
+    "refresh_intervals": [
+      "10s",
+      "1m"
+    ]
+  },
+  "timezone": "",
+  "title": "Dati Grezzi",
+  "uid": "f134d917-32f5-40b7-bcab-0c8ba22db22a",
+  "version": 12,
+  "weekStart": ""
+}

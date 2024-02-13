@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Servizio Kafka
+  kafka:
+    image: "bitnami/kafka:latest" # Immagine del container Kafka utilizzata
+    container_name: kafka # Nome del container Kafka
+    hostname: kafka # Hostname del container Kafka
+    ports:
+      - "9093:9093" # Porta esposta per le comunicazioni esterne (host:container)
+    environment:
+      # Configurazione di Kafka
+      KAFKA_CFG_NODE_ID: 1 # ID del nodo Kafka
+      KAFKA_CFG_LISTENERS: CONTROLLER://kafka:19092,INTERNAL://kafka:9092,EXTERNAL://localhost:9093 # Configurazione dei listener Kafka
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093 # Listener pubblicizzati di Kafka
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT # Mappatura dei protocolli di sicurezza dei listener Kafka
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:19092 # Quorum dei votanti del controller Kafka
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER # Nomi dei listener del controller Kafka
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL # Nome del listener inter-broker Kafka
+      KAFKA_CFG_PROCESS_ROLES: broker,controller # Ruoli di processo Kafka
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true # Abilita la creazione automatica dei topic Kafka
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "kafka-topics.sh",
+          "--bootstrap-server",
+          "kafka:9092",
+          "--list"
+        ] # Comando per il test di salute di Kafka
+      interval: 5s # Intervallo tra i test di salute
+      timeout: 30s # Timeout per il test di salute
+      retries: 10 # Numero di tentativi del test di salute
+    profiles: [ "dev", "prod" ] # Profili del servizio (dev, prod)
+
+  # Servizio ClickHouse
+  clickhouse:
+    image: clickhouse/clickhouse-server # Immagine del container ClickHouse utilizzata
+    hostname: clickhouse # Hostname del container ClickHouse
+    container_name: clickhouse # Nome del container ClickHouse
+    ports:
+      - "8123:8123" # Porta esposta per le comunicazioni esterne (host:container)
+    environment:
+      # Variabili d'ambiente per la configurazione di ClickHouse
+      CLICKHOUSE_DB: innovacity # Nome del database ClickHouse
+      CLICKHOUSE_USER: ic_admin # Nome utente di ClickHouse
+      CLICKHOUSE_PASSWORD: ic_admin # Password dell'utente di ClickHouse
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1 # Abilita la gestione degli accessi predefinita
+    volumes:
+      - ./InitDB:/docker-entrypoint-initdb.d # Volume per l'inizializzazione del database
+    depends_on:
+      kafka:
+        condition: service_healthy # Dipendenza dal servizio Kafka, condizionata alla salute di Kafka
+    profiles: [ "dev", "prod" ] # Profili del servizio (dev, prod)
+
+  # Servizio Grafana
+  grafana:
+    image: grafana/grafana-oss # Immagine del container Grafana utilizzata
+    container_name: grafana # Nome del container Grafana
+    ports:
+      - "3000:3000" # Porta esposta per le comunicazioni esterne (host:container)
+    volumes:
+      # Volumi per la configurazione di Grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards_config:/etc/grafana/dashboards_config
+    environment:
+      GF_INSTALL_PLUGINS: grafana-clickhouse-datasource # Installa il plugin del datasource ClickHouse per Grafana
+      GF_SECURITY_ADMIN_USER: ic_admin # Utente amministratore di Grafana
+      GF_SECURITY_ADMIN_PASSWORD: ic_admin # Password dell'utente amministratore di Grafana
+      # GF_AUTH_ORG_ROLE: viewer # Ruolo dell'organizzazione in Grafana (commentato per semplificare lo sviluppo)
+    profiles: [ "dev", "prod" ] # Profili del servizio (dev, prod)
+
+  # Servizio Simulators
+  simulators:
+    build:
+      context: ./PythonSensorsSimulator # Contesto di build per i simulatori Python
+    hostname: simulators # Hostname del container dei simulatori
+    container_name: simulators # Nome del container dei simulatori
+    environment:
+      KAFKA_HOST: "kafka" # Host di Kafka per i simulatori
+      KAFKA_PORT: "9092" # Porta di Kafka per i simulatori
+    depends_on:
+      kafka:
+        condition: service_healthy # Dipendenza dal servizio Kafka, condizionata alla salute di Kafka
+    profiles: [ "prod" ] # Profilo del servizio (prod)
