@@ -1058,7 +1058,7 @@
             "type": "stat"
         }
     ],
-    "refresh": "",
+    "refresh": "5s",
     "schemaVersion": 39,
     "tags": [],
     "templating": {
@@ -1102,6 +1102,6 @@
     "timezone": "",
     "title": "Innovacity",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 16,
+    "version": 17,
     "weekStart": ""
 }
