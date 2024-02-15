@@ -13,7 +13,7 @@ class HumiditySimulator(Simulator):
         HumiditySimulator.__count += 1
         self.humidity = initial_humidity
         super().__init__(writer, latitude, longitude,
-                         f"Sensore di Umidita {HumiditySimulator.__count}", frequency_in_s)
+                         f"Umd{HumiditySimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
         # Genera una variazione casuale dell'umidità entro un intervallo realistico
@@ -31,7 +31,7 @@ class HumiditySimulator(Simulator):
                 "type": "HumiditySimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "sensor_name": self._sensor_name
+                "ID_sensore": self._sensor_name
             }
             self._writer.write(json.dumps(data))
             time.sleep(self._frequency_in_s)

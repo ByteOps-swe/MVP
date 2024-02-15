@@ -6,8 +6,5 @@ datasources:
     database: innovacity
     port: 9000
     server: clickhouse
-    username: ic_admin
     tlsSkipVerify: false
-  secureJsonData:
-    password: ic_admin
   isDefault: true

@@ -43,9 +43,9 @@ services:
     environment:
       # Variabili d'ambiente per la configurazione di ClickHouse
       CLICKHOUSE_DB: innovacity # Nome del database ClickHouse
-      CLICKHOUSE_USER: ic_admin # Nome utente di ClickHouse
-      CLICKHOUSE_PASSWORD: ic_admin # Password dell'utente di ClickHouse
-      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1 # Abilita la gestione degli accessi predefinita
+     # CLICKHOUSE_USER: ic_admin # Nome utente di ClickHouse
+     # CLICKHOUSE_PASSWORD: ic_admin # Password dell'utente di ClickHouse
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 0 # Abilita la gestione degli accessi predefinita
     volumes:
       - ./InitDB:/docker-entrypoint-initdb.d # Volume per l'inizializzazione del database
     depends_on:

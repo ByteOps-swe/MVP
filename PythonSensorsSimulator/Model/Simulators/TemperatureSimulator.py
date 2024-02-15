@@ -16,7 +16,7 @@ class TemperatureSimulator(Simulator):
         self.temperature = initial_temperature
         # fattore di calibrazione necessario a garantire un maggiore varianza nei dati simulati dai sensori
         super().__init__(writer, latitude, longitude,
-                         f"Sensore di Temperatura {TemperatureSimulator.__count}", frequency_in_s)
+                         f"Tmp{TemperatureSimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
         # Genera una variazione casuale della temperatura entro un intervallo realistico
@@ -36,7 +36,7 @@ class TemperatureSimulator(Simulator):
                 "type": "TemperatureSimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "nome_sensore": self._sensor_name
+                "ID_sensore": self._sensor_name
             }
             self._writer.write(json.dumps(dato))
             time.sleep(self._frequency_in_s)
