@@ -10,7 +10,8 @@ CREATE TABLE innovacity.chargingStation_kafka (
     -- Latitudine della posizione del sensore
     longitude Float64,
     -- Longitudine della posizione del sensore
-    ID_sensore String -- ID del sensore che ha registrato la temperatura
+    ID_sensore String, -- Nome del sensore
+    cella String
 ) ENGINE = Kafka(
     'kafka:9092',
     'chargingStation',
@@ -31,7 +32,8 @@ CREATE TABLE innovacity.chargingStations (
     -- Latitudine della posizione del sensore
     longitude Float64,
     -- Longitudine della posizione del sensore
-    ID_sensore String -- Nome del sensore
+    ID_sensore String, -- Nome del sensore
+    cella String
 ) ENGINE = MergeTree() -- Utilizzo del motore MergeTree per l'archiviazione ottimizzata
 ORDER BY
     (ID_sensore, timestamp);

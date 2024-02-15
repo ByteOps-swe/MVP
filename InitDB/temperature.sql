@@ -10,7 +10,8 @@ CREATE TABLE innovacity.temperatures_kafka (
     -- Latitudine della posizione del sensore
     longitude Float64,
     -- Longitudine della posizione del sensore
-    ID_sensore String -- ID del sensore che ha registrato la temperatura
+    ID_sensore String, -- ID del sensore che ha registrato la temperatura
+    cella String
 ) ENGINE = Kafka(
     'kafka:9092',
     'temperature',
@@ -31,7 +32,8 @@ CREATE TABLE innovacity.temperatures (
     -- Latitudine della posizione del sensore
     longitude Float64,
     -- Longitudine della posizione del sensore
-    ID_sensore String -- Nome del sensore
+    ID_sensore String, -- Nome del sensore
+    cella String
 ) ENGINE = MergeTree() -- Utilizzo del motore MergeTree per l'archiviazione ottimizzata
 ORDER BY
     (ID_sensore, timestamp);
@@ -52,6 +54,7 @@ FROM
 -- Definizione della tabella "temperatures1m" per i dati aggregati per minuto
 CREATE TABLE innovacity.temperatures1m (
     ID_sensore String,
+    cella String,
     -- Nome del sensore
     timestamp1m DATETIME64,
     -- Timestamp raggruppato per minuto
@@ -62,7 +65,7 @@ CREATE TABLE innovacity.temperatures1m (
     longitude Float64 -- Longitudine della posizione del sensore
 ) ENGINE = AggregatingMergeTree -- Utilizzo del motore AggregatingMergeTree per l'aggregazione efficiente
 ORDER BY
-    (timestamp1m, ID_sensore, longitude, latitude);
+    (timestamp1m,cella, ID_sensore, longitude, latitude);
 
 -- Ordinamento dei dati per timestamp, nome del sensore e posizione
 -- Creazione di una Materialized View per calcolare le medie delle temperature ogni minuto
@@ -71,6 +74,7 @@ SELECT
     toStartOfMinute(timestamp) AS timestamp1m,
     -- Inizio del minuto per il timestamp
     ID_sensore,
+    cella,
     -- Nome del sensore
     avgState(value) as avgTemperature,
     -- Calcolo della media delle temperature
@@ -80,7 +84,7 @@ SELECT
 FROM
     innovacity.temperatures
 GROUP BY
-    (timestamp1m, ID_sensore, latitude, longitude);
+    (timestamp1m,cella, ID_sensore, latitude, longitude);
 
 -- ! TOGLIEREI LATITUDE E LONGITUDE TANTO C è ID SENSORE
 /*

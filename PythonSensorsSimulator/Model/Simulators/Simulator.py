@@ -7,14 +7,16 @@ class Simulator(ABC):
     _frequency_in_s: int
     __continue_simulating: bool
     _sensor_name: str
+    _sensor_cella: str
     _latitude: float
     _longitude: float
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, sensor_name: str, frequency_in_s: int = 10):
+    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str, sensor_name: str, frequency_in_s: int = 10):
         self._writer = writer
         self._frequency_in_s = frequency_in_s
         self.__continue_simulating = True
         self._sensor_name = sensor_name
+        self._sensor_cella = cella
         self._latitude = latitude
         self._longitude = longitude
 

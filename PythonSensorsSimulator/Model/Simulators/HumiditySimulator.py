@@ -9,10 +9,10 @@ from ..Writers import Writer
 class HumiditySimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, frequency_in_s: int = 5, initial_humidity=50):
+    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_humidity=50):
         HumiditySimulator.__count += 1
         self.humidity = initial_humidity
-        super().__init__(writer, latitude, longitude,
+        super().__init__(writer, latitude, longitude,cella,
                          f"Umd{HumiditySimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
@@ -31,7 +31,8 @@ class HumiditySimulator(Simulator):
                 "type": "HumiditySimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "ID_sensore": self._sensor_name
+                "ID_sensore": self._sensor_name,
+                "cella":self._sensor_cella
             }
             self._writer.write(json.dumps(data))
             time.sleep(self._frequency_in_s)

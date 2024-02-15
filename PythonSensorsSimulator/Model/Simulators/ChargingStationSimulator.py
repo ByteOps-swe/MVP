@@ -9,11 +9,11 @@ from ..Writers import Writer
 class ChargingStationSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, frequency_in_s: int = 5, initial_probability_occupied=0.5):
+    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_probability_occupied=0.5):
         ChargingStationSimulator.__count += 1
         self.occupied = random.random() < initial_probability_occupied
         self.transition_probability = 0.1
-        super().__init__(writer, latitude, longitude,
+        super().__init__(writer, latitude, longitude,cella,
                          f"ChS{ChargingStationSimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
@@ -32,7 +32,8 @@ class ChargingStationSimulator(Simulator):
                 "type": "ChargingStationSimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "ID_sensore": self._sensor_name
+                "ID_sensore": self._sensor_name,
+                "cella":self._sensor_cella
             }
             self._writer.write(json.dumps(data))
             time.sleep(self._frequency_in_s)

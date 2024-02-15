@@ -22,15 +22,15 @@ symExecAggregator = SimulatorExecutorAggregator()
 
 symExec = (
     symExecAggregator
-    .add_temperature_simulator(writeToKafkaTemp, 45.398214, 11.851271, 1)
-    .add_temperature_simulator(writeToKafkaTemp, 45.348214, 11.751271, 1)
-    .add_temperature_simulator(writeToKafkaTemp, 45.368214, 11.951271, 1)
+    .add_temperature_simulator(writeToKafkaTemp, 45.398214, 11.851271,"Arcella", 1)
+    .add_temperature_simulator(writeToKafkaTemp, 45.348214, 11.751271,"Montegrotto", 1)
+    .add_temperature_simulator(writeToKafkaTemp, 45.368214, 11.951271,"Montegrotto", 1)
 
-    .add_humidity_simulator(writeToKafkaUmd, 45.301214, 9.85271, 1)
-    .add_humidity_simulator(writeToKafkaUmd, 45.201214, 9.85271, 1)
+    .add_humidity_simulator(writeToKafkaUmd, 45.301214, 9.85271,"Arcella", 1)
+    .add_humidity_simulator(writeToKafkaUmd, 45.201214, 9.85271,"Montegrotto", 1)
 
-    .add_chargingStation_simulator(writeToKafkaChargingStation, 45.39214, 11.859271, 20)
-    .add_chargingStation_simulator(writeToKafkaChargingStation, 45.79214, 11.959271, 20)
+    .add_chargingStation_simulator(writeToKafkaChargingStation, 45.39214, 11.859271,"Arcella", 20)
+    .add_chargingStation_simulator(writeToKafkaChargingStation, 45.79214, 11.959271,"Montegrotto", 20)
 
     #.add_ecologicalIsland_simulator(writeToKafkaTemp, 45.391214, 11.8201271, 1)
     #.add_waterPresence_simulator(writeToKafkaTemp, 45.391214, 11.8201271, 1)

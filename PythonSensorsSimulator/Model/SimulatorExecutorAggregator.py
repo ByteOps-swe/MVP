@@ -21,6 +21,7 @@ class SimulatorExecutorAggregator:
             writer: Writer,
             latitude: float,
             longitude: float,
+            cella: str,
             frequency_in_s=1
     ) -> "SimulatorExecutorAggregator":
         if writer is None:
@@ -29,7 +30,7 @@ class SimulatorExecutorAggregator:
         self.__simulator_executor.append_simulator(
             SimulatorThread(
                 TemperatureSimulator(
-                    writer, latitude, longitude, frequency_in_s)
+                    writer, latitude, longitude,cella, frequency_in_s)
             )
         )
         return self
@@ -39,6 +40,7 @@ class SimulatorExecutorAggregator:
             writer: Writer,
             latitude: float,
             longitude: float,
+            cella: str,
             frequency_in_s=1
     ) -> "SimulatorExecutorAggregator":
         if writer is None:
@@ -47,7 +49,7 @@ class SimulatorExecutorAggregator:
         self.__simulator_executor.append_simulator(
             SimulatorThread(
                 HumiditySimulator(
-                    writer, latitude, longitude, frequency_in_s)
+                    writer, latitude, longitude,cella, frequency_in_s)
             )
         )
         return self
@@ -57,6 +59,7 @@ class SimulatorExecutorAggregator:
             writer: Writer,
             latitude: float,
             longitude: float,
+            cella: str,
             frequency_in_s=1
     ) -> "SimulatorExecutorAggregator":
         if writer is None:
@@ -65,7 +68,7 @@ class SimulatorExecutorAggregator:
         self.__simulator_executor.append_simulator(
             SimulatorThread(
                 ChargingStationSimulator(
-                    writer, latitude, longitude, frequency_in_s)
+                    writer, latitude, longitude,cella, frequency_in_s)
             )
         )
         return self

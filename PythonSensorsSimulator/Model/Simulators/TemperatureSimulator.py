@@ -11,11 +11,11 @@ from ..Writers import Writer
 class TemperatureSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, frequency_in_s: int = 5, initial_temperature=20):
+    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_temperature=20):
         TemperatureSimulator.__count += 1
         self.temperature = initial_temperature
         # fattore di calibrazione necessario a garantire un maggiore varianza nei dati simulati dai sensori
-        super().__init__(writer, latitude, longitude,
+        super().__init__(writer, latitude, longitude,cella,
                          f"Tmp{TemperatureSimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
@@ -36,7 +36,8 @@ class TemperatureSimulator(Simulator):
                 "type": "TemperatureSimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "ID_sensore": self._sensor_name
+                "ID_sensore": self._sensor_name,
+                "cella":self._sensor_cella
             }
             self._writer.write(json.dumps(dato))
             time.sleep(self._frequency_in_s)
