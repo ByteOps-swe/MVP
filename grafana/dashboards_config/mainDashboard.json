@@ -41,12 +41,16 @@
                     },
                     "mappings": [{
                         "options": {
-                            "rain": {
+                            "Colonnina di ricarica": {
+                                "color": "dark-yellow",
+                                "index": 2
+                            },
+                            "Igrometro": {
                                 "color": "blue",
                                 "index": 0
                             },
-                            "temperature": {
-                                "color": "orange",
+                            "Termometro": {
+                                "color": "red",
                                 "index": 1
                             }
                         },
@@ -55,29 +59,16 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "yellow",
-                                "value": 30
-                            },
-                            {
-                                "color": "orange",
-                                "value": 60
-                            },
-                            {
-                                "color": "red",
-                                "value": 90
-                            }
-                        ]
+                            "color": "green",
+                            "value": null
+                        }]
                     },
                     "unitScale": true
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 12,
+                "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 0
@@ -113,12 +104,12 @@
                                 "mode": "mod"
                             },
                             "size": {
-                                "fixed": 20,
+                                "fixed": 2,
                                 "max": 15,
                                 "min": 2
                             },
                             "symbol": {
-                                "fixed": "img/icons/unicons/temperature-plus.svg",
+                                "fixed": "img/icons/marker/circle.svg",
                                 "mode": "fixed"
                             },
                             "symbolAlign": {
@@ -211,7 +202,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\n    ID_sensore,\n    cella,\n    'Termometro' as Tipo,\n    latitude,\n    longitude\nFROM  innovacity.temperatures\nWHERE cella IN ($Cella)\nGROUP BY (ID_sensore,cella, timestamp, latitude, longitude);",
+                    "rawSql": "SELECT\n    ID_sensore,\n     argMax(cella, timestamp) as cella_sensore,\n    'Termometro' as Tipo,\n    argMax(latitude, timestamp) AS latitude,\n    argMax(longitude, timestamp) AS longitude\nFROM innovacity.temperatures\nWHERE cella IN ($Cella)\nGROUP BY ID_sensore;\n",
                     "refId": "A"
                 },
                 {
@@ -234,7 +225,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n    cella,\r\n    'Igrometro' as Tipo,\r\n    latitude,\r\n    longitude\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella)\r\nGROUP BY (ID_sensore,cella, timestamp, latitude, longitude);",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Igrometro' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella)\r\nGROUP BY ID_sensore;\r\n",
                     "refId": "B"
                 },
                 {
@@ -257,7 +248,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n    cella,\r\n    'Colonnina di ricarica' as Tipo,\r\n    latitude,\r\n    longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella)\r\nGROUP BY (ID_sensore,cella, timestamp, latitude, longitude);",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella)\r\nGROUP BY ID_sensore;\r\n",
                     "refId": "C"
                 }
             ],
@@ -339,7 +330,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 12
+                "y": 7
             },
             "id": 8,
             "panels": [],
@@ -411,7 +402,7 @@
                 "h": 9,
                 "w": 19,
                 "x": 0,
-                "y": 13
+                "y": 8
             },
             "id": 2,
             "options": {
@@ -474,7 +465,7 @@
                     "max": 17,
                     "min": 4,
                     "thresholds": {
-                        "mode": "percentage",
+                        "mode": "absolute",
                         "steps": [{
                                 "color": "green",
                                 "value": null
@@ -485,11 +476,11 @@
                             },
                             {
                                 "color": "orange",
-                                "value": 60
+                                "value": 40
                             },
                             {
                                 "color": "red",
-                                "value": 90
+                                "value": 45
                             }
                         ]
                     },
@@ -502,7 +493,7 @@
                 "h": 9,
                 "w": 5,
                 "x": 19,
-                "y": 13
+                "y": 8
             },
             "id": 6,
             "options": {
@@ -541,7 +532,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\n  avg(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella);",
+                "rawSql": "SELECT\n  avg(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella)\n;\n",
                 "refId": "A"
             }],
             "title": "Temperatura media ",
@@ -555,7 +546,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 22
+                "y": 17
             },
             "id": 9,
             "panels": [],
@@ -576,16 +567,19 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
+                                "color": "blue",
                                 "value": null
                             },
                             {
+                                "color": "green",
+                                "value": 50
+                            },
+                            {
                                 "color": "red",
-                                "value": 80
+                                "value": 70
                             }
                         ]
                     },
-                    "unit": "humidity",
                     "unitScale": true
                 },
                 "overrides": []
@@ -594,7 +588,7 @@
                 "h": 8,
                 "w": 5,
                 "x": 0,
-                "y": 23
+                "y": 18
             },
             "id": 10,
             "options": {
@@ -610,9 +604,6 @@
                     "values": false
                 },
                 "showPercentChange": false,
-                "text": {
-                    "titleSize": 2
-                },
                 "textMode": "auto",
                 "wideLayout": true
             },
@@ -636,7 +627,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE  ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n;\r\n",
                 "refId": "A"
             }],
             "title": "Umidità media - 5 minuti",
@@ -661,7 +652,7 @@
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
+                        "fillOpacity": 10,
                         "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
@@ -707,7 +698,7 @@
                 "h": 8,
                 "w": 19,
                 "x": 5,
-                "y": 23
+                "y": 18
             },
             "id": 11,
             "options": {
@@ -760,7 +751,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 31
+                "y": 26
             },
             "id": 13,
             "panels": [],
@@ -814,7 +805,7 @@
                 "h": 8,
                 "w": 16,
                 "x": 0,
-                "y": 32
+                "y": 27
             },
             "id": 12,
             "options": {
@@ -907,7 +898,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    latitude,\r\n    longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella)\r\nGROUP BY (ID_sensore, latitude,longitude);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine di ricarica",
@@ -944,7 +935,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 16,
-                "y": 32
+                "y": 27
             },
             "id": 14,
             "options": {
@@ -983,7 +974,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine libere",
@@ -1016,7 +1007,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 20,
-                "y": 32
+                "y": 27
             },
             "id": 15,
             "options": {
@@ -1055,7 +1046,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine occupate",
@@ -1071,12 +1062,12 @@
             "current": {
                 "selected": true,
                 "text": [
-                    "Arcella",
-                    "Montegrotto"
+                    "Montegrotto",
+                    "Arcella"
                 ],
                 "value": [
-                    "Arcella",
-                    "Montegrotto"
+                    "Montegrotto",
+                    "Arcella"
                 ]
             },
             "datasource": {
@@ -1106,6 +1097,6 @@
     "timezone": "",
     "title": "Innovacity",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 2,
+    "version": 11,
     "weekStart": ""
 }
