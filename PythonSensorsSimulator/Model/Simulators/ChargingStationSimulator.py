@@ -14,7 +14,7 @@ class ChargingStationSimulator(Simulator):
         self.occupied = random.random() < initial_probability_occupied
         self.transition_probability = 0.1
         super().__init__(writer, latitude, longitude,
-                         f"Colonnina di Ricarica {ChargingStationSimulator.__count}", frequency_in_s)
+                         f"ChS{ChargingStationSimulator.__count}", frequency_in_s)
 
     def generate_measure(self):
         if self.occupied:
@@ -32,7 +32,7 @@ class ChargingStationSimulator(Simulator):
                 "type": "ChargingStationSimulator",
                 "latitude": self._latitude,
                 "longitude": self._longitude,
-                "sensor_name": self._sensor_name
+                "ID_sensore": self._sensor_name
             }
             self._writer.write(json.dumps(data))
             time.sleep(self._frequency_in_s)

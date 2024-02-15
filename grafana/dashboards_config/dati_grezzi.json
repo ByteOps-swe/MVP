@@ -144,7 +144,7 @@
             },
             "pluginVersion": "4.0.2",
             "queryType": "table",
-            "rawSql": "SELECT * FROM \"innovacity\".\"temperatures\"",
+            "rawSql": "SELECT* FROM (SELECT * FROM \"innovacity\".\"temperatures\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"umidities\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"chargingStations\")\r\nORDER BY timestamp;\r\n",
             "refId": "A"
         }],
         "title": "Dati Grezzi",
