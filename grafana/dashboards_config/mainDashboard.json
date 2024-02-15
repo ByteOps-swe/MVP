@@ -135,7 +135,7 @@
                         "longitude": "longitude (lastNotNull)",
                         "mode": "auto"
                     },
-                    "name": "Layer 1",
+                    "name": "Mappa sensori",
                     "tooltip": true,
                     "type": "markers"
                 }],
@@ -202,7 +202,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\n    ID_sensore,\n     argMax(cella, timestamp) as cella_sensore,\n    'Termometro' as Tipo,\n    argMax(latitude, timestamp) AS latitude,\n    argMax(longitude, timestamp) AS longitude\nFROM innovacity.temperatures\nWHERE cella IN ($Cella)\nGROUP BY ID_sensore;\n",
+                    "rawSql": "SELECT\n    ID_sensore,\n     argMax(cella, timestamp) as cella_sensore,\n    'Termometro' as Tipo,\n    argMax(latitude, timestamp) AS latitude,\n    argMax(longitude, timestamp) AS longitude\nFROM innovacity.temperatures\nGROUP BY ID_sensore\nHAVING cella_sensore IN ($Cella);\n",
                     "refId": "A"
                 },
                 {
@@ -225,7 +225,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Igrometro' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella)\r\nGROUP BY ID_sensore;\r\n",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Igrometro' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.umidities\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "B"
                 },
                 {
@@ -248,7 +248,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella)\r\nGROUP BY ID_sensore;\r\n",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "C"
                 }
             ],
@@ -263,6 +263,10 @@
                             {
                                 "destinationType": "string",
                                 "targetField": "longitude"
+                            },
+                            {
+                                "destinationType": "string",
+                                "targetField": "cella_sensore"
                             }
                         ],
                         "fields": {}
@@ -580,6 +584,7 @@
                             }
                         ]
                     },
+                    "unit": "humidity",
                     "unitScale": true
                 },
                 "overrides": []
@@ -1053,21 +1058,21 @@
             "type": "stat"
         }
     ],
-    "refresh": "5s",
+    "refresh": "",
     "schemaVersion": 39,
     "tags": [],
     "templating": {
         "list": [{
             "allValue": "Citta completa",
             "current": {
-                "selected": true,
+                "selected": false,
                 "text": [
-                    "Montegrotto",
-                    "Arcella"
+                    "Arcella",
+                    "Montegrotto"
                 ],
                 "value": [
-                    "Montegrotto",
-                    "Arcella"
+                    "Arcella",
+                    "Montegrotto"
                 ]
             },
             "datasource": {
@@ -1097,6 +1102,6 @@
     "timezone": "",
     "title": "Innovacity",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 11,
+    "version": 16,
     "weekStart": ""
 }
