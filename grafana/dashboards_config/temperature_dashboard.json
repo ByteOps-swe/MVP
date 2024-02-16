@@ -250,6 +250,29 @@
                     "queryType": "table",
                     "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n    argMax(cella, timestamp) as cella_sensore,\r\n    'Isola ecologica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.ecoIslands\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+                    "refId": "D"
                 }
             ],
             "title": "Mappa Sensori",
@@ -346,7 +369,7 @@
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
             },
-            "description": "calcola la temperatura media ogni minuto ",
+            "description": "Temperatura nel tempo",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -632,10 +655,10 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n;\r\n",
+                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
-            "title": "Umidità media - 5 minuti",
+            "title": "Umidità media",
             "type": "stat"
         },
         {
@@ -1056,6 +1079,242 @@
             }],
             "title": "Colonnine occupate",
             "type": "stat"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 35
+            },
+            "id": 16,
+            "panels": [],
+            "title": "Isole ecologiche",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "description": "Stato di riempimento isole ecologiche",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 19,
+                        "gradientMode": "opacity",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 3,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 60
+                            },
+                            {
+                                "color": "orange",
+                                "value": 80
+                            },
+                            {
+                                "color": "red",
+                                "value": 90
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 14,
+                "x": 0,
+                "y": 36
+            },
+            "id": 18,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 100,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n",
+                "refId": "A"
+            }],
+            "title": "Isole ecologiche",
+            "transformations": [{
+                "id": "prepareTimeSeries",
+                "options": {
+                    "format": "multi"
+                }
+            }],
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "description": "Mostra l'ultimo valore dello stato di rimepimento percentuale",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 70
+                            },
+                            {
+                                "color": "red",
+                                "value": 85
+                            }
+                        ]
+                    },
+                    "unit": "percent",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 10,
+                "x": 14,
+                "y": 36
+            },
+            "id": 19,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto"
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "builderOptions": {
+                    "aggregates": [],
+                    "columns": [{
+                        "custom": false,
+                        "name": "value",
+                        "type": "Float32"
+                    }],
+                    "database": "innovacity",
+                    "filters": [],
+                    "groupBy": [],
+                    "limit": 1000,
+                    "meta": {},
+                    "mode": "list",
+                    "orderBy": [],
+                    "queryType": "table",
+                    "table": "ecoIslands"
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "aggregates": [],
+                        "columns": [{
+                            "custom": false,
+                            "name": "value",
+                            "type": "Float32"
+                        }],
+                        "database": "innovacity",
+                        "filters": [],
+                        "groupBy": [],
+                        "limit": 1000,
+                        "meta": {},
+                        "mode": "list",
+                        "orderBy": [],
+                        "queryType": "table",
+                        "table": "ecoIslands"
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT \r\n   \r\n    argMax(value, timestamp) AS last_value,\r\n    ID_sensore\r\nFROM \r\n    \"innovacity\".\"ecoIslands\" \r\nGROUP BY \r\n    ID_sensore\r\nHAVING argMax(cella,timestamp) IN ($Cella)",
+                "refId": "A"
+            }],
+            "title": "Stato riempimento attuale",
+            "transparent": true,
+            "type": "gauge"
         }
     ],
     "refresh": "5s",
@@ -1065,28 +1324,30 @@
         "list": [{
             "allValue": "Citta completa",
             "current": {
-                "selected": false,
+                "selected": true,
                 "text": [
                     "Arcella",
-                    "Montegrotto"
+                    "Montegrotto",
+                    "Murelle"
                 ],
                 "value": [
                     "Arcella",
-                    "Montegrotto"
+                    "Montegrotto",
+                    "Murelle"
                 ]
             },
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
             },
-            "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n)",
+            "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
             "hide": 0,
             "includeAll": false,
             "label": "Seleziona cella",
             "multi": true,
             "name": "Cella",
             "options": [],
-            "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n)",
+            "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
@@ -1102,6 +1363,6 @@
     "timezone": "",
     "title": "Innovacity",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 17,
+    "version": 4,
     "weekStart": ""
 }

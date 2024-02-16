@@ -1,6 +1,6 @@
-CREATE TABLE innovacity.chargingStation_kafka (
+CREATE TABLE innovacity.ecoIsland_kafka (
     timestamp DATETIME64,
-    value UInt8,
+    value Float32,
     type String, --valuterei di toglierlo
     latitude Float64,
     longitude Float64,
@@ -8,14 +8,14 @@ CREATE TABLE innovacity.chargingStation_kafka (
     cella String
 ) ENGINE = Kafka(
     'kafka:9092',
-    'chargingStation',
+    'ecologicalIsland',
     'ch_group_1',
     'JSONEachRow'
 );
 
-CREATE TABLE innovacity.chargingStations (
+CREATE TABLE innovacity.ecoIslands (
     timestamp DATETIME64,
-    value UInt8,
+    value Float32,
     type String, --valuterei di toglierlo
     latitude Float64,
     longitude Float64,
@@ -25,8 +25,8 @@ CREATE TABLE innovacity.chargingStations (
 ORDER BY
     (ID_sensore, timestamp);
 
-CREATE MATERIALIZED VIEW chargingStations_sync TO innovacity.chargingStations AS
+CREATE MATERIALIZED VIEW ecoIsland_sync TO innovacity.ecoIslands AS
 SELECT
     *
 FROM
-    innovacity.chargingStation_kafka;
+    innovacity.ecoIsland_kafka;

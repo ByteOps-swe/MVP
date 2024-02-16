@@ -14,6 +14,7 @@ KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 writeToKafkaTemp =KafkaWriter("temperature", KAFKA_HOST, KAFKA_PORT)
 writeToKafkaUmd =KafkaWriter("umidity", KAFKA_HOST, KAFKA_PORT)
 writeToKafkaChargingStation =KafkaWriter("chargingStation", KAFKA_HOST, KAFKA_PORT)
+writeToKafkaEcologicalIsland =KafkaWriter("ecologicalIsland", KAFKA_HOST, KAFKA_PORT)
 
 
 #writeToKafkaRain = KafkaWriter("rain", KAFKA_HOST, KAFKA_PORT)
@@ -32,7 +33,9 @@ symExec = (
     .add_chargingStation_simulator(writeToKafkaChargingStation, 45.39214, 11.859271,"Arcella", 20)
     .add_chargingStation_simulator(writeToKafkaChargingStation, 45.79214, 11.959271,"Montegrotto", 20)
 
-    #.add_ecologicalIsland_simulator(writeToKafkaTemp, 45.391214, 11.8201271, 1)
+    .add_ecologicalIsland_simulator(writeToKafkaEcologicalIsland, 45.331214, 11.8901271,"Montegrotto", 4)
+    .add_ecologicalIsland_simulator(writeToKafkaEcologicalIsland, 45.291214, 11.901271,"Murelle", 4)
+
     #.add_waterPresence_simulator(writeToKafkaTemp, 45.391214, 11.8201271, 1)
 
     .get_simulator_executor()
