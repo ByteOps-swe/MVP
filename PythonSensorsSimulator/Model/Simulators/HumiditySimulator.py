@@ -23,16 +23,16 @@ class HumiditySimulator(Simulator):
         self.humidity = max(0, min(100, self.humidity))
 
     def simulate(self) -> None:
-        while super().continue_simulating():
+        while super().isSimulating():
             self.generate_measure()
             data = {
                 "timestamp": str(datetime.now()),
                 "value": "{:.2f}".format(self.humidity),
                 "type": "HumiditySimulator",
-                "latitude": self._latitude,
-                "longitude": self._longitude,
-                "ID_sensore": self._sensor_name,
-                "cella":self._sensor_cella
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "ID_sensore": self.ID_sensor,
+                "cella":self.cella_sensore
             }
-            self._writer.write(json.dumps(data))
-            time.sleep(self._frequency_in_s)
+            self.writer.write(json.dumps(data))
+            time.sleep(self.frequency)

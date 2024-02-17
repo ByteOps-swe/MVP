@@ -1,0 +1,302 @@
+{
+    "annotations": {
+        "list": [{
+            "builtIn": 1,
+            "datasource": {
+                "type": "grafana",
+                "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+        }]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "liveNow": false,
+    "panels": [{
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": false,
+                    "displayName": "ID_sensore"
+                }]
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avg(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "refId": "A"
+            }],
+            "title": "Panel Title",
+            "type": "table"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "celsius",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 1,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avg(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "refId": "A"
+            }],
+            "title": "Panel Title",
+            "transformations": [{
+                "id": "prepareTimeSeries",
+                "options": {
+                    "format": "multi"
+                }
+            }],
+            "type": "timeseries"
+        }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+        "list": [{
+                "current": {
+                    "selected": false,
+                    "text": [
+                        "Arcella",
+                        "Montegrotto"
+                    ],
+                    "value": [
+                        "Arcella",
+                        "Montegrotto"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Seleziona cella",
+                "multi": true,
+                "name": "Cella",
+                "options": [],
+                "query": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "temperatures",
+                    "value": "temperatures"
+                },
+                "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Aggregazione temporale",
+                "multi": false,
+                "name": "AggregazioneTemporale",
+                "options": [{
+                        "selected": true,
+                        "text": "temperatures",
+                        "value": "temperatures"
+                    },
+                    {
+                        "selected": false,
+                        "text": "temperatures1m",
+                        "value": "temperatures1m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "temperatures1g",
+                        "value": "temperatures1g"
+                    },
+                    {
+                        "selected": false,
+                        "text": "temperatures1M",
+                        "value": "temperatures1M"
+                    }
+                ],
+                "query": "temperatures,temperatures1m,temperatures1g,temperatures1M",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-5m",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Temperatures Dashboard",
+    "uid": "c5e13615-cb86-466e-862e-d20e0525813c",
+    "version": 11,
+    "weekStart": ""
+}

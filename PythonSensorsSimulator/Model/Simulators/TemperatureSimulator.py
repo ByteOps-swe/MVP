@@ -28,16 +28,16 @@ class TemperatureSimulator(Simulator):
 
     def simulate(self) -> None:
           # strettamente per il poc
-        while super().continue_simulating():
+        while super().isSimulating():
             self.generate_measure()
             dato = {
                 "timestamp": str(datetime.now()),
                 "value": "{:.2f}".format(self.temperature),
                 "type": "TemperatureSimulator",
-                "latitude": self._latitude,
-                "longitude": self._longitude,
-                "ID_sensore": self._sensor_name,
-                "cella":self._sensor_cella
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "ID_sensore": self.ID_sensor,
+                "cella":self.cella_sensore
             }
-            self._writer.write(json.dumps(dato))
-            time.sleep(self._frequency_in_s)
+            self.writer.write(json.dumps(dato))
+            time.sleep(self.frequency)

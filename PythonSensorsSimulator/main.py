@@ -3,7 +3,7 @@ import os
 from Model.SimulatorExecutorAggregator import SimulatorExecutorAggregator
 from Model.Writers.KafkaWriter import KafkaWriter
 from Model.Writers.StdoutWriter import StdoutWriter
-
+from Model.Writers.KafkaConfluentAdapter import KafkaConfluentAdapter
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
@@ -11,10 +11,10 @@ KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 # Uso generale di una interfaccia Writer al fine di poter implementare quante politiche diverse di writing si vuole,
 # senza dover cambiare nulla sul resto del codice.
 # writeToStd = StdoutWriter()
-writeToKafkaTemp =KafkaWriter("temperature", KAFKA_HOST, KAFKA_PORT)
-writeToKafkaUmd =KafkaWriter("umidity", KAFKA_HOST, KAFKA_PORT)
-writeToKafkaChargingStation =KafkaWriter("chargingStation", KAFKA_HOST, KAFKA_PORT)
-writeToKafkaEcologicalIsland =KafkaWriter("ecologicalIsland", KAFKA_HOST, KAFKA_PORT)
+writeToKafkaTemp =KafkaWriter(KafkaConfluentAdapter("temperature", KAFKA_HOST, KAFKA_PORT))
+writeToKafkaUmd =KafkaWriter(KafkaConfluentAdapter("umidity", KAFKA_HOST, KAFKA_PORT))
+writeToKafkaChargingStation =KafkaWriter(KafkaConfluentAdapter("chargingStation", KAFKA_HOST, KAFKA_PORT))
+writeToKafkaEcologicalIsland =KafkaWriter(KafkaConfluentAdapter("ecologicalIsland", KAFKA_HOST, KAFKA_PORT))
 
 
 #writeToKafkaRain = KafkaWriter("rain", KAFKA_HOST, KAFKA_PORT)

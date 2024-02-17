@@ -21,15 +21,15 @@ class WaterPresenceSensor(Simulator):
         return water_presence
 
     def simulate(self) -> None:
-        while super().continue_simulating():
+        while super().isSimulating():
             water_presence = self.generate_measure()
             data = {
                 "timestamp": str(datetime.now()),
                 "value": int(water_presence),  # Converte True in 1 e False in 0
                 "type": "WaterPresenceSensor",
-                "latitude": self._latitude,
-                "longitude": self._longitude,
-                "sensor_name": self._sensor_name
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "sensor_name": self.ID_sensor
             }
-            self._writer.write(json.dumps(data))
-            time.sleep(self._frequency_in_s)
+            self.writer.write(json.dumps(data))
+            time.sleep(self.frequency)

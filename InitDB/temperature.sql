@@ -51,77 +51,66 @@ SELECT
 FROM
     innovacity.temperatures_kafka;
 
--- Definizione della tabella "temperatures1m" per i dati aggregati per minuto
-CREATE TABLE innovacity.temperatures1m (
+-- Creazione della tabella `temperatures1m`
+CREATE TABLE innovacity.temperatures1m
+(
     ID_sensore String,
     cella String,
-    -- Nome del sensore
-    timestamp1m DATETIME64,
-    -- Timestamp raggruppato per minuto
-    avgTemperature AggregateFunction(avgState, Float32),
-    -- Media delle temperature nel minuto
-    latitude Float64,
-    -- Latitudine della posizione del sensore
-    longitude Float64 -- Longitudine della posizione del sensore
-) ENGINE = AggregatingMergeTree -- Utilizzo del motore AggregatingMergeTree per l'aggregazione efficiente
-ORDER BY
-    (timestamp1m,cella, ID_sensore, longitude, latitude);
+    timestamp DATETIME64,
+    value Float32, --AggregateFunction(avgState, Float32) CAUSA ALTRI PROBLEMI
+   -- PRIMARY KEY (timestamp, ID_sensore, cella) POTREBBE RENDERE IL DATO NON VERITIERO
+) ENGINE = MergeTree
+ORDER BY (timestamp, ID_sensore, cella);
 
--- Ordinamento dei dati per timestamp, nome del sensore e posizione
--- Creazione di una Materialized View per calcolare le medie delle temperature ogni minuto
+-- Creazione della Materialized View `temperatures1m_mv`
 CREATE MATERIALIZED VIEW innovacity.temperatures1m_mv TO innovacity.temperatures1m AS
 SELECT
-    toStartOfMinute(timestamp) AS timestamp1m,
-    -- Inizio del minuto per il timestamp
-    ID_sensore,
+    toStartOfMinute(timestamp) AS timestamp,
     cella,
-    -- Nome del sensore
-    avgState(value) as avgTemperature,
-    -- Calcolo della media delle temperature
-    latitude,
-    -- Latitudine della posizione del sensore
-    longitude -- Longitudine della posizione del sensore
-FROM
-    innovacity.temperatures
-GROUP BY
-    (timestamp1m,cella, ID_sensore, latitude, longitude);
+    ID_sensore,
+    avg(value) AS value
+FROM innovacity.temperatures
+GROUP BY timestamp, ID_sensore, cella;
 
--- ! TOGLIEREI LATITUDE E LONGITUDE TANTO C è ID SENSORE
-/*
- -- Raggruppamento per timestamp, nome del sensore e posizione
- -- Definizione della tabella "temperatures_ma" per le medie mobili delle temperature
- CREATE TABLE innovacity.temperatures_ma (
- ID_sensore String,
- -- Nome del sensore
- timestamp1m DATETIME64,
- -- Timestamp raggruppato per minuto
- avgTemperature Float32,
- -- Media mobile delle temperature
- latitude Float64,
- -- Latitudine della posizione del sensore
- longitude Float64 -- Longitudine della posizione del sensore
- ) ENGINE = MergeTree() -- Utilizzo del motore MergeTree per l'archiviazione ottimizzata
- ORDER BY
- (timestamp1m, ID_sensore, latitude, longitude);
- 
- -- Ordinamento dei dati per timestamp, nome del sensore e posizione
- -- Creazione di una Materialized View per calcolare le medie mobili delle temperature
- CREATE MATERIALIZED VIEW innovacity.temperatures1m_mov_avg TO innovacity.temperatures_ma AS
- SELECT
- ID_sensore,
- -- Nome del sensore
- toStartOfMinute(timestamp) AS timestamp1m,
- -- Inizio del minuto per il timestamp
- avg(value) OVER (
- PARTITION BY toStartOfMinute(timestamp)
- ORDER BY
- timestamp1m ROWS BETWEEN 2 PRECEDING
- AND CURRENT ROW
- ) AS avgTemperature,
- -- Calcolo della media mobile delle temperature
- latitude,
- -- Latitudine della posizione del sensore
- longitude -- Longitudine della posizione del sensore
- FROM
- innovacity.temperatures;
- */
+
+-- Creazione della tabella `temperatures1g`
+CREATE TABLE innovacity.temperatures1g
+(
+    ID_sensore String,
+    cella String,
+    timestamp Date,
+    value Float32
+) ENGINE = MergeTree
+ORDER BY (timestamp, ID_sensore, cella);
+
+-- Creazione della Materialized View `temperatures1g_mv`
+CREATE MATERIALIZED VIEW innovacity.temperatures1g_mv TO innovacity.temperatures1g AS
+SELECT
+    toDate(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avg(value) AS value
+FROM innovacity.temperatures
+GROUP BY timestamp, ID_sensore, cella;
+
+
+-- Creazione della tabella `temperatures1M`
+CREATE TABLE innovacity.temperatures1M
+(
+    ID_sensore String,
+    cella String,
+    timestamp Date,
+    value Float32
+) ENGINE = MergeTree
+ORDER BY (timestamp, ID_sensore, cella);
+
+-- Creazione della Materialized View `temperatures1M_mv`
+CREATE MATERIALIZED VIEW innovacity.temperatures1M_mv TO innovacity.temperatures1M AS
+SELECT
+    toStartOfMonth(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avg(value) AS value
+FROM innovacity.temperatures
+GROUP BY timestamp, ID_sensore, cella;
+
