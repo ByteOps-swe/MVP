@@ -48,7 +48,7 @@ CREATE MATERIALIZED VIEW innovacity.temperatures1m (
     cella String,
     timestamp DATETIME64,
     value AggregateFunction(avgState, Float32)
-) ENGINE = ReplacingMergeTree ORDER BY (timestamp, ID_sensore, cella)  --CON REPLACING FUNZIONA BENE CAVOLOOOOO MA NON SAREBBE QUELLO ADEGUATO
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
 AS SELECT
     toStartOfMinute(timestamp) AS timestamp,
     cella,
@@ -64,7 +64,7 @@ CREATE MATERIALIZED VIEW innovacity.temperatures1g(
     timestamp DATETIME64,
     value AggregateFunction(avgState, Float32)
 )
-ENGINE = ReplacingMergeTree()
+ENGINE = AggregatingMergeTree()
 ORDER BY (timestamp, ID_sensore, cella)
 AS 
 SELECT
@@ -82,7 +82,7 @@ CREATE MATERIALIZED VIEW innovacity.temperatures1M(
     timestamp DATETIME64,
     value AggregateFunction(avgState, Float32)
 )
-ENGINE = ReplacingMergeTree()
+ENGINE = AggregatingMergeTree()
 ORDER BY (timestamp, ID_sensore, cella)
 AS 
 SELECT
