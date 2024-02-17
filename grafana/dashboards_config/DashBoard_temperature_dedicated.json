@@ -16,7 +16,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 3,
     "links": [],
     "liveNow": false,
     "panels": [{
@@ -96,7 +96,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avg(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Panel Title",
@@ -202,7 +202,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avg(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Panel Title",
@@ -297,6 +297,6 @@
     "timezone": "",
     "title": "Temperatures Dashboard",
     "uid": "c5e13615-cb86-466e-862e-d20e0525813c",
-    "version": 11,
+    "version": 2,
     "weekStart": ""
 }

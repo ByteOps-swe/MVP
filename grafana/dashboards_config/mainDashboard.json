@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 2,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -470,7 +470,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    value,\r\n    timestamp\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Temperatura",
@@ -566,7 +566,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\n  avg(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella)\n;\n",
+                "rawSql": "SELECT\n  avgMerge(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella);\n",
                 "refId": "A"
             }],
             "title": "Temperatura media ",
