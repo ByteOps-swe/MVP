@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 3,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -662,7 +662,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n  avgMerge(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Umidità media",
@@ -736,6 +736,11 @@
                 "y": 18
             },
             "id": 11,
+            "links": [{
+                "targetBlank": true,
+                "title": "Dashboard umidità",
+                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&shareView=link&from=1708247566136&to=1708247866136"
+            }],
             "options": {
                 "legend": {
                     "calcs": [
@@ -769,7 +774,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n",
+                "rawSql": "SELECT ID_sensore,\r\navgMerge(value) as value,\r\ntimestamp\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\ngroup by ID_sensore, timestamp\r\n",
                 "refId": "A"
             }],
             "title": "Umidità",
@@ -830,7 +835,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green"
+                            "color": "green",
+                            "value": null
                         }]
                     },
                     "unitScale": true
@@ -954,7 +960,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "red",
@@ -1029,7 +1036,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "red"
+                            "color": "red",
+                            "value": null
                         }]
                     },
                     "unit": "none",
@@ -1146,7 +1154,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "#EAB839",
@@ -1232,7 +1241,8 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "orange",

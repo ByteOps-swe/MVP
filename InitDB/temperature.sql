@@ -42,7 +42,7 @@ FROM innovacity.temperatures_kafka
 GROUP BY timestamp, ID_sensore, cella,type,longitude,latitude;
 
 
--- Creazione della Materialized View `temperatures1m_mv`
+-- Aggregazione per minuto
 CREATE MATERIALIZED VIEW innovacity.temperatures1m (
     ID_sensore String,
     cella String,
@@ -57,7 +57,23 @@ AS SELECT
 FROM innovacity.temperatures_kafka
 GROUP BY timestamp, ID_sensore, cella;
 
+-- Aggregazione per ora
+CREATE MATERIALIZED VIEW innovacity.temperatures1o (
+    ID_sensore String,
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32)
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
+AS SELECT
+    toStartOfHour(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value
+FROM innovacity.temperatures_kafka
+GROUP BY timestamp, ID_sensore, cella;
 
+
+-- Aggregazione per giorno
 CREATE MATERIALIZED VIEW innovacity.temperatures1g(
     ID_sensore String,
     cella String,
@@ -75,7 +91,7 @@ SELECT
 FROM innovacity.temperatures_kafka
 GROUP BY timestamp, ID_sensore, cella;
 
-
+-- Aggregazione per mese
 CREATE MATERIALIZED VIEW innovacity.temperatures1M(
     ID_sensore String,
     cella String,

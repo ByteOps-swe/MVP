@@ -13,22 +13,91 @@ CREATE TABLE innovacity.umidity_kafka (
     'JSONEachRow'
 );
 
-CREATE TABLE innovacity.umidities (
-    timestamp DATETIME64,
-    value Float32,
-    type String, --valuterei di toglierlo
-    latitude Float64,
-    longitude Float64,
+CREATE MATERIALIZED VIEW innovacity.umidities (
     ID_sensore String,
-    cella String
-) ENGINE = MergeTree()
-PARTITION BY toYYYYMM(timestamp) -- Partizionamento mensile
-ORDER BY
-    (ID_sensore, timestamp);
---Partizionamento temporale: Utilizza il partizionamento temporale in base al timestamp per suddividere i dati in partizioni temporali. Questo aiuta a migliorare le --prestazioni delle query che coinvolgono intervalli di tempo specifici, in quanto ClickHouse può eliminare rapidamente le partizioni non rilevanti durante l'esecuzione --della query.
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32),
+    type String,
+    latitude Float64,
+    longitude Float64
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella,latitude,longitude,type)
+AS SELECT
+    toStartOfSecond(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value,
+    latitude,
+    longitude,
+    type
+FROM innovacity.umidity_kafka
+GROUP BY timestamp, ID_sensore, cella,type,longitude,latitude;
 
-CREATE MATERIALIZED VIEW umidities_sync TO innovacity.umidities AS
+
+-- Aggregazione per minuto
+CREATE MATERIALIZED VIEW innovacity.umidities1m (
+    ID_sensore String,
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32)
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
+AS SELECT
+    toStartOfMinute(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value
+FROM innovacity.umidity_kafka
+GROUP BY timestamp, ID_sensore, cella;
+
+-- Aggregazione per ora
+CREATE MATERIALIZED VIEW innovacity.umidities1o (
+    ID_sensore String,
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32)
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
+AS SELECT
+    toStartOfHour(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value
+FROM innovacity.umidity_kafka
+GROUP BY timestamp, ID_sensore, cella;
+
+
+-- Aggregazione per giorno
+CREATE MATERIALIZED VIEW innovacity.umidities1g(
+    ID_sensore String,
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32)
+)
+ENGINE = AggregatingMergeTree()
+ORDER BY (timestamp, ID_sensore, cella)
+AS 
 SELECT
-    *
-FROM
-    innovacity.umidity_kafka;
+    toDate(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value
+FROM innovacity.umidity_kafka
+GROUP BY timestamp, ID_sensore, cella;
+
+-- Aggregazione per mese
+CREATE MATERIALIZED VIEW innovacity.umidities1M(
+    ID_sensore String,
+    cella String,
+    timestamp DATETIME64,
+    value AggregateFunction(avgState, Float32)
+)
+ENGINE = AggregatingMergeTree()
+ORDER BY (timestamp, ID_sensore, cella)
+AS 
+SELECT
+    toStartOfMonth(timestamp) AS timestamp,
+    cella,
+    ID_sensore,
+    avgState(value) AS value
+FROM innovacity.umidity_kafka
+GROUP BY timestamp, ID_sensore, cella;
+
