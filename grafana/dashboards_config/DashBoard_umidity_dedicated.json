@@ -16,93 +16,10 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 5,
+    "id": 4,
     "links": [],
     "liveNow": false,
     "panels": [{
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "auto",
-                        "cellOptions": {
-                            "type": "auto"
-                        },
-                        "inspect": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 9,
-                "w": 24,
-                "x": 0,
-                "y": 0
-            },
-            "id": 2,
-            "options": {
-                "cellHeight": "sm",
-                "footer": {
-                    "countRows": false,
-                    "fields": "",
-                    "reducer": [
-                        "sum"
-                    ],
-                    "show": false
-                },
-                "showHeader": true,
-                "sortBy": [{
-                    "desc": false,
-                    "displayName": "ID_sensore"
-                }]
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [{
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
-                },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 1000,
-                        "mode": "list",
-                        "queryType": "table",
-                        "table": ""
-                    }
-                },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
-                "refId": "A"
-            }],
-            "title": "Panel Title",
-            "type": "table"
-        },
-        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -166,7 +83,7 @@
                 "h": 12,
                 "w": 24,
                 "x": 0,
-                "y": 9
+                "y": 0
             },
             "id": 1,
             "options": {
@@ -214,6 +131,89 @@
             }],
             "transparent": true,
             "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 12
+            },
+            "id": 2,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": false,
+                    "displayName": "ID_sensore"
+                }]
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "refId": "A"
+            }],
+            "title": "Panel Title",
+            "type": "table"
         }
     ],
     "refresh": "5s",
@@ -222,14 +222,14 @@
     "templating": {
         "list": [{
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": [
-                        "Arcella",
-                        "Montegrotto"
+                        "Montegrotto",
+                        "Arcella"
                     ],
                     "value": [
-                        "Arcella",
-                        "Montegrotto"
+                        "Montegrotto",
+                        "Arcella"
                     ]
                 },
                 "datasource": {
@@ -252,7 +252,7 @@
             },
             {
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": "umidities",
                     "value": "umidities"
                 },
@@ -296,25 +296,6 @@
             {
                 "current": {
                     "selected": false,
-                    "text": "100",
-                    "value": "100"
-                },
-                "description": "Filtra per misurazioni, inserisci l'umidità massima visualizzabile",
-                "hide": 0,
-                "label": "Umdità massima",
-                "name": "MaxUmidity",
-                "options": [{
-                    "selected": true,
-                    "text": "100",
-                    "value": "100"
-                }],
-                "query": "100",
-                "skipUrlSync": false,
-                "type": "textbox"
-            },
-            {
-                "current": {
-                    "selected": false,
                     "text": "0",
                     "value": "0"
                 },
@@ -328,6 +309,25 @@
                     "value": "0"
                 }],
                 "query": "0",
+                "skipUrlSync": false,
+                "type": "textbox"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "100",
+                    "value": "100"
+                },
+                "description": "Filtra per misurazioni, inserisci l'umidità massima visualizzabile",
+                "hide": 0,
+                "label": "Umdità massima",
+                "name": "MaxUmidity",
+                "options": [{
+                    "selected": true,
+                    "text": "100",
+                    "value": "100"
+                }],
+                "query": "100",
                 "skipUrlSync": false,
                 "type": "textbox"
             }
@@ -354,6 +354,6 @@
     "timezone": "",
     "title": "Umidity Dashboard",
     "uid": "d2be6403-8e19-423d-a889-0593f2c49fe2",
-    "version": 7,
+    "version": 2,
     "weekStart": ""
 }

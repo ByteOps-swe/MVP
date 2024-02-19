@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 2,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -739,7 +739,7 @@
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard umidità",
-                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&shareView=link&from=1708247566136&to=1708247866136"
+                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&from=1708346751946&to=1708347051946&var-Cella=Montegrotto&var-Cella=Arcella&var-AggregazioneTemporale=umidities&var-MaxUmidity=100&var-MinUmidity=0"
             }],
             "options": {
                 "legend": {
@@ -1154,8 +1154,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "#EAB839",
@@ -1241,8 +1240,7 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "orange",
@@ -1379,6 +1377,6 @@
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 3,
+    "version": 2,
     "weekStart": ""
 }
