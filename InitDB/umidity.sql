@@ -1,4 +1,4 @@
-CREATE TABLE innovacity.umidity_kafka (
+CREATE TABLE innovacity.umidities_kafka (
     timestamp DATETIME64,
     value Float32,
     type String, --valuterei di toglierlo
@@ -13,81 +13,112 @@ CREATE TABLE innovacity.umidity_kafka (
     'JSONEachRow'
 );
 
-CREATE MATERIALIZED VIEW innovacity.umidities (
-    ID_sensore String,
+CREATE TABLE innovacity.umidities
+(
+ ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DateTime,
     value AggregateFunction(avgState, Float32),
     type String,
     latitude Float64,
     longitude Float64
-) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella,latitude,longitude,type)
+)
+ENGINE = AggregatingMergeTree
+ORDER BY(timestamp, ID_sensore, cella,latitude,longitude,type);
+
+
+CREATE MATERIALIZED VIEW innovacity.mv_umidities
+TO innovacity.umidities
 AS SELECT
-    toStartOfSecond(timestamp) AS timestamp,
+    toStartOfSecond(timestamp) as timestamp ,
     cella,
     ID_sensore,
     avgState(value) AS value,
     latitude,
     longitude,
     type
-FROM innovacity.umidity_kafka
-GROUP BY timestamp, ID_sensore, cella,type,longitude,latitude;
+FROM innovacity.umidities_kafka
+GROUP BY (timestamp, ID_sensore, cella,type,longitude,latitude);
 
 
--- Aggregazione per minuto
-CREATE MATERIALIZED VIEW innovacity.umidities1m (
+ALTER TABLE innovacity.umidities ADD PROJECTION sensor_cell_projection (SELECT * ORDER BY cella,timestamp);
+
+ALTER TABLE innovacity.umidities MATERIALIZE PROJECTION sensor_cell_projection;
+
+---------- Aggregazione per minuto--------------
+CREATE TABLE innovacity.umidities1m(
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DateTime,
     value AggregateFunction(avgState, Float32)
-) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella);
+
+CREATE MATERIALIZED VIEW innovacity.mv_umidities1m 
+TO innovacity.umidities1m
 AS SELECT
     toStartOfMinute(timestamp) AS timestamp,
     cella,
     ID_sensore,
     avgState(value) AS value
-FROM innovacity.umidity_kafka
+FROM innovacity.umidities_kafka
 GROUP BY timestamp, ID_sensore, cella;
 
+ALTER TABLE innovacity.umidities1m ADD PROJECTION sensor_cell_projection1m (SELECT * ORDER BY cella,timestamp);
+
+ALTER TABLE innovacity.umidities1m MATERIALIZE PROJECTION sensor_cell_projection1m;
+
+
 -- Aggregazione per ora
-CREATE MATERIALIZED VIEW innovacity.umidities1o (
+CREATE TABLE innovacity.umidities1o(
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DateTime,
     value AggregateFunction(avgState, Float32)
-) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella)
+) ENGINE = AggregatingMergeTree ORDER BY (timestamp, ID_sensore, cella);
+
+CREATE MATERIALIZED VIEW innovacity.mv_umidities1o TO innovacity.umidities1o
 AS SELECT
     toStartOfHour(timestamp) AS timestamp,
     cella,
     ID_sensore,
     avgState(value) AS value
-FROM innovacity.umidity_kafka
+FROM innovacity.umidities_kafka
 GROUP BY timestamp, ID_sensore, cella;
 
+ALTER TABLE innovacity.umidities1o ADD PROJECTION sensor_cell_projection1o (SELECT * ORDER BY cella,timestamp);
+
+ALTER TABLE innovacity.umidities1o MATERIALIZE PROJECTION sensor_cell_projection1o;
 
 -- Aggregazione per giorno
-CREATE MATERIALIZED VIEW innovacity.umidities1g(
+CREATE TABLE innovacity.umidities1g(
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp Date32,
     value AggregateFunction(avgState, Float32)
 )
 ENGINE = AggregatingMergeTree()
-ORDER BY (timestamp, ID_sensore, cella)
+ORDER BY (timestamp, ID_sensore, cella);
+
+CREATE MATERIALIZED VIEW innovacity.mv_umidities1g TO innovacity.umidities1g
 AS 
 SELECT
     toDate(timestamp) AS timestamp,
     cella,
     ID_sensore,
     avgState(value) AS value
-FROM innovacity.umidity_kafka
+FROM innovacity.umidities_kafka
 GROUP BY timestamp, ID_sensore, cella;
 
+ALTER TABLE innovacity.umidities1g ADD PROJECTION sensor_cell_projection1g (SELECT * ORDER BY cella,timestamp);
+
+ALTER TABLE innovacity.umidities1g MATERIALIZE PROJECTION sensor_cell_projection1g;
+
 -- Aggregazione per mese
+--HO DECISO DI NON CREARE UNA TABELLA CON PROJECTION PERCHE CREDO SIA INUTILE SUI MESI, VISTO CHE NON SI CREERANNO MOLTI DAIT
 CREATE MATERIALIZED VIEW innovacity.umidities1M(
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp Date32,
     value AggregateFunction(avgState, Float32)
 )
 ENGINE = AggregatingMergeTree()
@@ -98,6 +129,5 @@ SELECT
     cella,
     ID_sensore,
     avgState(value) AS value
-FROM innovacity.umidity_kafka
+FROM innovacity.umidities_kafka
 GROUP BY timestamp, ID_sensore, cella;
-

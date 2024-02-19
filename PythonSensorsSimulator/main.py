@@ -23,7 +23,7 @@ symExecAggregator = SimulatorExecutorAggregator()
 
 symExec = (
     symExecAggregator
-    .add_temperature_simulator(writeToKafkaTemp, 45.398214, 11.851271,"Arcella", 1)
+    .add_temperature_simulator(writeToKafkaTemp, 45.398214, 11.851271,"Arcella", 0.5)
     .add_temperature_simulator(writeToKafkaTemp, 45.348214, 11.751271,"Montegrotto", 1)
     .add_temperature_simulator(writeToKafkaTemp, 45.368214, 11.951271,"Montegrotto", 1)
 

@@ -9,3 +9,6 @@ Avvio tramite _docker_
 Per fermare tutti i container 
 
 `docker-compose --profile prod down`
+
+Per connettersi a clichouse con client:
+'winpty docker exec -it clickhouse clickhouse-client'
