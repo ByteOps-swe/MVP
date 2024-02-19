@@ -4,11 +4,11 @@ Progetto del corso di [Ingegneria del Software 2023-2024]
 
 Avvio tramite _docker_
 
-`docker-compose --profile prod up -d `
+`docker-compose up -d `
 
 Per fermare tutti i container 
 
-`docker-compose --profile prod down`
+`docker-compose down`
 
-Per connettersi a clichouse con client:
-'winpty docker exec -it clickhouse clickhouse-client'
+Per connettersi a clichouse con client e ed effettuare query:
+`winpty docker exec -it clickhouse clickhouse-client`
