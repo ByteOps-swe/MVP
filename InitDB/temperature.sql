@@ -25,7 +25,7 @@ CREATE TABLE innovacity.temperatures
     longitude Float64
 )
 ENGINE = AggregatingMergeTree
-ORDER BY(timestamp, ID_sensore, cella,latitude,longitude,type);
+ORDER BY(timestamp, ID_sensore, cella,latitude,longitude);
 
 
 CREATE MATERIALIZED VIEW innovacity.mv_temperatures
@@ -37,9 +37,8 @@ AS SELECT
     avgState(value) AS value,
     latitude,
     longitude,
-    type
 FROM innovacity.temperatures_kafka
-GROUP BY (timestamp, ID_sensore, cella,type,longitude,latitude);
+GROUP BY (timestamp, ID_sensore, cella,longitude,latitude);
 
 
 ALTER TABLE innovacity.temperatures ADD PROJECTION sensor_cell_projection (SELECT * ORDER BY cella,timestamp);
