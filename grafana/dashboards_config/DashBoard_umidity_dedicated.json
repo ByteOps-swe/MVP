@@ -16,7 +16,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 4,
+    "id": 1,
     "links": [],
     "liveNow": false,
     "panels": [{
@@ -119,7 +119,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinUmidity) AND value <= ($MaxUmidity)\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($umd_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinUmidity) AND value <= ($MaxUmidity)\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Grafico a linee umidità",
@@ -185,7 +185,7 @@
                 },
                 "showHeader": true,
                 "sortBy": [{
-                    "desc": false,
+                    "desc": true,
                     "displayName": "ID_sensore"
                 }]
             },
@@ -209,7 +209,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($umd_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Panel Title",
@@ -222,14 +222,14 @@
     "templating": {
         "list": [{
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": [
-                        "Montegrotto",
-                        "Arcella"
+                        "Arcella",
+                        "Montegrotto"
                     ],
                     "value": [
-                        "Montegrotto",
-                        "Arcella"
+                        "Arcella",
+                        "Montegrotto"
                     ]
                 },
                 "datasource": {
@@ -253,6 +253,32 @@
             {
                 "current": {
                     "selected": true,
+                    "text": [
+                        "Umd1",
+                        "Umd2"
+                    ],
+                    "value": [
+                        "Umd1",
+                        "Umd2"
+                    ]
+                },
+                "definition": "select distinct ID_sensore from innovacity.umidities",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Seleziona i sensori fonte",
+                "multi": true,
+                "name": "umd_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.umidities",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
                     "text": "umidities",
                     "value": "umidities"
                 },

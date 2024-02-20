@@ -16,7 +16,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 4,
     "links": [],
     "liveNow": false,
     "panels": [{
@@ -143,7 +143,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Grafico a linee temperatura",
@@ -237,7 +237,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Tabella temperature",
@@ -277,6 +277,30 @@
                 "regex": "",
                 "skipUrlSync": false,
                 "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "definition": "select distinct ID_sensore from innovacity.temperatures",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Seleziona i sensori fonte",
+                "multi": true,
+                "name": "tmp_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.temperatures",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
                 "type": "query"
             },
             {
@@ -370,6 +394,6 @@
     "timezone": "",
     "title": "Temperatures Dashboard",
     "uid": "c5e13615-cb86-466e-862e-d20e0525813c",
-    "version": 1,
+    "version": 3,
     "weekStart": ""
 }

@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 3,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -202,7 +202,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\n    ID_sensore,\n     argMax(cella, timestamp) as cella_sensore,\n    'Termometro' as Tipo,\n    argMax(latitude, timestamp) AS latitude,\n    argMax(longitude, timestamp) AS longitude\nFROM innovacity.temperatures\nGROUP BY ID_sensore\nHAVING cella_sensore IN ($Cella);\n",
+                    "rawSql": "SELECT\n    ID_sensore,\n     argMax(cella, timestamp) as cella_sensore,\n    'Termometro' as Tipo,\n    argMax(latitude, timestamp) AS latitude,\n    argMax(longitude, timestamp) AS longitude\nFROM innovacity.temperatures\nWHERE  ID_sensore IN ($tmp_sensors_id)\nGROUP BY ID_sensore\nHAVING cella_sensore IN ($Cella);\n",
                     "refId": "A"
                 },
                 {
@@ -225,7 +225,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Igrometro' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.umidities\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Igrometro' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.umidities\r\nWHERE  ID_sensore IN ($umd_sensors_id)\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "B"
                 },
                 {
@@ -248,7 +248,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "C"
                 },
                 {
@@ -271,7 +271,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT\r\n    ID_sensore,\r\n    argMax(cella, timestamp) as cella_sensore,\r\n    'Isola ecologica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.ecoIslands\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n    argMax(cella, timestamp) as cella_sensore,\r\n    'Isola ecologica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.ecoIslands\r\nWHERE  ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "D"
                 }
             ],
@@ -470,7 +470,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Temperatura",
@@ -566,7 +566,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\n  avgMerge(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella);\n",
+                "rawSql": "SELECT\n  avgMerge(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella) AND ID_sensore IN ($tmp_sensors_id);\n",
                 "refId": "A"
             }],
             "title": "Temperatura media ",
@@ -662,7 +662,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n  avgMerge(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n  avgMerge(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella) AND ID_sensore IN ($umd_sensors_id);\r\n",
                 "refId": "A"
             }],
             "title": "Umidità media",
@@ -774,7 +774,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore,\r\navgMerge(value) as value,\r\ntimestamp\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\ngroup by ID_sensore, timestamp\r\n",
+                "rawSql": "SELECT ID_sensore,\r\navgMerge(value) as value,\r\ntimestamp\r\nFROM innovacity.umidities\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )  AND ID_sensore IN ($umd_sensors_id)\r\ngroup by ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Umidità",
@@ -940,7 +940,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine di ricarica",
@@ -1016,7 +1016,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine libere",
@@ -1088,7 +1088,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine occupate",
@@ -1154,7 +1154,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "#EAB839",
@@ -1172,7 +1173,28 @@
                     },
                     "unitScale": true
                 },
-                "overrides": []
+                "overrides": [{
+                    "__systemRef": "hideSeriesFrom",
+                    "matcher": {
+                        "id": "byNames",
+                        "options": {
+                            "mode": "exclude",
+                            "names": [
+                                "value EcoIsl2"
+                            ],
+                            "prefix": "All except:",
+                            "readOnly": true
+                        }
+                    },
+                    "properties": [{
+                        "id": "custom.hideFrom",
+                        "value": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": true
+                        }
+                    }]
+                }]
             },
             "gridPos": {
                 "h": 9,
@@ -1215,7 +1237,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime )\r\n",
+                "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  ID_sensore IN ($ecoIs_sensors_id)\r\n\r\n",
                 "refId": "A"
             }],
             "title": "Isole ecologiche",
@@ -1240,7 +1262,8 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "orange",
@@ -1323,7 +1346,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT \r\n   \r\n    argMax(value, timestamp) AS last_value,\r\n    ID_sensore\r\nFROM \r\n    \"innovacity\".\"ecoIslands\" \r\nGROUP BY \r\n    ID_sensore\r\nHAVING argMax(cella,timestamp) IN ($Cella)",
+                "rawSql": "SELECT \r\n   \r\n    argMax(value, timestamp) AS last_value,\r\n    ID_sensore\r\nFROM \r\n    \"innovacity\".\"ecoIslands\" \r\nWHERE  ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore\r\nHAVING argMax(cella,timestamp) IN ($Cella)",
                 "refId": "A"
             }],
             "title": "Stato riempimento attuale",
@@ -1336,38 +1359,153 @@
     "tags": [],
     "templating": {
         "list": [{
-            "allValue": "Citta completa",
-            "current": {
-                "selected": true,
-                "text": [
-                    "Arcella",
-                    "Montegrotto",
-                    "Murelle"
-                ],
-                "value": [
-                    "Arcella",
-                    "Montegrotto",
-                    "Murelle"
-                ]
+                "allValue": "Citta completa",
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Arcella",
+                        "Montegrotto",
+                        "Murelle"
+                    ],
+                    "value": [
+                        "Arcella",
+                        "Montegrotto",
+                        "Murelle"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Seleziona cella",
+                "multi": true,
+                "name": "Cella",
+                "options": [],
+                "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
             },
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Tmp1",
+                        "Tmp2",
+                        "Tmp3"
+                    ],
+                    "value": [
+                        "Tmp1",
+                        "Tmp2",
+                        "Tmp3"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.temperatures",
+                "description": "Seleziona i sensori di temperatura da includere nella Dashboard.",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Sensori di temperatura",
+                "multi": true,
+                "name": "tmp_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.temperatures",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
             },
-            "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
-            "hide": 0,
-            "includeAll": false,
-            "label": "Seleziona cella",
-            "multi": true,
-            "name": "Cella",
-            "options": [],
-            "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "type": "query"
-        }]
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Umd1",
+                        "Umd2"
+                    ],
+                    "value": [
+                        "Umd1",
+                        "Umd2"
+                    ]
+                },
+                "definition": "select distinct ID_sensore from innovacity.umidities",
+                "description": "Seleziona i sensori di umidità da includere nella Dashboard",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Sensori di umidità",
+                "multi": true,
+                "name": "umd_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.umidities",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "EcoIsl1",
+                        "EcoIsl2"
+                    ],
+                    "value": [
+                        "EcoIsl1",
+                        "EcoIsl2"
+                    ]
+                },
+                "definition": "select distinct ID_sensore from innovacity.ecoIslands",
+                "description": "Seleziona i sensori delle isole ecologiche da visualizzare nella Dashboard.",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Sensori isole ecologiche",
+                "multi": true,
+                "name": "ecoIs_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.ecoIslands",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "ChS2",
+                        "ChS1"
+                    ],
+                    "value": [
+                        "ChS2",
+                        "ChS1"
+                    ]
+                },
+                "definition": "select distinct ID_sensore from innovacity.chargingStations",
+                "description": "Seleziona le colonnine di ricarica da visualizzare nella Dashboard",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Colonnine di ricarica",
+                "multi": true,
+                "name": "colRic_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.chargingStations",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            }
+        ]
     },
     "time": {
         "from": "now-5m",
@@ -1377,6 +1515,6 @@
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 2,
+    "version": 11,
     "weekStart": ""
 }

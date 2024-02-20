@@ -2,7 +2,6 @@
 CREATE TABLE innovacity.temperatures_kafka (
     timestamp DATETIME64,
     value Float32,
-    type String,
     latitude Float64,
     longitude Float64,
     ID_sensore String,
@@ -22,7 +21,6 @@ CREATE TABLE innovacity.temperatures
     cella String,
     timestamp DateTime,
     value AggregateFunction(avgState, Float32),
-    type String,
     latitude Float64,
     longitude Float64
 )
