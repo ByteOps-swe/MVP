@@ -1,7 +1,7 @@
 from .KafkaTarget import KafkaTarget
 from confluent_kafka import Producer, KafkaException
 
-
+#Adattatore per la l'invio tramite libreria confluent kafka
 def acked(err, msg):
     if err is not None:
         print("Fallimento nella consegna del messaggio: %s: %s" %

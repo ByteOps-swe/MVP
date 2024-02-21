@@ -1,4 +1,4 @@
-CREATE TABLE innovacity.chargingStation_kafka (
+CREATE TABLE innovacity.waterPresence_kafka (
     timestamp DATETIME64,
     value UInt8,
     latitude Float64,
@@ -7,12 +7,12 @@ CREATE TABLE innovacity.chargingStation_kafka (
     cella String
 ) ENGINE = Kafka(
     'kafka:9092',
-    'chargingStation',
+    'waterPresence',
     'CG_Clickhouse_1',
     'JSONEachRow'
 );
 
-CREATE TABLE innovacity.chargingStations (
+CREATE TABLE innovacity.waterPresence(
     timestamp DATETIME64,
     value UInt8,
     latitude Float64,
@@ -24,12 +24,12 @@ CREATE TABLE innovacity.chargingStations (
 ORDER BY
     (ID_sensore, timestamp);
 
-CREATE MATERIALIZED VIEW chargingStations_sync TO innovacity.chargingStations AS
+CREATE MATERIALIZED VIEW waterPresence_sync TO innovacity.waterPresence AS
 SELECT
     *
 FROM
-    innovacity.chargingStation_kafka;
+    innovacity.waterPresence_kafka;
 
-ALTER TABLE innovacity.chargingStations ADD PROJECTION chStation_sensor_cell_projection (SELECT * ORDER BY cella);
+ALTER TABLE innovacity.waterPresence ADD PROJECTION waterP_sensor_cell_projection (SELECT * ORDER BY cella);
 
-ALTER TABLE innovacity.chargingStations MATERIALIZE PROJECTION chStation_sensor_cell_projection;
+ALTER TABLE innovacity.waterPresence MATERIALIZE PROJECTION waterP_sensor_cell_projection;

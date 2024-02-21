@@ -16,7 +16,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 2,
     "links": [],
     "liveNow": false,
     "panels": [{
@@ -236,14 +236,14 @@
                     "type": "grafana-clickhouse-datasource",
                     "uid": "PDEE91DDB90597936"
                 },
-                "definition": "SELECT DISTINCT cella\nFROM innovacity.umidities",
+                "definition": "SELECT DISTINCT cella\nFROM innovacity.umidities\n",
                 "hide": 0,
                 "includeAll": false,
                 "label": "Seleziona cella",
                 "multi": true,
                 "name": "Cella",
                 "options": [],
-                "query": "SELECT DISTINCT cella\nFROM innovacity.umidities",
+                "query": "SELECT DISTINCT cella\nFROM innovacity.umidities\n",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -262,14 +262,18 @@
                         "Umd2"
                     ]
                 },
-                "definition": "select distinct ID_sensore from innovacity.umidities",
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.umidities WHERE cella IN ($Cella)",
                 "hide": 0,
                 "includeAll": true,
                 "label": "Seleziona i sensori fonte",
                 "multi": true,
                 "name": "umd_sensors_id",
                 "options": [],
-                "query": "select distinct ID_sensore from innovacity.umidities",
+                "query": "select distinct ID_sensore from innovacity.umidities WHERE cella IN ($Cella)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -321,7 +325,7 @@
             },
             {
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": "0",
                     "value": "0"
                 },
@@ -380,6 +384,6 @@
     "timezone": "",
     "title": "Umidity Dashboard",
     "uid": "d2be6403-8e19-423d-a889-0593f2c49fe2",
-    "version": 2,
+    "version": 4,
     "weekStart": ""
 }

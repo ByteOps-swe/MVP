@@ -3,7 +3,7 @@ import json
 import math
 import random
 from datetime import datetime
-
+from typing import List
 from .Simulator import Simulator
 from ..Writers import Writer
 
@@ -11,7 +11,7 @@ from ..Writers import Writer
 class TemperatureSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_temperature=20):
+    def __init__(self, writer: List[Writer], latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_temperature=20):
         TemperatureSimulator.__count += 1
         self.temperature = initial_temperature
         # fattore di calibrazione necessario a garantire un maggiore varianza nei dati simulati dai sensori
@@ -39,5 +39,5 @@ class TemperatureSimulator(Simulator):
                 "ID_sensore": self.ID_sensor,
                 "cella":self.cella_sensore
             }
-            self.writer.write(json.dumps(dato))
+            super().write_to_all_writers(json.dumps(dato))
             time.sleep(self.frequency)

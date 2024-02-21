@@ -2,14 +2,14 @@ import time
 import json
 import random
 from datetime import datetime
-
+from typing import List
 from .Simulator import Simulator
 from ..Writers import Writer
 
 class EcologicalIslandSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float,cella: str = "Centro", frequency_in_s: int = 5, initial_fill_percentage=50):
+    def __init__(self, writer: List[Writer], latitude: float, longitude: float,cella: str = "Centro", frequency_in_s: int = 5, initial_fill_percentage=50):
         EcologicalIslandSimulator.__count += 1
         self.fill_percentage = initial_fill_percentage
         self.max_fill_percentage = 90  # Percentuale massima di riempimento
@@ -36,5 +36,5 @@ class EcologicalIslandSimulator(Simulator):
                 "ID_sensore": self.ID_sensor,
                 "cella":self.cella_sensore
             }
-            self.writer.write(json.dumps(data))
+            super().write_to_all_writers(json.dumps(data))
             time.sleep(self.frequency)

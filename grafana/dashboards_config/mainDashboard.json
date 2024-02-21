@@ -17,10 +17,23 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 4,
     "links": [],
     "liveNow": true,
     "panels": [{
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 8,
+            "panels": [],
+            "title": "Dati Temperatura",
+            "type": "row"
+        },
+        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -71,7 +84,7 @@
                 "h": 7,
                 "w": 24,
                 "x": 0,
-                "y": 0
+                "y": 1
             },
             "id": 4,
             "options": {
@@ -273,6 +286,29 @@
                     "queryType": "table",
                     "rawSql": "SELECT\r\n    ID_sensore,\r\n    argMax(cella, timestamp) as cella_sensore,\r\n    'Isola ecologica' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.ecoIslands\r\nWHERE  ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
                     "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE  ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+                    "refId": "E"
                 }
             ],
             "title": "Mappa Sensori",
@@ -350,19 +386,6 @@
                 }
             ],
             "type": "geomap"
-        },
-        {
-            "collapsed": false,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 7
-            },
-            "id": 8,
-            "panels": [],
-            "title": "Dati Temperatura",
-            "type": "row"
         },
         {
             "datasource": {
@@ -795,9 +818,9 @@
                 "x": 0,
                 "y": 26
             },
-            "id": 13,
+            "id": 22,
             "panels": [],
-            "title": "Colonnine di ricarica",
+            "title": "Sensori di presenza acqua",
             "type": "row"
         },
         {
@@ -822,12 +845,12 @@
                             "0": {
                                 "color": "green",
                                 "index": 0,
-                                "text": "Libera"
+                                "text": "Non rilevata acqua"
                             },
                             "1": {
                                 "color": "red",
                                 "index": 1,
-                                "text": "Occupata"
+                                "text": "Rilevata acqua"
                             }
                         },
                         "type": "value"
@@ -844,12 +867,12 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 16,
+                "h": 9,
+                "w": 15,
                 "x": 0,
                 "y": 27
             },
-            "id": 12,
+            "id": 21,
             "options": {
                 "basemap": {
                     "config": {},
@@ -885,7 +908,7 @@
                                 "min": 2
                             },
                             "symbol": {
-                                "fixed": "img/icons/unicons/battery-bolt.svg",
+                                "fixed": "img/icons/unicons/water.svg",
                                 "mode": "fixed"
                             },
                             "symbolAlign": {
@@ -940,418 +963,572 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
-            "title": "Colonnine di ricarica",
+            "title": "Mappa sensori di presenza acqua",
             "type": "geomap"
         },
         {
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 4,
-                "x": 16,
-                "y": 27
-            },
-            "id": 14,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [{
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
-                },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 1000,
-                        "mode": "list",
-                        "queryType": "table",
-                        "table": ""
-                    }
-                },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
-                "refId": "A"
-            }],
-            "title": "Colonnine libere",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "red",
-                            "value": null
-                        }]
-                    },
-                    "unit": "none",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 4,
-                "x": 20,
-                "y": 27
-            },
-            "id": 15,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [{
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
-                },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 1000,
-                        "mode": "list",
-                        "queryType": "table",
-                        "table": ""
-                    }
-                },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
-                "refId": "A"
-            }],
-            "title": "Colonnine occupate",
-            "type": "stat"
-        },
-        {
-            "collapsed": false,
+            "collapsed": true,
             "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 35
+                "y": 36
             },
-            "id": 16,
-            "panels": [],
-            "title": "Isole ecologiche",
+            "id": 13,
+            "panels": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "custom": {
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                }
+                            },
+                            "mappings": [{
+                                "options": {
+                                    "0": {
+                                        "color": "green",
+                                        "index": 0,
+                                        "text": "Libera"
+                                    },
+                                    "1": {
+                                        "color": "red",
+                                        "index": 1,
+                                        "text": "Occupata"
+                                    }
+                                },
+                                "type": "value"
+                            }],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [{
+                                    "color": "green"
+                                }]
+                            },
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 8,
+                        "w": 16,
+                        "x": 0,
+                        "y": 36
+                    },
+                    "id": 12,
+                    "options": {
+                        "basemap": {
+                            "config": {},
+                            "name": "Layer 0",
+                            "type": "default"
+                        },
+                        "controls": {
+                            "mouseWheelZoom": true,
+                            "showAttribution": true,
+                            "showDebug": false,
+                            "showMeasure": false,
+                            "showScale": false,
+                            "showZoom": true
+                        },
+                        "layers": [{
+                            "config": {
+                                "showLegend": false,
+                                "style": {
+                                    "color": {
+                                        "field": "last_value",
+                                        "fixed": "dark-green"
+                                    },
+                                    "opacity": 0.4,
+                                    "rotation": {
+                                        "fixed": 0,
+                                        "max": 360,
+                                        "min": -360,
+                                        "mode": "mod"
+                                    },
+                                    "size": {
+                                        "fixed": 22,
+                                        "max": 15,
+                                        "min": 2
+                                    },
+                                    "symbol": {
+                                        "fixed": "img/icons/unicons/battery-bolt.svg",
+                                        "mode": "fixed"
+                                    },
+                                    "symbolAlign": {
+                                        "horizontal": "center",
+                                        "vertical": "center"
+                                    },
+                                    "textConfig": {
+                                        "fontSize": 12,
+                                        "offsetX": 0,
+                                        "offsetY": 0,
+                                        "textAlign": "center",
+                                        "textBaseline": "middle"
+                                    }
+                                }
+                            },
+                            "location": {
+                                "mode": "auto"
+                            },
+                            "name": "Layer 1",
+                            "tooltip": true,
+                            "type": "markers"
+                        }],
+                        "tooltip": {
+                            "mode": "details"
+                        },
+                        "view": {
+                            "allLayers": true,
+                            "id": "fit",
+                            "lat": 0,
+                            "lon": 0,
+                            "padding": 15,
+                            "zoom": 15
+                        }
+                    },
+                    "pluginVersion": "10.3.3",
+                    "targets": [{
+                        "datasource": {
+                            "type": "grafana-clickhouse-datasource",
+                            "uid": "PDEE91DDB90597936"
+                        },
+                        "editorType": "sql",
+                        "format": 1,
+                        "meta": {
+                            "builderOptions": {
+                                "columns": [],
+                                "database": "",
+                                "limit": 1000,
+                                "mode": "list",
+                                "queryType": "table",
+                                "table": ""
+                            }
+                        },
+                        "pluginVersion": "4.0.2",
+                        "queryType": "table",
+                        "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                        "refId": "A"
+                    }],
+                    "title": "Colonnine di ricarica",
+                    "type": "geomap"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [{
+                                        "color": "green"
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 8,
+                        "w": 4,
+                        "x": 16,
+                        "y": 36
+                    },
+                    "id": 14,
+                    "options": {
+                        "colorMode": "value",
+                        "graphMode": "area",
+                        "justifyMode": "auto",
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "showPercentChange": false,
+                        "textMode": "auto",
+                        "wideLayout": true
+                    },
+                    "pluginVersion": "10.3.3",
+                    "targets": [{
+                        "datasource": {
+                            "type": "grafana-clickhouse-datasource",
+                            "uid": "PDEE91DDB90597936"
+                        },
+                        "editorType": "sql",
+                        "format": 1,
+                        "meta": {
+                            "builderOptions": {
+                                "columns": [],
+                                "database": "",
+                                "limit": 1000,
+                                "mode": "list",
+                                "queryType": "table",
+                                "table": ""
+                            }
+                        },
+                        "pluginVersion": "4.0.2",
+                        "queryType": "table",
+                        "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                        "refId": "A"
+                    }],
+                    "title": "Colonnine libere",
+                    "type": "stat"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [{
+                                    "color": "red"
+                                }]
+                            },
+                            "unit": "none",
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 8,
+                        "w": 4,
+                        "x": 20,
+                        "y": 36
+                    },
+                    "id": 15,
+                    "options": {
+                        "colorMode": "value",
+                        "graphMode": "area",
+                        "justifyMode": "auto",
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "showPercentChange": false,
+                        "textMode": "auto",
+                        "wideLayout": true
+                    },
+                    "pluginVersion": "10.3.3",
+                    "targets": [{
+                        "datasource": {
+                            "type": "grafana-clickhouse-datasource",
+                            "uid": "PDEE91DDB90597936"
+                        },
+                        "editorType": "sql",
+                        "format": 1,
+                        "meta": {
+                            "builderOptions": {
+                                "columns": [],
+                                "database": "",
+                                "limit": 1000,
+                                "mode": "list",
+                                "queryType": "table",
+                                "table": ""
+                            }
+                        },
+                        "pluginVersion": "4.0.2",
+                        "queryType": "table",
+                        "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                        "refId": "A"
+                    }],
+                    "title": "Colonnine occupate",
+                    "type": "stat"
+                }
+            ],
+            "title": "Colonnine di ricarica",
             "type": "row"
         },
         {
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-            },
-            "description": "Stato di riempimento isole ecologiche",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 19,
-                        "gradientMode": "opacity",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 3,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": true,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "#EAB839",
-                                "value": 60
-                            },
-                            {
-                                "color": "orange",
-                                "value": 80
-                            },
-                            {
-                                "color": "red",
-                                "value": 90
-                            }
-                        ]
-                    },
-                    "unitScale": true
-                },
-                "overrides": [{
-                    "__systemRef": "hideSeriesFrom",
-                    "matcher": {
-                        "id": "byNames",
-                        "options": {
-                            "mode": "exclude",
-                            "names": [
-                                "value EcoIsl2"
-                            ],
-                            "prefix": "All except:",
-                            "readOnly": true
-                        }
-                    },
-                    "properties": [{
-                        "id": "custom.hideFrom",
-                        "value": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": true
-                        }
-                    }]
-                }]
-            },
+            "collapsed": true,
             "gridPos": {
-                "h": 9,
-                "w": 14,
+                "h": 1,
+                "w": 24,
                 "x": 0,
-                "y": 36
+                "y": 37
             },
-            "id": 18,
-            "options": {
-                "legend": {
-                    "calcs": [
-                        "last"
-                    ],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [{
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
-                },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 100,
-                        "mode": "list",
-                        "queryType": "table",
-                        "table": ""
-                    }
-                },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  ID_sensore IN ($ecoIs_sensors_id)\r\n\r\n",
-                "refId": "A"
-            }],
-            "title": "Isole ecologiche",
-            "transformations": [{
-                "id": "prepareTimeSeries",
-                "options": {
-                    "format": "multi"
-                }
-            }],
-            "transparent": true,
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-            },
-            "description": "Mostra l'ultimo valore dello stato di rimepimento percentuale",
-            "fieldConfig": {
-                "defaults": {
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "percentage",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "orange",
-                                "value": 70
-                            },
-                            {
-                                "color": "red",
-                                "value": 85
-                            }
-                        ]
+            "id": 16,
+            "panels": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
                     },
-                    "unit": "percent",
-                    "unitScale": true
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 10,
-                "x": 14,
-                "y": 36
-            },
-            "id": 19,
-            "options": {
-                "minVizHeight": 75,
-                "minVizWidth": 75,
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [],
-                    "fields": "",
-                    "values": true
-                },
-                "showThresholdLabels": false,
-                "showThresholdMarkers": true,
-                "sizing": "auto"
-            },
-            "pluginVersion": "10.3.3",
-            "targets": [{
-                "builderOptions": {
-                    "aggregates": [],
-                    "columns": [{
-                        "custom": false,
-                        "name": "value",
-                        "type": "Float32"
-                    }],
-                    "database": "innovacity",
-                    "filters": [],
-                    "groupBy": [],
-                    "limit": 1000,
-                    "meta": {},
-                    "mode": "list",
-                    "orderBy": [],
-                    "queryType": "table",
-                    "table": "ecoIslands"
-                },
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
-                },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "aggregates": [],
-                        "columns": [{
-                            "custom": false,
-                            "name": "value",
-                            "type": "Float32"
-                        }],
-                        "database": "innovacity",
-                        "filters": [],
-                        "groupBy": [],
-                        "limit": 1000,
-                        "meta": {},
-                        "mode": "list",
-                        "orderBy": [],
+                    "description": "Stato di riempimento isole ecologiche",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 19,
+                                "gradientMode": "opacity",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 1,
+                                "pointSize": 3,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "auto",
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "none"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [{
+                                        "color": "green"
+                                    },
+                                    {
+                                        "color": "#EAB839",
+                                        "value": 60
+                                    },
+                                    {
+                                        "color": "orange",
+                                        "value": 80
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 90
+                                    }
+                                ]
+                            },
+                            "unitScale": true
+                        },
+                        "overrides": [{
+                            "__systemRef": "hideSeriesFrom",
+                            "matcher": {
+                                "id": "byNames",
+                                "options": {
+                                    "mode": "exclude",
+                                    "names": [
+                                        "value EcoIsl2"
+                                    ],
+                                    "prefix": "All except:",
+                                    "readOnly": true
+                                }
+                            },
+                            "properties": [{
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": true
+                                }
+                            }]
+                        }]
+                    },
+                    "gridPos": {
+                        "h": 9,
+                        "w": 14,
+                        "x": 0,
+                        "y": 45
+                    },
+                    "id": 18,
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "last"
+                            ],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "mode": "single",
+                            "sort": "none"
+                        }
+                    },
+                    "pluginVersion": "10.3.3",
+                    "targets": [{
+                        "datasource": {
+                            "type": "grafana-clickhouse-datasource",
+                            "uid": "PDEE91DDB90597936"
+                        },
+                        "editorType": "sql",
+                        "format": 1,
+                        "meta": {
+                            "builderOptions": {
+                                "columns": [],
+                                "database": "",
+                                "limit": 100,
+                                "mode": "list",
+                                "queryType": "table",
+                                "table": ""
+                            }
+                        },
+                        "pluginVersion": "4.0.2",
                         "queryType": "table",
-                        "table": "ecoIslands"
-                    }
+                        "rawSql": "SELECT ID_sensore,\r\nvalue,\r\ntimestamp\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  ID_sensore IN ($ecoIs_sensors_id)\r\n\r\n",
+                        "refId": "A"
+                    }],
+                    "title": "Isole ecologiche",
+                    "transformations": [{
+                        "id": "prepareTimeSeries",
+                        "options": {
+                            "format": "multi"
+                        }
+                    }],
+                    "transparent": true,
+                    "type": "timeseries"
                 },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT \r\n   \r\n    argMax(value, timestamp) AS last_value,\r\n    ID_sensore\r\nFROM \r\n    \"innovacity\".\"ecoIslands\" \r\nWHERE  ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore\r\nHAVING argMax(cella,timestamp) IN ($Cella)",
-                "refId": "A"
-            }],
-            "title": "Stato riempimento attuale",
-            "transparent": true,
-            "type": "gauge"
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "description": "Mostra l'ultimo valore dello stato di rimepimento percentuale",
+                    "fieldConfig": {
+                        "defaults": {
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "percentage",
+                                "steps": [{
+                                        "color": "green"
+                                    },
+                                    {
+                                        "color": "orange",
+                                        "value": 70
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 85
+                                    }
+                                ]
+                            },
+                            "unit": "percent",
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 8,
+                        "w": 10,
+                        "x": 14,
+                        "y": 45
+                    },
+                    "id": 19,
+                    "options": {
+                        "minVizHeight": 75,
+                        "minVizWidth": 75,
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [],
+                            "fields": "",
+                            "values": true
+                        },
+                        "showThresholdLabels": false,
+                        "showThresholdMarkers": true,
+                        "sizing": "auto"
+                    },
+                    "pluginVersion": "10.3.3",
+                    "targets": [{
+                        "builderOptions": {
+                            "aggregates": [],
+                            "columns": [{
+                                "custom": false,
+                                "name": "value",
+                                "type": "Float32"
+                            }],
+                            "database": "innovacity",
+                            "filters": [],
+                            "groupBy": [],
+                            "limit": 1000,
+                            "meta": {},
+                            "mode": "list",
+                            "orderBy": [],
+                            "queryType": "table",
+                            "table": "ecoIslands"
+                        },
+                        "datasource": {
+                            "type": "grafana-clickhouse-datasource",
+                            "uid": "PDEE91DDB90597936"
+                        },
+                        "editorType": "sql",
+                        "format": 1,
+                        "meta": {
+                            "builderOptions": {
+                                "aggregates": [],
+                                "columns": [{
+                                    "custom": false,
+                                    "name": "value",
+                                    "type": "Float32"
+                                }],
+                                "database": "innovacity",
+                                "filters": [],
+                                "groupBy": [],
+                                "limit": 1000,
+                                "meta": {},
+                                "mode": "list",
+                                "orderBy": [],
+                                "queryType": "table",
+                                "table": "ecoIslands"
+                            }
+                        },
+                        "pluginVersion": "4.0.2",
+                        "queryType": "table",
+                        "rawSql": "SELECT \r\n   \r\n    argMax(value, timestamp) AS last_value,\r\n    ID_sensore\r\nFROM \r\n    \"innovacity\".\"ecoIslands\" \r\nWHERE  ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore\r\nHAVING argMax(cella,timestamp) IN ($Cella)",
+                        "refId": "A"
+                    }],
+                    "title": "Stato riempimento attuale",
+                    "transparent": true,
+                    "type": "gauge"
+                }
+            ],
+            "title": "Isole ecologiche",
+            "type": "row"
         }
     ],
     "refresh": "5s",
@@ -1377,14 +1554,14 @@
                     "type": "grafana-clickhouse-datasource",
                     "uid": "PDEE91DDB90597936"
                 },
-                "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
+                "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence\n)",
                 "hide": 0,
                 "includeAll": false,
                 "label": "Seleziona cella",
                 "multi": true,
                 "name": "Cella",
                 "options": [],
-                "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\n)",
+                "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence\n)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -1409,7 +1586,7 @@
                     "type": "grafana-clickhouse-datasource",
                     "uid": "PDEE91DDB90597936"
                 },
-                "definition": "select distinct ID_sensore from innovacity.temperatures",
+                "definition": "select distinct ID_sensore from innovacity.temperatures WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori di temperatura da includere nella Dashboard.",
                 "hide": 0,
                 "includeAll": true,
@@ -1417,7 +1594,7 @@
                 "multi": true,
                 "name": "tmp_sensors_id",
                 "options": [],
-                "query": "select distinct ID_sensore from innovacity.temperatures",
+                "query": "select distinct ID_sensore from innovacity.temperatures WHERE cella IN ($Cella)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -1436,7 +1613,11 @@
                         "Umd2"
                     ]
                 },
-                "definition": "select distinct ID_sensore from innovacity.umidities",
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.umidities WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori di umidità da includere nella Dashboard",
                 "hide": 0,
                 "includeAll": true,
@@ -1444,7 +1625,7 @@
                 "multi": true,
                 "name": "umd_sensors_id",
                 "options": [],
-                "query": "select distinct ID_sensore from innovacity.umidities",
+                "query": "select distinct ID_sensore from innovacity.umidities WHERE cella IN ($Cella)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -1463,7 +1644,11 @@
                         "EcoIsl2"
                     ]
                 },
-                "definition": "select distinct ID_sensore from innovacity.ecoIslands",
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.ecoIslands WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori delle isole ecologiche da visualizzare nella Dashboard.",
                 "hide": 0,
                 "includeAll": true,
@@ -1471,7 +1656,7 @@
                 "multi": true,
                 "name": "ecoIs_sensors_id",
                 "options": [],
-                "query": "select distinct ID_sensore from innovacity.ecoIslands",
+                "query": "select distinct ID_sensore from innovacity.ecoIslands WHERE cella IN ($Cella)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -1482,15 +1667,19 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "ChS2",
-                        "ChS1"
+                        "ChS1",
+                        "ChS2"
                     ],
                     "value": [
-                        "ChS2",
-                        "ChS1"
+                        "ChS1",
+                        "ChS2"
                     ]
                 },
-                "definition": "select distinct ID_sensore from innovacity.chargingStations",
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.chargingStations WHERE cella IN ($Cella)",
                 "description": "Seleziona le colonnine di ricarica da visualizzare nella Dashboard",
                 "hide": 0,
                 "includeAll": true,
@@ -1498,7 +1687,35 @@
                 "multi": true,
                 "name": "colRic_sensors_id",
                 "options": [],
-                "query": "select distinct ID_sensore from innovacity.chargingStations",
+                "query": "select distinct ID_sensore from innovacity.chargingStations WHERE cella IN ($Cella)",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Wp1"
+                    ],
+                    "value": [
+                        "Wp1"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.waterPresence WHERE cella IN ($Cella)",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Sensori presenza acqua",
+                "multi": true,
+                "name": "wp_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.waterPresence WHERE cella IN ($Cella)",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -1515,6 +1732,6 @@
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 11,
+    "version": 6,
     "weekStart": ""
 }
