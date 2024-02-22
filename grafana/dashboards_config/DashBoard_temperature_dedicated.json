@@ -143,7 +143,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Secondo' as Aggr\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Secondo' as Aggr\r\n    FROM\r\n        innovacity.temperatures\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($tmp_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0 \r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinTemperature) \r\n        AND value <= ($MaxTemperature)\r\n) AS subquery_alias;",
                     "refId": "A"
                 },
                 {
@@ -166,7 +166,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Minuto' as Aggr\r\nFROM\r\n    innovacity.temperatures1m\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Minuto' as Aggr\r\n    FROM\r\n        innovacity.temperatures1m\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($tmp_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300 \r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinTemperature) \r\n        AND value <= ($MaxTemperature)\r\n) AS subquery_alias;",
                     "refId": "B"
                 },
                 {
@@ -189,7 +189,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Ora' as Aggr\r\nFROM\r\n    innovacity.temperatures1o\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Ora' as Aggr\r\n    FROM\r\n        innovacity.temperatures1o\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($tmp_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinTemperature) \r\n        AND value <= ($MaxTemperature)\r\n) AS subquery_alias;",
                     "refId": "C"
                 },
                 {
@@ -212,7 +212,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Giorno' as Aggr\r\nFROM\r\n    innovacity.temperatures1g\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Giorno' as Aggr\r\n    FROM\r\n        innovacity.temperatures1g\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($tmp_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinTemperature) \r\n        AND value <= ($MaxTemperature)\r\n) AS subquery_alias;",
                     "refId": "D"
                 },
                 {
@@ -235,7 +235,7 @@
                     },
                     "pluginVersion": "4.0.2",
                     "queryType": "table",
-                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Mese' as Aggr\r\nFROM\r\n    innovacity.temperatures1M\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Mese' as Aggr\r\n    FROM\r\n        innovacity.temperatures1M\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($tmp_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                   \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinTemperature) \r\n        AND value <= ($MaxTemperature)\r\n) AS subquery_alias;",
                     "refId": "E"
                 }
             ],
@@ -328,7 +328,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Secondo' as Aggr\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Minuto' as Aggr\r\nFROM\r\n    innovacity.temperatures1m\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Ora' as Aggr\r\nFROM\r\n    innovacity.temperatures1o\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore \r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Giorno' as Aggr\r\nFROM\r\n    innovacity.temperatures1g\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Mese' as Aggr\r\nFROM\r\n    innovacity.temperatures1M\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\n) WHERE Aggr = '${AggregazioneTemporale}' AND value >= ($MinTemperature) AND value <= ($MaxTemperature)",
+                "rawSql": "SELECT ID_sensore, value, timestamp FROM (\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Secondo' AS Aggr\r\n    FROM\r\n        innovacity.temperatures\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Minuto' AS Aggr\r\n    FROM\r\n        innovacity.temperatures1m\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Ora' AS Aggr\r\n    FROM\r\n        innovacity.temperatures1o\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Giorno' AS Aggr\r\n    FROM\r\n        innovacity.temperatures1g\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Mese' AS Aggr\r\n    FROM\r\n        innovacity.temperatures1M\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n) \r\nWHERE\r\n    value >= ($MinTemperature)\r\n    AND value <= ($MaxTemperature)\r\n    AND (\r\n        timestamp >= $__fromTime\r\n        AND timestamp <= $__toTime\r\n    )\r\n    AND ID_sensore IN ($tmp_sensors_id)",
                 "refId": "Aggregazione per secondo"
             }],
             "title": "Tabella temperature",
@@ -374,10 +374,14 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "Tmp1"
+                        "Tmp1",
+                        "Tmp4",
+                        "Tmp3"
                     ],
                     "value": [
-                        "Tmp1"
+                        "Tmp1",
+                        "Tmp4",
+                        "Tmp3"
                     ]
                 },
                 "datasource": {
@@ -401,8 +405,8 @@
             {
                 "current": {
                     "selected": true,
-                    "text": "Secondo",
-                    "value": "Secondo"
+                    "text": "Automatico",
+                    "value": "Automatico"
                 },
                 "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
                 "hide": 0,
@@ -412,6 +416,11 @@
                 "name": "AggregazioneTemporale",
                 "options": [{
                         "selected": true,
+                        "text": "Automatico",
+                        "value": "Automatico"
+                    },
+                    {
+                        "selected": false,
                         "text": "Secondo",
                         "value": "Secondo"
                     },
@@ -436,7 +445,7 @@
                         "value": "Mese"
                     }
                 ],
-                "query": "Secondo,Minuto,Ora,Giorno,Mese",
+                "query": "Automatico,Secondo,Minuto,Ora,Giorno,Mese",
                 "queryValue": "",
                 "skipUrlSync": false,
                 "type": "custom"
@@ -482,13 +491,13 @@
         ]
     },
     "time": {
-        "from": "now-5m",
+        "from": "now-3h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Temperatures Dashboard",
     "uid": "c5e13615-cb86-466e-862e-d20e0525813c",
-    "version": 11,
+    "version": 3,
     "weekStart": ""
 }
