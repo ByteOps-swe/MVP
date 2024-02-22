@@ -1,39 +1,53 @@
 from abc import ABC, abstractmethod
+import time
+import random
+from datetime import datetime
+from typing import List, TypeVar
 from ..Writers import Writer
-from typing import List
+from .Misurazione import Misurazione
+
 
 class Simulator(ABC):
-    writers: List[Writer]
-    frequency: int
-    is_simulating: bool
-    ID_sensor: str
-    cella_sensore: str
-    latitude: float
-    longitude: float
+    __writers: List[Writer]
+    __frequency: int
+    __is_simulating: bool
+    __ID_sensor: str
+    __cella_sensore: str
+    __latitude: float
+    __longitude: float
+    __type = str
+    
 
-    def __init__(self, writers: List[Writer], latitude: float, longitude: float, cella: str, sensor_id: str, frequency_in_s: int = 10):
-        self.writers = writers
-        self.frequency = frequency_in_s
-        self.is_simulating = True
-        self.ID_sensor = sensor_id
-        self.cella_sensore = cella
-        self.latitude = latitude
-        self.longitude = longitude
 
-    @abstractmethod
+    def __init__(self, writers: List[Writer], latitude: float, longitude: float, cella: str, sensor_id: str, frequency_in_s: int = 10, misurazione = 0, type =""):
+        self.__writers = writers
+        self.__frequency = frequency_in_s
+        self.__is_simulating = True
+        self.__ID_sensor = sensor_id
+        self.__cella_sensore = cella
+        self.__latitude = latitude
+        self.__longitude = longitude
+        self._misurazione = misurazione
+        self.__type = type
+
     def simulate(self) -> None:
-        pass
+        while self.isSimulating():
+            self._generate_measure()
+            dato = Misurazione(datetime.now(), self._misurazione , self.__type,self.__latitude, self.__longitude, self.__ID_sensor,self.__cella_sensore)
+            self.__write_to_all_writers(dato)
+            time.sleep(self.__frequency)
+
 
     @abstractmethod
-    def generate_measure(self) -> None:
+    def _generate_measure(self) -> None:
         pass
 
     def stop_simulating(self) -> None:
-        self.is_simulating = False
+        self.__is_simulating = False
 
     def isSimulating(self) -> bool: #Sta ancora simulando?
-        return self.is_simulating
+        return self.__is_simulating
 
-    def write_to_all_writers(self, data: str) -> None:
-        for writer in self.writers:
+    def __write_to_all_writers(self, data: Misurazione) -> None:
+        for writer in self.__writers:
             writer.write(data)

@@ -1,7 +1,4 @@
-import time
-import json
 import random
-from datetime import datetime
 from typing import List
 from .Simulator import Simulator
 from ..Writers import Writer
@@ -11,29 +8,13 @@ class ChargingStationSimulator(Simulator):
 
     def __init__(self, writer: List[Writer], latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_probability_occupied=0.5):
         ChargingStationSimulator.__count += 1
-        self.occupied = random.random() < initial_probability_occupied
-        self.transition_probability = 0.1
+        self.__transition_probability = 0.1
         super().__init__(writer, latitude, longitude,cella,
-                         f"ChS{ChargingStationSimulator.__count}", frequency_in_s)
+                         f"ChS{ChargingStationSimulator.__count}", frequency_in_s,initial_probability_occupied,"ChargingStationSimulator")
 
-    def generate_measure(self):
-        if self.occupied:
-            new_probability = self.transition_probability
+    def _generate_measure(self):
+        if self._misurazione:
+            new_probability = self.__transition_probability
         else:
-            new_probability = 1 - self.transition_probability
-        self.occupied = random.random() < new_probability
-
-    def simulate(self) -> None:
-        while super().isSimulating():
-            self.generate_measure()
-            data = {
-                "timestamp": str(datetime.now()),
-                "value": int(self.occupied),
-                "type": "ChargingStationSimulator",
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "ID_sensore": self.ID_sensor,
-                "cella":self.cella_sensore
-            }
-            super().write_to_all_writers(json.dumps(data))
-            time.sleep(self.frequency)
+            new_probability = 1 - self.__transition_probability
+        self._misurazione = random.random() < new_probability

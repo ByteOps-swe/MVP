@@ -16,7 +16,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 1,
     "links": [],
     "liveNow": false,
     "panels": [{
@@ -120,32 +120,125 @@
                     "showLegend": true
                 },
                 "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
+                    "mode": "multi",
+                    "sort": "asc"
                 }
             },
             "targets": [{
-                "datasource": {
-                    "type": "grafana-clickhouse-datasource",
-                    "uid": "PDEE91DDB90597936"
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Secondo' as Aggr\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "refId": "A"
                 },
-                "editorType": "sql",
-                "format": 1,
-                "meta": {
-                    "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 1000,
-                        "mode": "list",
-                        "queryType": "table",
-                        "table": ""
-                    }
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Minuto' as Aggr\r\nFROM\r\n    innovacity.temperatures1m\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "refId": "B"
                 },
-                "pluginVersion": "4.0.2",
-                "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n",
-                "refId": "A"
-            }],
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Ora' as Aggr\r\nFROM\r\n    innovacity.temperatures1o\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Giorno' as Aggr\r\nFROM\r\n    innovacity.temperatures1g\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Mese' as Aggr\r\nFROM\r\n    innovacity.temperatures1M\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) AND Aggr = '${AggregazioneTemporale}'\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature))",
+                    "refId": "E"
+                }
+            ],
             "title": "Grafico a linee temperatura",
             "transformations": [{
                 "id": "prepareTimeSeries",
@@ -211,6 +304,7 @@
                     ],
                     "show": false
                 },
+                "frameIndex": 1,
                 "showHeader": true,
                 "sortBy": []
             },
@@ -234,8 +328,8 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp\r\nFROM\r\n    innovacity.${AggregazioneTemporale}\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\nHAVING value >= ($MinTemperature) AND value <= ($MaxTemperature)\r\n\r\n\r\n",
-                "refId": "A"
+                "rawSql": "SELECT ID_sensore, value, timestamp from (SELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Secondo' as Aggr\r\nFROM\r\n    innovacity.temperatures\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Minuto' as Aggr\r\nFROM\r\n    innovacity.temperatures1m\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Ora' as Aggr\r\nFROM\r\n    innovacity.temperatures1o\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore \r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Giorno' as Aggr\r\nFROM\r\n    innovacity.temperatures1g\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id) \r\nGROUP BY timestamp, ID_sensore\r\nUNION ALL\r\nSELECT\r\n    ID_sensore as ID_sensore,\r\n    avgMerge(value) as value,\r\n    timestamp as timestamp,\r\n    'Mese' as Aggr\r\nFROM\r\n    innovacity.temperatures1M\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($tmp_sensors_id)\r\nGROUP BY timestamp, ID_sensore\r\n) WHERE Aggr = '${AggregazioneTemporale}' AND value >= ($MinTemperature) AND value <= ($MaxTemperature)",
+                "refId": "Aggregazione per secondo"
             }],
             "title": "Tabella temperature",
             "transparent": true,
@@ -280,10 +374,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "All"
+                        "Tmp1"
                     ],
                     "value": [
-                        "$__all"
+                        "Tmp1"
                     ]
                 },
                 "datasource": {
@@ -307,8 +401,8 @@
             {
                 "current": {
                     "selected": true,
-                    "text": "temperatures",
-                    "value": "temperatures"
+                    "text": "Secondo",
+                    "value": "Secondo"
                 },
                 "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
                 "hide": 0,
@@ -318,31 +412,31 @@
                 "name": "AggregazioneTemporale",
                 "options": [{
                         "selected": true,
-                        "text": "temperatures",
-                        "value": "temperatures"
+                        "text": "Secondo",
+                        "value": "Secondo"
                     },
                     {
                         "selected": false,
-                        "text": "temperatures1m",
-                        "value": "temperatures1m"
+                        "text": "Minuto",
+                        "value": "Minuto"
                     },
                     {
                         "selected": false,
-                        "text": "temperatures1o",
-                        "value": "temperatures1o"
+                        "text": "Ora",
+                        "value": "Ora"
                     },
                     {
                         "selected": false,
-                        "text": "temperatures1g",
-                        "value": "temperatures1g"
+                        "text": "Giorno",
+                        "value": "Giorno"
                     },
                     {
                         "selected": false,
-                        "text": "temperatures1M",
-                        "value": "temperatures1M"
+                        "text": "Mese",
+                        "value": "Mese"
                     }
                 ],
-                "query": "temperatures,temperatures1m,temperatures1o,temperatures1g,temperatures1M",
+                "query": "Secondo,Minuto,Ora,Giorno,Mese",
                 "queryValue": "",
                 "skipUrlSync": false,
                 "type": "custom"
@@ -395,6 +489,6 @@
     "timezone": "",
     "title": "Temperatures Dashboard",
     "uid": "c5e13615-cb86-466e-862e-d20e0525813c",
-    "version": 2,
+    "version": 11,
     "weekStart": ""
 }
