@@ -833,6 +833,154 @@
                     "color": {
                         "mode": "thresholds"
                     },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 4,
+                "x": 0,
+                "y": 30
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "refId": "A"
+            }],
+            "title": "Sensori di soglia non attivi:",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "red",
+                            "value": null
+                        }]
+                    },
+                    "unit": "none",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 4,
+                "x": 4,
+                "y": 30
+            },
+            "id": 24,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "refId": "A"
+            }],
+            "title": "Colonnine occupate",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
                     "custom": {
                         "hideFrom": {
                             "legend": false,
@@ -868,8 +1016,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 15,
-                "x": 0,
+                "w": 16,
+                "x": 8,
                 "y": 30
             },
             "id": 21,
@@ -1735,13 +1883,13 @@
         ]
     },
     "time": {
-        "from": "now-5m",
+        "from": "now-30m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 2,
+    "version": 4,
     "weekStart": ""
 }

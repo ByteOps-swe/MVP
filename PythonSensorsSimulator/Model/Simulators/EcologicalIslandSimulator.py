@@ -1,12 +1,11 @@
 import random
-from typing import List
 from .Simulator import Simulator
-from ..Writers import Writer
+from ..Writers.CompositeWriter import CompositeWriter
 
 class EcologicalIslandSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: List[Writer], latitude: float, longitude: float,cella: str = "Centro", frequency_in_s: int = 5, initial_fill_percentage=50):
+    def __init__(self, writer: CompositeWriter, latitude: float, longitude: float,cella: str = "Centro", frequency_in_s: int = 5, initial_fill_percentage=50):
         EcologicalIslandSimulator.__count += 1
         self.__max_fill_percentage = 90  
         self.__min_fill_percentage = 10  

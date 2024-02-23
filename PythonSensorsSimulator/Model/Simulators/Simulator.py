@@ -2,13 +2,12 @@ from abc import ABC, abstractmethod
 import time
 import random
 from datetime import datetime
-from typing import List, TypeVar
-from ..Writers import Writer
+from ..Writers.CompositeWriter import CompositeWriter
 from .Misurazione import Misurazione
 
 
 class Simulator(ABC):
-    __writers: List[Writer]
+    __writers: CompositeWriter
     __frequency: int
     __is_simulating: bool
     __ID_sensor: str
@@ -19,7 +18,7 @@ class Simulator(ABC):
     
 
 
-    def __init__(self, writers: List[Writer], latitude: float, longitude: float, cella: str, sensor_id: str, frequency_in_s: int = 10, misurazione = 0, type =""):
+    def __init__(self, writers: CompositeWriter, latitude: float, longitude: float, cella: str, sensor_id: str, frequency_in_s: int = 10, misurazione = 0, type =""):
         self.__writers = writers
         self.__frequency = frequency_in_s
         self.__is_simulating = True
@@ -34,7 +33,7 @@ class Simulator(ABC):
         while self.isSimulating():
             self._generate_measure()
             dato = Misurazione(datetime.now(), self._misurazione , self.__type,self.__latitude, self.__longitude, self.__ID_sensor,self.__cella_sensore)
-            self.__write_to_all_writers(dato)
+            self.__writers.write(dato)
             time.sleep(self.__frequency)
 
 
@@ -45,9 +44,5 @@ class Simulator(ABC):
     def stop_simulating(self) -> None:
         self.__is_simulating = False
 
-    def isSimulating(self) -> bool: #Sta ancora simulando?
+    def isSimulating(self) -> bool:
         return self.__is_simulating
-
-    def __write_to_all_writers(self, data: Misurazione) -> None:
-        for writer in self.__writers:
-            writer.write(data)
