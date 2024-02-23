@@ -17,5 +17,3 @@ class TemperatureSimulator(Simulator):
         variation = random.uniform(-0.5, 0.5)  
         self._misurazione += variation
         self._misurazione = max(0, min(100, self._misurazione))
-
-

@@ -1,0 +1,488 @@
+{
+    "annotations": {
+        "list": [{
+            "builtIn": 1,
+            "datasource": {
+                "type": "grafana",
+                "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+        }]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 5,
+    "links": [],
+    "liveNow": false,
+    "panels": [{
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "humidity",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 1,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "expand": true,
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Secondo' as Aggr\r\n    FROM\r\n        innovacity.ecoIslands\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($ecoIs_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0 \r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinRiempimento) \r\n        AND value <= ($MaxRiempimento)\r\n) AS subquery_alias;",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Minuto' as Aggr\r\n    FROM\r\n        innovacity.ecoIslands1m\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($ecoIs_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300 \r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinRiempimento) \r\n        AND value <= ($MaxRiempimento)\r\n) AS subquery_alias;",
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "expand": true,
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Ora' as Aggr\r\n    FROM\r\n        innovacity.ecoIslands1o\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($ecoIs_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinRiempimento) \r\n        AND value <= ($MaxRiempimento)\r\n) AS subquery_alias;",
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "expand": true,
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Giorno' as Aggr\r\n    FROM\r\n        innovacity.ecoIslands1g\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($ecoIs_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinRiempimento) \r\n        AND value <= ($MaxRiempimento)\r\n) AS subquery_alias;",
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "expand": true,
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore, \r\n     value , \r\n    timestamp \r\nFROM (\r\n    SELECT\r\n        ID_sensore as ID_sensore,\r\n        avgMerge(value) as value,\r\n        timestamp as timestamp,\r\n        'Mese' as Aggr\r\n    FROM\r\n        innovacity.ecoIslands1M\r\n    WHERE \r\n        cella IN ($Cella) \r\n        AND (timestamp >= $__fromTime AND timestamp <= $__toTime) \r\n        AND ID_sensore IN ($ecoIs_sensors_id) \r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}' OR\r\n            (\r\n                '${AggregazioneTemporale}' = 'Automatico' AND\r\n                (\r\n                   \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY \r\n        timestamp, \r\n        ID_sensore\r\n    HAVING \r\n        value >= ($MinRiempimento) \r\n        AND value <= ($MaxRiempimento)\r\n) AS subquery_alias;\r\n",
+                    "refId": "E"
+                }
+            ],
+            "title": "Grafico a linee percentuale riempimento isole ecologiche",
+            "transformations": [{
+                "id": "prepareTimeSeries",
+                "options": {
+                    "format": "multi"
+                }
+            }],
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 12
+            },
+            "id": 2,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": false,
+                    "displayName": "ID_sensore"
+                }]
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "expand": true,
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT ID_sensore, value, timestamp FROM (\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Secondo' AS Aggr\r\n    FROM\r\n        innovacity.ecoIslands\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Minuto' AS Aggr\r\n    FROM\r\n        innovacity.ecoIslands1m\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Ora' AS Aggr\r\n    FROM\r\n        innovacity.ecoIslands1o\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Giorno' AS Aggr\r\n    FROM\r\n        innovacity.ecoIslands1g\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp,\r\n        'Mese' AS Aggr\r\n    FROM\r\n        innovacity.ecoIslands1M\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            Aggr = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n) \r\nWHERE\r\n    value >= ($MinRiempimento)\r\n    AND value <= ($MaxRiempimento)\r\n    AND (\r\n        timestamp >= $__fromTime\r\n        AND timestamp <= $__toTime\r\n    )\r\n    AND ID_sensore IN ($ecoIs_sensors_id)\r\n",
+                "refId": "A"
+            }],
+            "title": "Panel Title",
+            "type": "table"
+        }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+        "list": [{
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Montegrotto"
+                    ],
+                    "value": [
+                        "Montegrotto"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "SELECT DISTINCT cella\nFROM innovacity.ecoIslands\n",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Seleziona cella",
+                "multi": true,
+                "name": "Cella",
+                "options": [],
+                "query": "SELECT DISTINCT cella\nFROM innovacity.ecoIslands\n",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.ecoIslands WHERE cella IN ($Cella)",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Seleziona i sensori fonte",
+                "multi": true,
+                "name": "ecoIs_sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.ecoIslands WHERE cella IN ($Cella)",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "Automatico",
+                    "value": "Automatico"
+                },
+                "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Aggregazione temporale",
+                "multi": false,
+                "name": "AggregazioneTemporale",
+                "options": [{
+                        "selected": true,
+                        "text": "Automatico",
+                        "value": "Automatico"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Secondo",
+                        "value": "Secondo"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Minuto",
+                        "value": "Minuto"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Ora",
+                        "value": "Ora"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Giorno",
+                        "value": "Giorno"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Mese",
+                        "value": "Mese"
+                    }
+                ],
+                "query": "Automatico,Secondo,Minuto,Ora,Giorno,Mese",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "0",
+                    "value": "0"
+                },
+                "description": "Filtro per misurazioni definisci la percentuale di riempimento minima da visualizzare.",
+                "hide": 0,
+                "label": "Percentuale riempimento minimo",
+                "name": "MinRiempimento",
+                "options": [{
+                    "selected": true,
+                    "text": "0",
+                    "value": "0"
+                }],
+                "query": "0",
+                "skipUrlSync": false,
+                "type": "textbox"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "100",
+                    "value": "100"
+                },
+                "description": "Filtra per misurazioni, inserisci la percentuale di riempimento massima visualizzabile",
+                "hide": 0,
+                "label": "Percentuale riempimento massimo",
+                "name": "MaxRiempimento",
+                "options": [{
+                    "selected": true,
+                    "text": "100",
+                    "value": "100"
+                }],
+                "query": "100",
+                "skipUrlSync": false,
+                "type": "textbox"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-5m",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ]
+    },
+    "timezone": "",
+    "title": "EcoIsland Dashboard",
+    "uid": "c59c63c5-96b5-4ea7-96ea-54156dbf72c0",
+    "version": 3,
+    "weekStart": ""
+}

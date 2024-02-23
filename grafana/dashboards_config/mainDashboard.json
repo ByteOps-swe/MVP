@@ -21,19 +21,6 @@
     "links": [],
     "liveNow": true,
     "panels": [{
-            "collapsed": false,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 0
-            },
-            "id": 8,
-            "panels": [],
-            "title": "Dati Temperatura",
-            "type": "row"
-        },
-        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -81,10 +68,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
+                "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 1
+                "y": 0
             },
             "id": 4,
             "options": {
@@ -388,6 +375,19 @@
             "type": "geomap"
         },
         {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 8,
+            "panels": [],
+            "title": "Dati Temperatura",
+            "type": "row"
+        },
+        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -406,7 +406,7 @@
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
+                        "fillOpacity": 42,
                         "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
@@ -452,13 +452,13 @@
                 "h": 9,
                 "w": 19,
                 "x": 0,
-                "y": 8
+                "y": 10
             },
             "id": 2,
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard temperatura",
-                "url": "http://127.0.0.1:3000/d/c5e13615-cb86-466e-862e-d20e0525813c/temperatures-dashboard?orgId=1&var-AggregazioneTemporale=temperatures&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&refresh=5s"
+                "url": "http://127.0.0.1:3000/d/c5e13615-cb86-466e-862e-d20e0525813c/temperatures-dashboard?orgId=1&var-AggregazioneTemporale=Automatico&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&refresh=5s&var-tmp_sensors_id=All&var-MaxTemperature=100&var-MinTemperature=-100"
             }],
             "options": {
                 "legend": {
@@ -550,7 +550,7 @@
                 "h": 9,
                 "w": 5,
                 "x": 19,
-                "y": 8
+                "y": 10
             },
             "id": 6,
             "options": {
@@ -603,7 +603,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 17
+                "y": 19
             },
             "id": 9,
             "panels": [],
@@ -643,10 +643,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
+                "h": 9,
                 "w": 5,
                 "x": 0,
-                "y": 18
+                "y": 20
             },
             "id": 10,
             "options": {
@@ -753,16 +753,16 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
+                "h": 9,
                 "w": 19,
                 "x": 5,
-                "y": 18
+                "y": 20
             },
             "id": 11,
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard umidità",
-                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&from=1708346751946&to=1708347051946&var-Cella=Montegrotto&var-Cella=Arcella&var-AggregazioneTemporale=umidities&var-MaxUmidity=100&var-MinUmidity=0"
+                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&var-AggregazioneTemporale=Automatico&var-MaxUmidity=100&var-MinUmidity=0&var-umd_sensors_id=All"
             }],
             "options": {
                 "legend": {
@@ -816,7 +816,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 26
+                "y": 29
             },
             "id": 22,
             "panels": [],
@@ -870,7 +870,7 @@
                 "h": 9,
                 "w": 15,
                 "x": 0,
-                "y": 27
+                "y": 30
             },
             "id": 21,
             "options": {
@@ -975,7 +975,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 36
+                "y": 39
             },
             "id": 13,
             "panels": [],
@@ -1029,7 +1029,7 @@
                 "h": 8,
                 "w": 16,
                 "x": 0,
-                "y": 37
+                "y": 40
             },
             "id": 12,
             "options": {
@@ -1159,7 +1159,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 16,
-                "y": 37
+                "y": 40
             },
             "id": 14,
             "options": {
@@ -1231,7 +1231,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 20,
-                "y": 37
+                "y": 40
             },
             "id": 15,
             "options": {
@@ -1282,7 +1282,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 45
+                "y": 48
             },
             "id": 16,
             "panels": [],
@@ -1382,9 +1382,14 @@
                 "h": 9,
                 "w": 14,
                 "x": 0,
-                "y": 46
+                "y": 49
             },
             "id": 18,
+            "links": [{
+                "targetBlank": true,
+                "title": "Vai alla Dashboard dedicata",
+                "url": "http://127.0.0.1:3000/d/c59c63c5-96b5-4ea7-96ea-54156dbf72c0/ecoisland-dashboard?orgId=1&refresh=5s&var-Cella=Montegrotto&var-umd_sensors_id=All&var-AggregazioneTemporale=Automatico&var-MinRiempimento=0&var-MaxUmidity=100&var-MaxRiempimento=100&from=now-5m&to=now&var-ecoIs_sensors_id=All"
+            }],
             "options": {
                 "legend": {
                     "calcs": [
@@ -1466,7 +1471,7 @@
                 "h": 8,
                 "w": 10,
                 "x": 14,
-                "y": 46
+                "y": 49
             },
             "id": 19,
             "options": {
@@ -1730,13 +1735,13 @@
         ]
     },
     "time": {
-        "from": "now-15m",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 3,
+    "version": 2,
     "weekStart": ""
 }
