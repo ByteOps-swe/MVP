@@ -29,9 +29,12 @@ class Simulator(ABC):
         self._misurazione = misurazione
         self.__type = type
 
+    #TEMPLATEMETHOD
     def simulate(self) -> None:
         while self.isSimulating():
+            #TEMPLATING BY SUBCLASS
             self._generate_measure()
+
             dato = Misurazione(datetime.now(), self._misurazione , self.__type,self.__latitude, self.__longitude, self.__ID_sensor,self.__cella_sensore)
             self.__writers.write(dato)
             time.sleep(self.__frequency)

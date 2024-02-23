@@ -1,28 +1,27 @@
-from .SimulatorExecutor import SimulatorExecutor
-from .Writers.Writer import Writer
+from .SimulatorThreadPool import SimulatorThreadPool
 from .Simulators.TemperatureSimulator import TemperatureSimulator
 from .Simulators.HumiditySimulator import HumiditySimulator
 from .Simulators.ChargingStationSimulator import ChargingStationSimulator
 from .Simulators.EcologicalIslandSimulator import EcologicalIslandSimulator
 from .Simulators.WaterPresenceSensor import WaterPresenceSensor
 from .SimulatorThread import SimulatorThread
-from typing import List
+from .Writers.CompositeWriter import CompositeWriter
+from .ThreadPoolAdapter.ThreadPoolExecutorAdapter import ThreadPoolExecutorAdapter
 
-
-class SimulatorExecutorAggregator:
-    __simulator_executor: SimulatorExecutor = None
+class SimulatorExecutorFactory:
+    __simulator_executor: SimulatorThreadPool = None
 
     def __init__(self):
-        self.__simulator_executor = SimulatorExecutor()
+        self.__simulator_executor = SimulatorThreadPool(ThreadPoolExecutorAdapter())
 
     def add_temperature_simulator(
             self,
-            writer: List[Writer],
+            writer: CompositeWriter,
             latitude: float,
             longitude: float,
             cella: str,
             frequency_in_s=1
-    ) -> "SimulatorExecutorAggregator":
+    ) -> "SimulatorExecutorFactory":
         if writer is None:
             return self
 
@@ -36,12 +35,12 @@ class SimulatorExecutorAggregator:
     
     def add_humidity_simulator(
             self,
-            writer: List[Writer],
+            writer: CompositeWriter,
             latitude: float,
             longitude: float,
             cella: str,
             frequency_in_s=1
-    ) -> "SimulatorExecutorAggregator":
+    ) -> "SimulatorExecutorFactory":
         if writer is None:
             return self
 
@@ -55,12 +54,12 @@ class SimulatorExecutorAggregator:
     
     def add_chargingStation_simulator(
             self,
-            writer: List[Writer],
+            writer: CompositeWriter,
             latitude: float,
             longitude: float,
             cella: str,
             frequency_in_s=1
-    ) -> "SimulatorExecutorAggregator":
+    ) -> "SimulatorExecutorFactory":
         if writer is None:
             return self
 
@@ -74,12 +73,12 @@ class SimulatorExecutorAggregator:
     
     def add_ecologicalIsland_simulator(
             self,
-            writer: List[Writer],
+            writer: CompositeWriter,
             latitude: float,
             longitude: float,
             cella: str,
             frequency_in_s=1
-    ) -> "SimulatorExecutorAggregator":
+    ) -> "SimulatorExecutorFactory":
         if writer is None:
             return self
 
@@ -93,12 +92,12 @@ class SimulatorExecutorAggregator:
 
     def add_waterPresence_simulator(
             self,
-            writer: List[Writer],
+            writer: CompositeWriter,
             latitude: float,
             longitude: float,
             cella: str,
             frequency_in_s=1
-    ) -> "SimulatorExecutorAggregator":
+    ) -> "SimulatorExecutorFactory":
         if writer is None:
             return self
 
@@ -110,7 +109,8 @@ class SimulatorExecutorAggregator:
         )
         return self
 
-    def get_simulator_executor(self) -> "SimulatorExecutor":
-        sym_exec = self.__simulator_executor
-        self.__simulator_executor = SimulatorExecutor()
-        return sym_exec
+    def run(self):
+        self.__simulator_executor.run_all()
+        
+    def stop(self):
+        self.__simulator_executor.stop_all()

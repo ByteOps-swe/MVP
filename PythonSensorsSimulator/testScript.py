@@ -2,7 +2,7 @@ import os
 import threading
 import time
 
-from Model.SimulatorExecutorAggregator import SimulatorExecutorAggregator
+from Model.SimulatorExecutorFactory import SimulatorExecutorFactory
 from Model.Writers.KafkaWriter import KafkaWriter
 from Model.Writers.StdoutWriter import StdoutWriter
 from Model.Writers.ListWriter import ListWriter
@@ -34,7 +34,7 @@ list_writers = {
 
 
 
-symExecAggregator = SimulatorExecutorAggregator()
+symExecAggregator = SimulatorExecutorFactory()
 #MAYBE DECORATOR
 symExec = (
     symExecAggregator

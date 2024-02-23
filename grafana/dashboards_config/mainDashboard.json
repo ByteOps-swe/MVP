@@ -893,7 +893,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value( value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Sensori di soglia non attivi:",
@@ -965,10 +965,10 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n         last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
-            "title": "Colonnine occupate",
+            "title": "Sensori di soglia attivi:",
             "type": "stat"
         },
         {
@@ -1883,7 +1883,7 @@
         ]
     },
     "time": {
-        "from": "now-30m",
+        "from": "now-1h",
         "to": "now"
     },
     "timepicker": {},

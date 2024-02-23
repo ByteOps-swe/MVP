@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-#Strategy
+#Pattern Strategy
 class Writer(ABC):
 
     @abstractmethod

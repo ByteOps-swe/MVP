@@ -12,3 +12,9 @@ Per fermare tutti i container
 
 Per connettersi a clichouse con client e ed effettuare query:
 `winpty docker exec -it clickhouse clickhouse-client`
+
+#Pattern
+Simulazioni:
+    -Writers : Strategy, Adapter, Composite 
+    -Simulator: Template method (simulate)
+    -Pool thread: Adpater per la threadpool, Thread pool pattern (non tipico)
