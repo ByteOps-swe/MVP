@@ -1,4 +1,4 @@
-CREATE TABLE innovacity.chargingStation_kafka (
+CREATE TABLE innovacity.chargingStations_kafka (
     timestamp DATETIME64,
     value UInt8,
     latitude Float64,
@@ -12,24 +12,23 @@ CREATE TABLE innovacity.chargingStation_kafka (
     'JSONEachRow'
 );
 
-CREATE TABLE innovacity.chargingStations (
-    timestamp DATETIME64,
-    value UInt8,
-    latitude Float64,
-    longitude Float64,
+
+CREATE TABLE innovacity.chargingStations
+(
     ID_sensore String,
     cella String,
-    PRIMARY KEY (ID_sensore, timestamp)
-) ENGINE = MergeTree()
-ORDER BY
-    (ID_sensore, timestamp);
+    timestamp DateTime,
+    value UInt8,
+    latitude Float64,
+    longitude Float64
+)
+ENGINE = MergeTree()
+ORDER BY (ID_sensore, timestamp);
 
-CREATE MATERIALIZED VIEW chargingStations_sync TO innovacity.chargingStations AS
-SELECT
-    *
-FROM
-    innovacity.chargingStation_kafka;
 
-ALTER TABLE innovacity.chargingStations ADD PROJECTION chStation_sensor_cell_projection (SELECT * ORDER BY cella);
+CREATE MATERIALIZED VIEW mv_chargingStations TO innovacity.chargingStations
+AS SELECT * FROM innovacity.chargingStations_kafka;
 
-ALTER TABLE innovacity.chargingStations MATERIALIZE PROJECTION chStation_sensor_cell_projection;
+ALTER TABLE innovacity.chargingStations ADD PROJECTION chS_sensor_cell_projection (SELECT * ORDER BY cella);
+
+ALTER TABLE innovacity.chargingStations MATERIALIZE PROJECTION chS_sensor_cell_projection;

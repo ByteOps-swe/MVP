@@ -12,24 +12,23 @@ CREATE TABLE innovacity.waterPresence_kafka (
     'JSONEachRow'
 );
 
-CREATE TABLE innovacity.waterPresence(
-    timestamp DATETIME64,
-    value UInt8,
-    latitude Float64,
-    longitude Float64,
+
+CREATE TABLE innovacity.waterPresence
+(
     ID_sensore String,
     cella String,
-    PRIMARY KEY (ID_sensore, timestamp)
-) ENGINE = MergeTree()
-ORDER BY
-    (ID_sensore, timestamp);
+    timestamp DateTime,
+    value UInt8,
+    latitude Float64,
+    longitude Float64
+)
+ENGINE = MergeTree()
+ORDER BY (ID_sensore, timestamp);
 
-CREATE MATERIALIZED VIEW waterPresence_sync TO innovacity.waterPresence AS
-SELECT
-    *
-FROM
-    innovacity.waterPresence_kafka;
 
-ALTER TABLE innovacity.waterPresence ADD PROJECTION waterP_sensor_cell_projection (SELECT * ORDER BY cella);
+CREATE MATERIALIZED VIEW mv_waterPresence TO innovacity.waterPresence
+AS SELECT * FROM innovacity.waterPresence_kafka;
 
-ALTER TABLE innovacity.waterPresence MATERIALIZE PROJECTION waterP_sensor_cell_projection;
+ALTER TABLE innovacity.waterPresence ADD PROJECTION waPr_sensor_cell_projection (SELECT * ORDER BY cella);
+
+ALTER TABLE innovacity.waterPresence MATERIALIZE PROJECTION waPr_sensor_cell_projection;

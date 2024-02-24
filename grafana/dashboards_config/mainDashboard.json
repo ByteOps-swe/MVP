@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 4,
+    "id": 1,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -454,12 +454,14 @@
                 "x": 0,
                 "y": 10
             },
+            "hideTimeOverride": false,
             "id": 2,
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard temperatura",
                 "url": "http://127.0.0.1:3000/d/c5e13615-cb86-466e-862e-d20e0525813c/temperatures-dashboard?orgId=1&var-AggregazioneTemporale=Automatico&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&refresh=5s&var-tmp_sensors_id=All&var-MaxTemperature=100&var-MinTemperature=-100"
             }],
+            "maxDataPoints": 500,
             "options": {
                 "legend": {
                     "calcs": [
@@ -475,25 +477,56 @@
                 }
             },
             "targets": [{
+                "builderOptions": {
+                    "aggregates": [],
+                    "columns": [{
+                        "custom": false,
+                        "name": "timestamp",
+                        "type": "DateTime"
+                    }],
+                    "database": "innovacity",
+                    "filters": [],
+                    "groupBy": [
+                        "time($__interval)"
+                    ],
+                    "limit": 0,
+                    "meta": {},
+                    "mode": "aggregate",
+                    "orderBy": [],
+                    "queryType": "table",
+                    "table": "temperatures"
+                },
                 "datasource": {
                     "type": "grafana-clickhouse-datasource",
                     "uid": "PDEE91DDB90597936"
                 },
                 "editorType": "sql",
+                "expand": true,
                 "format": 1,
                 "meta": {
                     "builderOptions": {
-                        "columns": [],
-                        "database": "",
-                        "limit": 100,
-                        "mode": "list",
+                        "aggregates": [],
+                        "columns": [{
+                            "custom": false,
+                            "name": "timestamp",
+                            "type": "DateTime"
+                        }],
+                        "database": "innovacity",
+                        "filters": [],
+                        "groupBy": [
+                            "time($__interval)"
+                        ],
+                        "limit": 0,
+                        "meta": {},
+                        "mode": "aggregate",
+                        "orderBy": [],
                         "queryType": "table",
-                        "table": ""
+                        "table": "temperatures"
                     }
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": " SELECT ID_sensore, value, timestamp FROM (\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.temperatures\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.temperatures1m\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.temperatures1o\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.temperatures1g\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.temperatures1M\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n            )\r\n        \r\n    GROUP BY timestamp, ID_sensore\r\n) \r\nWHERE\r\n (\r\n        timestamp >= $__fromTime\r\n        AND timestamp <= $__toTime\r\n    )\r\n    AND ID_sensore IN ($tmp_sensors_id)",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.temperatures\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${tmp_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Temperatura",
@@ -589,7 +622,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\n  avgMerge(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella) AND ID_sensore IN ($tmp_sensors_id);\n",
+                "rawSql": "SELECT\n  avg(value) as avgTemperature\nFROM innovacity.temperatures\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  cella IN ($Cella) AND ID_sensore IN ($tmp_sensors_id);\n",
                 "refId": "A"
             }],
             "title": "Temperatura media ",
@@ -685,7 +718,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n  avgMerge(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND cella IN ($Cella) AND ID_sensore IN ($umd_sensors_id);\r\n",
+                "rawSql": "SELECT\r\n  avg(value) as avgUmdity\r\nFROM innovacity.umidities\r\nWHERE  $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($umd_sensors_id);\r\n",
                 "refId": "A"
             }],
             "title": "Umidità media",
@@ -764,6 +797,7 @@
                 "title": "Dashboard umidità",
                 "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&var-AggregazioneTemporale=Automatico&var-MaxUmidity=100&var-MinUmidity=0&var-umd_sensors_id=All"
             }],
+            "maxDataPoints": 600,
             "options": {
                 "legend": {
                     "calcs": [
@@ -797,7 +831,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore, value, timestamp FROM (\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.umidities\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.umidities1m\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.umidities1o\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.umidities1g\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.umidities1M\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n            )\r\n        \r\n    GROUP BY timestamp, ID_sensore\r\n) \r\nWHERE\r\n (\r\n        timestamp >= $__fromTime\r\n        AND timestamp <= $__toTime\r\n    )\r\n    AND ID_sensore IN ($umd_sensors_id)",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.umidities\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${umd_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Umidità",
@@ -893,7 +927,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value( value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value( value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Sensori di soglia non attivi:",
@@ -965,7 +999,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n         last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n         last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Sensori di soglia attivi:",
@@ -1111,7 +1145,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($wp_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Mappa sensori di presenza acqua",
@@ -1270,7 +1304,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine di ricarica",
@@ -1346,7 +1380,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine libere",
@@ -1418,7 +1452,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine occupate",
@@ -1503,28 +1537,7 @@
                     },
                     "unitScale": true
                 },
-                "overrides": [{
-                    "__systemRef": "hideSeriesFrom",
-                    "matcher": {
-                        "id": "byNames",
-                        "options": {
-                            "mode": "exclude",
-                            "names": [
-                                "value EcoIsl2"
-                            ],
-                            "prefix": "All except:",
-                            "readOnly": true
-                        }
-                    },
-                    "properties": [{
-                        "id": "custom.hideFrom",
-                        "value": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": true
-                        }
-                    }]
-                }]
+                "overrides": []
             },
             "gridPos": {
                 "h": 9,
@@ -1572,7 +1585,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore, value, timestamp FROM (\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.ecoIslands\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n            \r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.ecoIslands1m\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.ecoIslands1o\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n        )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.ecoIslands1g\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n    GROUP BY timestamp, ID_sensore\r\n\r\n    UNION ALL\r\n\r\n    SELECT\r\n        ID_sensore AS ID_sensore,\r\n        avgMerge(value) AS value,\r\n        timestamp AS timestamp\r\n    FROM\r\n        innovacity.ecoIslands1M\r\n    WHERE\r\n        cella IN ($Cella)\r\n        AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n            )\r\n        \r\n    GROUP BY timestamp, ID_sensore\r\n) \r\nWHERE\r\n (\r\n        timestamp >= $__fromTime\r\n        AND timestamp <= $__toTime\r\n    )\r\n    AND ID_sensore IN ($ecoIs_sensors_id)",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.ecoIslands\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Isole ecologiche",
@@ -1681,7 +1694,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT ID_sensore,\r\navgMerge(value) as value,\r\nlast_value(timestamp)\r\nFROM innovacity.ecoIslands\r\nWHERE cella IN ($Cella) AND ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) AND  ID_sensore IN ($ecoIs_sensors_id)\r\ngroup by ID_sensore\r\n",
+                "rawSql": "SELECT\r\n    eco.ID_sensore,\r\n    eco.value,\r\n    eco.timestamp\r\nFROM\r\n    innovacity.ecoIslands eco\r\nJOIN (\r\n    SELECT\r\n        ID_sensore,\r\n        MAX(timestamp) AS max_timestamp\r\n    FROM\r\n        innovacity.ecoIslands\r\n    GROUP BY\r\n        ID_sensore\r\n) last_timestamps ON eco.ID_sensore = last_timestamps.ID_sensore AND eco.timestamp = last_timestamps.max_timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Stato riempimento attuale",
@@ -1883,13 +1896,13 @@
         ]
     },
     "time": {
-        "from": "now-1h",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 4,
+    "version": 22,
     "weekStart": ""
 }
