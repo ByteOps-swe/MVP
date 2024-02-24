@@ -18,7 +18,7 @@ CREATE TABLE innovacity.umidities
 (
     ID_sensore String,
     cella String,
-    timestamp DateTime,
+    timestamp DATETIME64,
     value Float32,
     latitude Float64,
     longitude Float64

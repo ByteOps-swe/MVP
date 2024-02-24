@@ -17,7 +17,7 @@ CREATE TABLE innovacity.waterPresence
 (
     ID_sensore String,
     cella String,
-    timestamp DateTime,
+    timestamp DATETIME64,
     value UInt8,
     latitude Float64,
     longitude Float64

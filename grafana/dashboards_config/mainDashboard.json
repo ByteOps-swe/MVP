@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 3,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -459,7 +459,7 @@
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard temperatura",
-                "url": "http://127.0.0.1:3000/d/c5e13615-cb86-466e-862e-d20e0525813c/temperatures-dashboard?orgId=1&var-AggregazioneTemporale=Automatico&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&refresh=5s&var-tmp_sensors_id=All&var-MaxTemperature=100&var-MinTemperature=-100"
+                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&from=1708779969798&to=1708780269798"
             }],
             "maxDataPoints": 500,
             "options": {
@@ -795,7 +795,7 @@
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard umidità",
-                "url": "http://127.0.0.1:3000/d/d2be6403-8e19-423d-a889-0593f2c49fe2/umidity-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&var-Cella=Arcella&var-Cella=Montegrotto&var-AggregazioneTemporale=Automatico&var-MaxUmidity=100&var-MinUmidity=0&var-umd_sensors_id=All"
+                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=umidities&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
             }],
             "maxDataPoints": 600,
             "options": {
@@ -871,8 +871,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -947,8 +946,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "red",
-                            "value": null
+                            "color": "red"
                         }]
                     },
                     "unit": "none",
@@ -1040,8 +1038,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green",
-                            "value": null
+                            "color": "green"
                         }]
                     },
                     "unitScale": true
@@ -1199,8 +1196,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green",
-                            "value": null
+                            "color": "green"
                         }]
                     },
                     "unitScale": true
@@ -1324,8 +1320,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -1400,8 +1395,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "red",
-                            "value": null
+                            "color": "red"
                         }]
                     },
                     "unit": "none",
@@ -1518,8 +1512,7 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "#EAB839",
@@ -1549,7 +1542,7 @@
             "links": [{
                 "targetBlank": true,
                 "title": "Vai alla Dashboard dedicata",
-                "url": "http://127.0.0.1:3000/d/c59c63c5-96b5-4ea7-96ea-54156dbf72c0/ecoisland-dashboard?orgId=1&refresh=5s&var-Cella=Montegrotto&var-umd_sensors_id=All&var-AggregazioneTemporale=Automatico&var-MinRiempimento=0&var-MaxUmidity=100&var-MaxRiempimento=100&from=now-5m&to=now&var-ecoIs_sensors_id=All"
+                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
             }],
             "options": {
                 "legend": {
@@ -1610,8 +1603,7 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "orange",
@@ -1896,13 +1888,13 @@
         ]
     },
     "time": {
-        "from": "now-5m",
+        "from": "now-15m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 22,
+    "version": 3,
     "weekStart": ""
 }

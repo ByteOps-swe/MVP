@@ -1,0 +1,441 @@
+{
+    "annotations": {
+        "list": [{
+            "builtIn": 1,
+            "datasource": {
+                "type": "grafana",
+                "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+        }]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 7,
+    "links": [],
+    "liveNow": false,
+    "panels": [{
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineStyle": {
+                            "fill": "solid"
+                        },
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "always",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-blue",
+                                "value": -20
+                            },
+                            {
+                                "color": "super-light-blue",
+                                "value": 0
+                            },
+                            {
+                                "color": "light-blue",
+                                "value": 10
+                            },
+                            {
+                                "color": "green",
+                                "value": 15
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 30
+                            },
+                            {
+                                "color": "red",
+                                "value": 40
+                            }
+                        ]
+                    },
+                    "unit": "none",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 1,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "expand": true,
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) AS value,\r\n    CASE\r\n        WHEN (\r\n            'Secondo' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        ) THEN toStartOfSecond(timestamp)\r\n        WHEN (\r\n            'Minuto' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )  THEN toStartOfMinute(timestamp)\r\n        WHEN (\r\n            'Ora' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        ) THEN toStartOfHour(timestamp)\r\n        WHEN (\r\n            'Giorno' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        ) THEN toDate(timestamp)\r\n         WHEN (\r\n            'Mese' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        ) THEN toDate(timestamp)\r\n        ELSE timestamp\r\n    END AS timestamp\r\nFROM innovacity.$tabella\r\nWHERE\r\n cella IN ($Cella) \r\n    AND $__timeFilter(timestamp)\r\n    AND ID_sensore IN ($sensors_id)\r\nGROUP BY ID_sensore,timestamp\r\nHAVING\r\n  value >= ($Min)\r\n    AND value <= ($Max)\r\n",
+                "refId": "A"
+            }],
+            "title": "Grafico a linee",
+            "transformations": [{
+                "id": "prepareTimeSeries",
+                "options": {
+                    "format": "multi"
+                }
+            }],
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "color-text"
+                        },
+                        "filterable": true,
+                        "inspect": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 40
+                            }
+                        ]
+                    },
+                    "unit": "none",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 12
+            },
+            "id": 2,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "enablePagination": false,
+                    "fields": [
+                        "value"
+                    ],
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "frameIndex": 1,
+                "showHeader": true,
+                "sortBy": []
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) AS value,\r\n    CASE\r\n        WHEN (\r\n            'Secondo' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) >= 0\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 300\r\n                )\r\n            )\r\n        ) THEN toStartOfSecond(timestamp)\r\n        WHEN (\r\n            'Minuto' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 300\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 3600\r\n                )\r\n            )\r\n        )  THEN toStartOfMinute(timestamp)\r\n        WHEN (\r\n            'Ora' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 3600\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 86400\r\n                )\r\n            )\r\n        ) THEN toStartOfHour(timestamp)\r\n        WHEN (\r\n            'Giorno' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 86400\r\n                    AND (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) <= 2592000\r\n                )\r\n            )\r\n        ) THEN toDate(timestamp)\r\n         WHEN (\r\n            'Mese' = '${AggregazioneTemporale}'\r\n            OR (\r\n                '${AggregazioneTemporale}' = 'Automatico'\r\n                AND (\r\n                    (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000\r\n                )\r\n            )\r\n        ) THEN toDate(timestamp)\r\n        ELSE timestamp\r\n    END AS timestamp\r\nFROM innovacity.$tabella\r\nWHERE\r\n cella IN ($Cella) \r\n    AND $__timeFilter(timestamp)\r\n    AND ID_sensore IN ($sensors_id)\r\nGROUP BY ID_sensore,timestamp\r\nHAVING\r\n  value >= ($Min)\r\n    AND value <= ($Max)\r\n",
+                "refId": "Aggregazione per secondo"
+            }],
+            "title": "Tabella",
+            "transparent": true,
+            "type": "table"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+        "list": [{
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "Arcella",
+                        "Murelle",
+                        "Montegrotto"
+                    ],
+                    "value": [
+                        "Arcella",
+                        "Murelle",
+                        "Montegrotto"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Seleziona cella",
+                "multi": true,
+                "name": "Cella",
+                "options": [],
+                "query": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "temperatures",
+                    "value": "temperatures"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Tipologia misurazioni",
+                "multi": false,
+                "name": "tabella",
+                "options": [{
+                        "selected": true,
+                        "text": "temperatures",
+                        "value": "temperatures"
+                    },
+                    {
+                        "selected": false,
+                        "text": "umidities",
+                        "value": "umidities"
+                    },
+                    {
+                        "selected": false,
+                        "text": "ecoIslands",
+                        "value": "ecoIslands"
+                    }
+                ],
+                "query": "temperatures,umidities,ecoIslands",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "definition": "select distinct ID_sensore from innovacity.$tabella WHERE cella IN ($Cella)",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Seleziona i sensori fonte",
+                "multi": true,
+                "name": "sensors_id",
+                "options": [],
+                "query": "select distinct ID_sensore from innovacity.$tabella WHERE cella IN ($Cella)",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "Automatico",
+                    "value": "Automatico"
+                },
+                "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Aggregazione temporale",
+                "multi": false,
+                "name": "AggregazioneTemporale",
+                "options": [{
+                        "selected": true,
+                        "text": "Automatico",
+                        "value": "Automatico"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Secondo",
+                        "value": "Secondo"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Minuto",
+                        "value": "Minuto"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Ora",
+                        "value": "Ora"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Giorno",
+                        "value": "Giorno"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Mese",
+                        "value": "Mese"
+                    }
+                ],
+                "query": "Automatico,Secondo,Minuto,Ora,Giorno,Mese",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "100",
+                    "value": "100"
+                },
+                "description": "Filtra per misurazioni, inserisci la misurazione massima visualizzabile",
+                "hide": 0,
+                "label": "Misurazione massima",
+                "name": "Max",
+                "options": [{
+                    "selected": true,
+                    "text": "100",
+                    "value": "100"
+                }],
+                "query": "100",
+                "skipUrlSync": false,
+                "type": "textbox"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "-100",
+                    "value": "-100"
+                },
+                "description": "Filtro per misurazioni definisci la misurazione minima da visualizzare.",
+                "hide": 0,
+                "label": "Misurazione minima",
+                "name": "Min",
+                "options": [{
+                    "selected": true,
+                    "text": "-100",
+                    "value": "-100"
+                }],
+                "query": "-100",
+                "skipUrlSync": false,
+                "type": "textbox"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-5m",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Zoom in Dashboard",
+    "uid": "c102cb76-e36e-4fdb-924e-788ff2dfef24",
+    "version": 1,
+    "weekStart": ""
+}
