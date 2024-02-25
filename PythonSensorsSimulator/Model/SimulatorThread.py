@@ -1,9 +1,8 @@
-import threading
-
 from .Simulators.Simulator import Simulator
+from .ComponentSimulatorThread import ComponentSimulatorThread
 
 
-class SimulatorThread(threading.Thread):
+class SimulatorThread(ComponentSimulatorThread):
     __simulator: Simulator = None
 
     def __init__(self, simulator: Simulator):

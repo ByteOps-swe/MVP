@@ -5,10 +5,12 @@ from .Simulators.ChargingStationSimulator import ChargingStationSimulator
 from .Simulators.EcologicalIslandSimulator import EcologicalIslandSimulator
 from .Simulators.WaterPresenceSensor import WaterPresenceSensor
 from .SimulatorThread import SimulatorThread
-from .Writers.CompositeWriter import CompositeWriter
+from .Writers.Writer import Writer
 from .ThreadPoolAdapter.ThreadPoolExecutorAdapter import ThreadPoolExecutorAdapter
+from .ComponentSimulatorThread import ComponentSimulatorThread
 
-class SimulatorExecutorFactory:
+
+class SimulatorExecutorFactory(ComponentSimulatorThread):
     __simulator_executor: SimulatorThreadPool = None
 
     def __init__(self):
@@ -16,7 +18,7 @@ class SimulatorExecutorFactory:
 
     def add_temperature_simulator(
             self,
-            writer: CompositeWriter,
+            writer: Writer,
             latitude: float,
             longitude: float,
             cella: str,
@@ -35,7 +37,7 @@ class SimulatorExecutorFactory:
     
     def add_humidity_simulator(
             self,
-            writer: CompositeWriter,
+            writer: Writer,
             latitude: float,
             longitude: float,
             cella: str,
@@ -54,7 +56,7 @@ class SimulatorExecutorFactory:
     
     def add_chargingStation_simulator(
             self,
-            writer: CompositeWriter,
+            writer: Writer,
             latitude: float,
             longitude: float,
             cella: str,
@@ -73,7 +75,7 @@ class SimulatorExecutorFactory:
     
     def add_ecologicalIsland_simulator(
             self,
-            writer: CompositeWriter,
+            writer: Writer,
             latitude: float,
             longitude: float,
             cella: str,
@@ -92,7 +94,7 @@ class SimulatorExecutorFactory:
 
     def add_waterPresence_simulator(
             self,
-            writer: CompositeWriter,
+            writer: Writer,
             latitude: float,
             longitude: float,
             cella: str,
