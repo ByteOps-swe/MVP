@@ -1,5 +1,7 @@
 import os
 
+from Model.Simulators.SensorFactory import SensorFactory
+
 from Model.SimulatorExecutorFactory import SimulatorExecutorFactory
 from Model.Writers.CompositeWriter import CompositeWriter
 
@@ -34,15 +36,15 @@ symExecAggregator \
 .run()"""
 
 symExecAggregator \
-    .add_temperature_simulator(stdout, 45.398214, 11.851271, "Arcella", 0.01) \
-    .add_temperature_simulator(stdout, 45.388214, 11.691271, "Murelle", 0.01) \
-    .add_temperature_simulator(stdout, 45.348214, 11.751271, "Montegrotto", 0.01) \
-    .add_temperature_simulator(stdout, 45.368214, 11.951271, "Montegrotto", 0.01) \
-    .add_humidity_simulator(stdout, 45.301214, 11.789271, "Arcella", 0.01) \
-    .add_humidity_simulator(stdout, 45.291214, 11.787271, "Montegrotto", 0.01) \
-    .add_chargingStation_simulator(stdout, 45.39214, 11.859271, "Arcella", 0.01) \
-    .add_chargingStation_simulator(stdout, 45.40214, 11.959271, "Montegrotto", 0.01) \
-    .add_ecologicalIsland_simulator(stdout, 45.331214, 11.8901271, "Montegrotto", 0.01) \
-    .add_ecologicalIsland_simulator(stdout, 45.291214, 11.901271, "Murelle", 0.01)  \
-.add_waterPresence_simulator(stdout, 45.591214, 11.879001271,"Murelle", 0.01) \
+    .add_simulator(SensorFactory.create_temperature_sensor(stdout, 45.398214, 11.851271, "Arcella", 0.01)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(stdout, 45.388214, 11.691271, "Murelle", 0.01)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(stdout, 45.348214, 11.751271, "Montegrotto", 0.01)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(stdout, 45.368214, 11.951271, "Montegrotto", 0.01)) \
+    .add_simulator(SensorFactory.create_humidity_sensor(stdout, 45.301214, 11.789271, "Arcella", 0.01)) \
+    .add_simulator(SensorFactory.create_humidity_sensor(stdout, 45.291214, 11.787271, "Montegrotto", 0.01)) \
+    .add_simulator(SensorFactory.create_charging_station_sensor(stdout, 45.39214, 11.859271, "Arcella", 0.01)) \
+    .add_simulator(SensorFactory.create_charging_station_sensor(stdout, 45.40214, 11.959271, "Montegrotto", 0.01)) \
+    .add_simulator(SensorFactory.create_ecological_island_sensor(stdout, 45.331214, 11.8901271, "Montegrotto", 0.01)) \
+    .add_simulator(SensorFactory.create_ecological_island_sensor(stdout, 45.291214, 11.901271, "Murelle", 0.01))  \
+    .add_simulator(SensorFactory.create_water_presence_sensor(stdout, 45.591214, 11.879001271,"Murelle", 0.01)) \
 .run()

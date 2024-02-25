@@ -18,3 +18,4 @@ Simulazioni:
     -Writers : Strategy, Adapter, Composite 
     -Simulator: Template method (simulate)
     -Pool thread: Adpater per la threadpool, Thread pool pattern (non tipico)
+    -SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
