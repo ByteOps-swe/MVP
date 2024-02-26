@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from .Incrementer import Incrementer
 
 class HumidityIncrementer(Incrementer):

@@ -1,15 +1,15 @@
 class MisurazioneSalute:
     def __init__(self, timestamp, value, type_, cella):
-        self.timestamp = timestamp
-        self.value = value
-        self.type = type_
-        self.cella = cella
+        self.__timestamp = timestamp
+        self.__value = value
+        self.__type = type_
+        self.__cella = cella
 
 
     def to_json(self):
         return {
-            "timestamp": str(self.timestamp),
-            "value": self.value,
-            "type": self.type,
-            "cella": self.cella
+            "timestamp": str(self.__timestamp),
+            "value": self.__value,
+            "type": self.__type,
+            "cella": self.__cella
         }
