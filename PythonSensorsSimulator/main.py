@@ -36,15 +36,16 @@ symExecAggregator \
 .run()"""
 
 symExecAggregator \
-    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.398214, 11.851271, "Arcella", 0.01)) \
-    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.388214, 11.691271, "Murelle", 0.01)) \
-    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.348214, 11.751271, "Montegrotto", 0.01)) \
-    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.368214, 11.951271, "Montegrotto", 0.01)) \
-    .add_simulator(SensorFactory.create_humidity_sensor(umd_writers, 45.301214, 11.789271, "Arcella", 0.01)) \
-    .add_simulator(SensorFactory.create_humidity_sensor(umd_writers, 45.291214, 11.787271, "Montegrotto", 0.01)) \
-    .add_simulator(SensorFactory.create_charging_station_sensor(chS_writers, 45.39214, 11.859271, "Arcella", 0.01)) \
-    .add_simulator(SensorFactory.create_charging_station_sensor(chS_writers, 45.40214, 11.959271, "Montegrotto", 0.01)) \
-    .add_simulator(SensorFactory.create_ecological_island_sensor(ecoIs_writers, 45.331214, 11.8901271, "Montegrotto", 0.01)) \
-    .add_simulator(SensorFactory.create_ecological_island_sensor(ecoIs_writers, 45.291214, 11.901271, "Murelle", 0.01))  \
-.add_simulator(SensorFactory.create_water_presence_sensor(waPr_writers, 45.591214, 11.879001271,"Murelle", 0.01)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.398214, 11.851271, "Arcella", 2)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.388214, 11.691271, "Murelle", 2)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.348214, 11.751271, "Montegrotto", 2)) \
+    .add_simulator(SensorFactory.create_temperature_sensor(temp_writers, 45.368214, 11.951271, "Montegrotto", 2)) \
+    .add_simulator(SensorFactory.create_humidity_sensor(umd_writers, 45.301214, 11.789271, "Arcella", 2)) \
+    .add_simulator(SensorFactory.create_humidity_sensor(umd_writers, 45.291214, 11.787271, "Montegrotto", 2)) \
+    .add_simulator(SensorFactory.create_charging_station_sensor(chS_writers, 45.39214, 11.859271, "Arcella", 2)) \
+    .add_simulator(SensorFactory.create_charging_station_sensor(chS_writers, 45.40214, 11.959271, "Montegrotto", 2)) \
+    .add_simulator(SensorFactory.create_ecological_island_sensor(ecoIs_writers, 45.331214, 11.8901271, "Montegrotto", 2)) \
+    .add_simulator(SensorFactory.create_ecological_island_sensor(ecoIs_writers, 45.291214, 11.901271, "Murelle", 2))  \
+.add_simulator(SensorFactory.create_water_presence_sensor(waPr_writers, 45.591214, 11.879001271,"Murelle", 2)) \
 .run()
+
