@@ -73,6 +73,8 @@ services:
     build:
       context: ./FaustProcessing
     hostname: processors
+    ports:
+      - "6066:6066"
     container_name: processors
     environment:
       KAFKA_HOST: "kafka"

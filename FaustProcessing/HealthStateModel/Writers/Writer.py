@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from ..Simulators.Misurazione import Misurazione
+from ..MisurazioneSalute import MisurazioneSalute
 
 #Pattern Strategy
 class Writer(ABC):
 
     @abstractmethod
-    def write(self, to_write: Misurazione) -> None:
+    def write(self, to_write: MisurazioneSalute) -> None:
         pass

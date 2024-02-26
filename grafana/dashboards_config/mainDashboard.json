@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 2,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -69,7 +69,7 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 24,
+                "w": 20,
                 "x": 0,
                 "y": 0
             },
@@ -373,6 +373,82 @@
                 }
             ],
             "type": "geomap"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 4,
+                "x": 20,
+                "y": 0
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.3.3",
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT\r\n   avg( score.value)\r\nFROM\r\n    innovacity.healthScore score\r\nJOIN (\r\n    SELECT\r\n        MAX(timestamp) AS max_timestamp,\r\n        cella\r\n    FROM\r\n        innovacity.healthScore\r\n    GROUP BY\r\n        cella\r\n) last_timestamps ON score.cella = last_timestamps.cella AND score.timestamp = last_timestamps.max_timestamp\r\nwhere cella In (${Cella})\r\n",
+                "refId": "A"
+            }],
+            "title": "Punteggio di salute",
+            "type": "stat"
         },
         {
             "collapsed": false,
@@ -871,7 +947,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "red",
@@ -889,7 +966,7 @@
                 "x": 0,
                 "y": 30
             },
-            "id": 23,
+            "id": 25,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -946,7 +1023,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "red"
+                            "color": "red",
+                            "value": null
                         }]
                     },
                     "unit": "none",
@@ -1038,7 +1116,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green"
+                            "color": "green",
+                            "value": null
                         }]
                     },
                     "unitScale": true
@@ -1196,7 +1275,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green"
+                            "color": "green",
+                            "value": null
                         }]
                     },
                     "unitScale": true
@@ -1320,7 +1400,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "red",
@@ -1395,7 +1476,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "red"
+                            "color": "red",
+                            "value": null
                         }]
                     },
                     "unit": "none",
@@ -1512,7 +1594,8 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "#EAB839",
@@ -1603,7 +1686,8 @@
                     "thresholds": {
                         "mode": "percentage",
                         "steps": [{
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "orange",
@@ -1703,13 +1787,13 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "Arcella",
                         "Montegrotto",
+                        "Arcella",
                         "Murelle"
                     ],
                     "value": [
-                        "Arcella",
                         "Montegrotto",
+                        "Arcella",
                         "Murelle"
                     ]
                 },
@@ -1735,14 +1819,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "Tmp1",
-                        "Tmp2",
-                        "Tmp3"
+                        "All"
                     ],
                     "value": [
-                        "Tmp1",
-                        "Tmp2",
-                        "Tmp3"
+                        "$__all"
                     ]
                 },
                 "datasource": {
@@ -1768,12 +1848,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "Umd1",
-                        "Umd2"
+                        "All"
                     ],
                     "value": [
-                        "Umd1",
-                        "Umd2"
+                        "$__all"
                     ]
                 },
                 "datasource": {
@@ -1799,12 +1877,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "EcoIsl1",
-                        "EcoIsl2"
+                        "All"
                     ],
                     "value": [
-                        "EcoIsl1",
-                        "EcoIsl2"
+                        "$__all"
                     ]
                 },
                 "datasource": {
@@ -1830,12 +1906,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "ChS1",
-                        "ChS2"
+                        "All"
                     ],
                     "value": [
-                        "ChS1",
-                        "ChS2"
+                        "$__all"
                     ]
                 },
                 "datasource": {
@@ -1895,6 +1969,6 @@
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 3,
+    "version": 2,
     "weekStart": ""
 }
