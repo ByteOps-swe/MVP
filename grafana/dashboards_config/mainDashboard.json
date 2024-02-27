@@ -168,7 +168,7 @@
                             "fillOpacity": 0.4,
                             "iconSize": 15,
                             "pinShape": "bubble",
-                            "selectIcon": "",
+                            "selectIcon": "fa-sun-o",
                             "shape": "circle",
                             "showLegend": false,
                             "showPin": true,
@@ -278,7 +278,7 @@
                             "fillOpacity": 0.4,
                             "iconSize": 15,
                             "pinShape": "marker",
-                            "selectIcon": "",
+                            "selectIcon": "fa-soundcloud",
                             "shape": "circle",
                             "showLegend": true,
                             "showPin": true,
@@ -865,7 +865,7 @@
             "links": [{
                 "targetBlank": true,
                 "title": "Dashboard temperatura",
-                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&from=1708779969798&to=1708780269798"
+                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=temperatures&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
             }],
             "maxDataPoints": 500,
             "options": {
@@ -1554,8 +1554,8 @@
             "id": 36,
             "links": [{
                 "targetBlank": true,
-                "title": "Dashboard umidità",
-                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=umidities&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+                "title": "Dashboard polveri sottili",
+                "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
             }],
             "maxDataPoints": 600,
             "options": {
@@ -1888,7 +1888,7 @@
             "id": 18,
             "links": [{
                 "targetBlank": true,
-                "title": "Vai alla Dashboard dedicata",
+                "title": "Dashboard isole ecologiche",
                 "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
             }],
             "options": {
@@ -3133,16 +3133,16 @@
         "list": [{
                 "allValue": "Citta completa",
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": [
-                        "Murelle",
+                        "Arcella",
                         "Montegrotto",
-                        "Arcella"
+                        "Murelle"
                     ],
                     "value": [
-                        "Murelle",
+                        "Arcella",
                         "Montegrotto",
-                        "Arcella"
+                        "Murelle"
                     ]
                 },
                 "datasource": {
@@ -3165,16 +3165,16 @@
             },
             {
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": [
+                        "Tmp1",
                         "Tmp2",
-                        "Tmp3",
-                        "Tmp1"
+                        "Tmp3"
                     ],
                     "value": [
+                        "Tmp1",
                         "Tmp2",
-                        "Tmp3",
-                        "Tmp1"
+                        "Tmp3"
                     ]
                 },
                 "datasource": {
@@ -3337,12 +3337,14 @@
             },
             {
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": [
-                        "All"
+                        "GstE2",
+                        "GstE1"
                     ],
                     "value": [
-                        "$__all"
+                        "GstE2",
+                        "GstE1"
                     ]
                 },
                 "datasource": {
@@ -3366,7 +3368,7 @@
         ]
     },
     "time": {
-        "from": "now-6h",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
