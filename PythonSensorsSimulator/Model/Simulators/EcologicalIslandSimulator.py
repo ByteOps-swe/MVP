@@ -11,7 +11,7 @@ class EcologicalIslandSimulator(Simulator):
         self.__min_fill_percentage = 10  
         self.__fill_rate = 5  
         super().__init__(writer, latitude, longitude,cella,
-                         f"EcoIsl{EcologicalIslandSimulator.__count}", frequency_in_s,initial_fill_percentage,"EcologicalIslandSimulator")
+                         f"EcoIsl{EcologicalIslandSimulator.__count}", frequency_in_s,initial_fill_percentage,"EcologicalIsland")
 
     def _generate_measure(self):
         self._misurazione += random.uniform(-self.__fill_rate, self.__fill_rate)

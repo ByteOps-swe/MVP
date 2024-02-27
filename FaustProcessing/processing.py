@@ -4,7 +4,7 @@ from HealthStateModel.HealthCalculator import HealthCalculator
 from HealthStateModel.HealthCalculatorThread import HealthCalculatorThread
 from HealthStateModel.Writers.CompositeWriter import CompositeWriter
 
-healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092")
+healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092").add_stdOut_writer()
 healthCalculator = HealthCalculator(healthWriter)
 healthThread  = HealthCalculatorThread(healthCalculator)
 
@@ -28,6 +28,8 @@ topic = app.topic(temperature_topic, value_type=Measurement)
 async def process(measurements):
     async for measurement in measurements:
         healthCalculator.add_misurazione(measurement.timestamp, measurement.value, measurement.type, measurement.latitude, measurement.longitude, measurement.ID_sensore, measurement.cella)
+        #healthCalculator.generate_new_health_score()
 
+healthThread.start()
 app.main()
-healthThread.run()
+

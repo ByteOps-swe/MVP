@@ -15,8 +15,6 @@ class Simulator(ABC):
     __longitude: float
     __type = str
     
-
-
     def __init__(self, writers: Writer, latitude: float, longitude: float, cella: str, sensor_id: str, frequency_in_s: int = 10, misurazione = 0, type =""):
         self.__writers = writers
         self.__frequency = frequency_in_s

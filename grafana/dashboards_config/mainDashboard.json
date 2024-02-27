@@ -17,10 +17,84 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 1,
     "links": [],
     "liveNow": true,
     "panels": [{
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 50
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 2,
+                "x": 0,
+                "y": 0
+            },
+            "id": 30,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "Cella"
+            },
+            "targets": [{
+                "datasource": {
+                    "type": "grafana-clickhouse-datasource",
+                    "uid": "PDEE91DDB90597936"
+                },
+                "editorType": "sql",
+                "format": 1,
+                "meta": {
+                    "builderOptions": {
+                        "columns": [],
+                        "database": "",
+                        "limit": 1000,
+                        "mode": "list",
+                        "queryType": "table",
+                        "table": ""
+                    }
+                },
+                "pluginVersion": "4.0.2",
+                "queryType": "table",
+                "rawSql": "SELECT cella, argMax(value,timestamp) from innovacity.healthScore group by cella",
+                "refId": "A"
+            }],
+            "type": "volkovlabs-variable-panel"
+        },
+        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -69,8 +143,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 20,
-                "x": 0,
+                "w": 18,
+                "x": 2,
                 "y": 0
             },
             "id": 4,
@@ -468,6 +542,128 @@
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
             },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#6ED0E0",
+                                "value": -10
+                            },
+                            {
+                                "color": "blue",
+                                "value": 0
+                            },
+                            {
+                                "color": "green",
+                                "value": 20
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 35
+                            },
+                            {
+                                "color": "red",
+                                "value": 40
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 3,
+                "x": 0,
+                "y": 10
+            },
+            "id": 26,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "groups": [{
+                    "items": [{
+                            "name": "Cella",
+                            "source": "B"
+                        },
+                        {
+                            "name": "tmp_sensors_id",
+                            "source": "B"
+                        }
+                    ],
+                    "name": "Tree"
+                }],
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tmp_sensors_id"
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore as tmp_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.temperatures\r\nGROUP BY \r\n    ID_sensore\r\n",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT distinct ID_sensore as tmp_sensors_id , cella as Cella from innovacity.temperatures",
+                    "refId": "B"
+                }
+            ],
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
             "description": "Temperatura nel tempo",
             "fieldConfig": {
                 "defaults": {
@@ -526,8 +722,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 19,
-                "x": 0,
+                "w": 17,
+                "x": 3,
                 "y": 10
             },
             "hideTimeOverride": false,
@@ -656,9 +852,9 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 9,
-                "w": 5,
-                "x": 19,
+                "h": 8,
+                "w": 4,
+                "x": 20,
                 "y": 10
             },
             "id": 6,
@@ -707,17 +903,122 @@
             "type": "stat"
         },
         {
-            "collapsed": false,
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "blue",
+                                "value": 0
+                            },
+                            {
+                                "color": "green",
+                                "value": 40
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 60
+                            },
+                            {
+                                "color": "red",
+                                "value": 70
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
             "gridPos": {
-                "h": 1,
-                "w": 24,
+                "h": 9,
+                "w": 3,
                 "x": 0,
                 "y": 19
             },
-            "id": 9,
-            "panels": [],
-            "title": "Dati umidità",
-            "type": "row"
+            "id": 27,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "groups": [{
+                    "items": [{
+                            "name": "Cella",
+                            "source": "B"
+                        },
+                        {
+                            "name": "umd_sensors_id",
+                            "source": "B"
+                        }
+                    ],
+                    "name": "Tree"
+                }],
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tmp_sensors_id"
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore as umd_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.umidities\r\nGROUP BY \r\n    ID_sensore\r\n",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT distinct ID_sensore as umd_sensors_id , cella as Cella from innovacity.umidities",
+                    "refId": "B"
+                }
+            ],
+            "type": "volkovlabs-variable-panel"
         },
         {
             "datasource": {
@@ -753,9 +1054,9 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 5,
-                "x": 0,
-                "y": 20
+                "w": 4,
+                "x": 3,
+                "y": 19
             },
             "id": 10,
             "options": {
@@ -798,6 +1099,7 @@
                 "refId": "A"
             }],
             "title": "Umidità media",
+            "transparent": true,
             "type": "stat"
         },
         {
@@ -863,9 +1165,9 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 19,
-                "x": 5,
-                "y": 20
+                "w": 17,
+                "x": 7,
+                "y": 19
             },
             "id": 11,
             "links": [{
@@ -926,12 +1228,131 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
+                "y": 28
+            },
+            "id": 9,
+            "panels": [],
+            "title": "Dati umidità",
+            "type": "row"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
                 "y": 29
             },
             "id": 22,
             "panels": [],
             "title": "Sensori di presenza acqua",
             "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 3,
+                "x": 0,
+                "y": 30
+            },
+            "id": 28,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "groups": [{
+                    "items": [{
+                            "name": "Cella",
+                            "source": "B"
+                        },
+                        {
+                            "name": "wp_sensors_id",
+                            "source": "B"
+                        }
+                    ],
+                    "name": "Tree"
+                }],
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tmp_sensors_id"
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore as wp_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.waterPresence\r\nGROUP BY \r\n    ID_sensore\r\n",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT distinct ID_sensore as wp_sensors_id , cella as Cella from innovacity.waterPresence",
+                    "refId": "B"
+                }
+            ],
+            "type": "volkovlabs-variable-panel"
         },
         {
             "datasource": {
@@ -962,8 +1383,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 4,
-                "x": 0,
+                "w": 3,
+                "x": 3,
                 "y": 30
             },
             "id": 25,
@@ -1003,7 +1424,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value( value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        argMax(value,timestamp) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore)\r\n) last_values\r\nWHERE last_values.last_value = 0\r\n",
                 "refId": "A"
             }],
             "title": "Sensori di soglia non attivi:",
@@ -1034,8 +1455,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 4,
-                "x": 4,
+                "w": 3,
+                "x": 6,
                 "y": 30
             },
             "id": 24,
@@ -1075,7 +1496,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n         last_value(value) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*) as numeroAcquaRilevata\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        argMax(value,timestamp) AS last_value\r\n    FROM innovacity.waterPresence\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\n    GROUP BY (ID_sensore)\r\n) last_values\r\nWHERE last_values.last_value = 1\r\n",
                 "refId": "A"
             }],
             "title": "Sensori di soglia attivi:",
@@ -1126,8 +1547,8 @@
             },
             "gridPos": {
                 "h": 9,
-                "w": 16,
-                "x": 8,
+                "w": 15,
+                "x": 9,
                 "y": 30
             },
             "id": 21,
@@ -1221,7 +1642,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Sensore presenza acqua' as Tipo,\r\n    argMax(value,timestamp) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.waterPresence\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($wp_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Mappa sensori di presenza acqua",
@@ -1239,6 +1660,112 @@
             "panels": [],
             "title": "Colonnine di ricarica",
             "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 1
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 3,
+                "x": 0,
+                "y": 40
+            },
+            "id": 29,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "groups": [{
+                    "items": [{
+                            "name": "Cella",
+                            "source": "B"
+                        },
+                        {
+                            "name": "colRic_sensors_id",
+                            "source": "B"
+                        }
+                    ],
+                    "name": "Tree"
+                }],
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tmp_sensors_id"
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore as colRic_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.chargingStations\r\nGROUP BY \r\n    ID_sensore\r\n",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT distinct ID_sensore as colRic_sensors_id , cella as Cella from innovacity.chargingStations",
+                    "refId": "B"
+                }
+            ],
+            "type": "volkovlabs-variable-panel"
         },
         {
             "datasource": {
@@ -1284,9 +1811,9 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 16,
-                "x": 0,
+                "h": 9,
+                "w": 15,
+                "x": 3,
                 "y": 40
             },
             "id": 12,
@@ -1380,7 +1907,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    last_value(value) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
+                "rawSql": "SELECT\r\n    ID_sensore,\r\n    'Colonnina di ricarica' as Tipo,\r\n    argMax(value,timestamp) AS last_value,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.chargingStations\r\nWHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\nGROUP BY (ID_sensore);\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine di ricarica",
@@ -1414,9 +1941,9 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 4,
-                "x": 16,
+                "h": 9,
+                "w": 3,
+                "x": 18,
                 "y": 40
             },
             "id": 14,
@@ -1456,7 +1983,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 0 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n    ID_sensore,\r\n    argMax(value,timestamp) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore)\r\n) last_values\r\nWHERE last_values.last_value = 0 \r\n",
                 "refId": "A"
             }],
             "title": "Colonnine libere",
@@ -1486,9 +2013,9 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 4,
-                "x": 20,
+                "h": 9,
+                "w": 3,
+                "x": 21,
                 "y": 40
             },
             "id": 15,
@@ -1528,7 +2055,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n        cella,\r\n        last_value(value) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore,cella)\r\n) last_values\r\nWHERE last_values.last_value = 1 AND cella IN ($Cella);\r\n",
+                "rawSql": "SELECT\r\n    count(*)\r\nFROM (\r\n    SELECT\r\n        ID_sensore,\r\n    argMax(value,timestamp) AS last_value\r\n    FROM innovacity.chargingStations\r\n    WHERE cella IN ($Cella) AND  $__timeFilter(timestamp) AND ID_sensore IN ($colRic_sensors_id)\r\n    GROUP BY (ID_sensore)\r\n) last_values\r\nWHERE last_values.last_value = 1\r\n",
                 "refId": "A"
             }],
             "title": "Colonnine occupate",
@@ -1540,12 +2067,126 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 48
+                "y": 49
             },
             "id": 16,
             "panels": [],
             "title": "Isole ecologiche",
             "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "super-light-yellow",
+                                "value": 50
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 60
+                            },
+                            {
+                                "color": "red",
+                                "value": 70
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 3,
+                "x": 0,
+                "y": 50
+            },
+            "id": 31,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "groups": [{
+                    "items": [{
+                            "name": "Cella",
+                            "source": "B"
+                        },
+                        {
+                            "name": "ecoIs_sensors_id",
+                            "source": "B"
+                        }
+                    ],
+                    "name": "Tree"
+                }],
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tmp_sensors_id"
+            },
+            "targets": [{
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT \r\n    ID_sensore as ecoIs_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.ecoIslands\r\nGROUP BY \r\n    ID_sensore\r\n",
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-clickhouse-datasource",
+                        "uid": "PDEE91DDB90597936"
+                    },
+                    "editorType": "sql",
+                    "format": 1,
+                    "hide": false,
+                    "meta": {
+                        "builderOptions": {
+                            "columns": [],
+                            "database": "",
+                            "limit": 1000,
+                            "mode": "list",
+                            "queryType": "table",
+                            "table": ""
+                        }
+                    },
+                    "pluginVersion": "4.0.2",
+                    "queryType": "table",
+                    "rawSql": "SELECT distinct ID_sensore as ecoIs_sensors_id , cella as Cella from innovacity.ecoIslands",
+                    "refId": "B"
+                }
+            ],
+            "type": "volkovlabs-variable-panel"
         },
         {
             "datasource": {
@@ -1618,8 +2259,8 @@
             "gridPos": {
                 "h": 9,
                 "w": 14,
-                "x": 0,
-                "y": 49
+                "x": 3,
+                "y": 50
             },
             "id": 18,
             "links": [{
@@ -1705,10 +2346,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 10,
-                "x": 14,
-                "y": 49
+                "h": 9,
+                "w": 7,
+                "x": 17,
+                "y": 50
             },
             "id": 19,
             "options": {
@@ -1785,7 +2426,7 @@
         "list": [{
                 "allValue": "Citta completa",
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": [
                         "Montegrotto",
                         "Arcella",
@@ -1802,7 +2443,7 @@
                     "uid": "PDEE91DDB90597936"
                 },
                 "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures\n    UNION ALL\n    SELECT cella FROM innovacity.umidities\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence\n)",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": false,
                 "label": "Seleziona cella",
                 "multi": true,
@@ -1831,7 +2472,7 @@
                 },
                 "definition": "select distinct ID_sensore from innovacity.temperatures WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori di temperatura da includere nella Dashboard.",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": true,
                 "label": "Sensori di temperatura",
                 "multi": true,
@@ -1860,7 +2501,7 @@
                 },
                 "definition": "select distinct ID_sensore from innovacity.umidities WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori di umidità da includere nella Dashboard",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": true,
                 "label": "Sensori di umidità",
                 "multi": true,
@@ -1889,7 +2530,7 @@
                 },
                 "definition": "select distinct ID_sensore from innovacity.ecoIslands WHERE cella IN ($Cella)",
                 "description": "Seleziona i sensori delle isole ecologiche da visualizzare nella Dashboard.",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": true,
                 "label": "Sensori isole ecologiche",
                 "multi": true,
@@ -1918,7 +2559,7 @@
                 },
                 "definition": "select distinct ID_sensore from innovacity.chargingStations WHERE cella IN ($Cella)",
                 "description": "Seleziona le colonnine di ricarica da visualizzare nella Dashboard",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": true,
                 "label": "Colonnine di ricarica",
                 "multi": true,
@@ -1935,10 +2576,10 @@
                 "current": {
                     "selected": true,
                     "text": [
-                        "Wp1"
+                        "All"
                     ],
                     "value": [
-                        "Wp1"
+                        "$__all"
                     ]
                 },
                 "datasource": {
@@ -1946,8 +2587,8 @@
                     "uid": "PDEE91DDB90597936"
                 },
                 "definition": "select distinct ID_sensore from innovacity.waterPresence WHERE cella IN ($Cella)",
-                "hide": 0,
-                "includeAll": false,
+                "hide": 2,
+                "includeAll": true,
                 "label": "Sensori presenza acqua",
                 "multi": true,
                 "name": "wp_sensors_id",
@@ -1962,13 +2603,13 @@
         ]
     },
     "time": {
-        "from": "now-15m",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Innovacity Dashboard",
     "uid": "c702952f-5e6a-4911-b003-a97eb331f272",
-    "version": 2,
+    "version": 17,
     "weekStart": ""
 }

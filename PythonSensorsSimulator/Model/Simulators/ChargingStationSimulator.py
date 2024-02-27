@@ -9,7 +9,7 @@ class ChargingStationSimulator(Simulator):
         ChargingStationSimulator.__count += 1
         self.__transition_probability = 0.1
         super().__init__(writer, latitude, longitude,cella,
-                         f"ChS{ChargingStationSimulator.__count}", frequency_in_s,initial_probability_occupied,"ChargingStationSimulator")
+                         f"ChS{ChargingStationSimulator.__count}", frequency_in_s,initial_probability_occupied,"ChargingStation")
 
     def _generate_measure(self):
         if self._misurazione:

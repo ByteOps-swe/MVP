@@ -21,7 +21,7 @@ class HealthCalculator():
     
     def generate_new_health_score(self):
         for cella in self.__listaMisurazioni.get_unique_celle():
-            punteggio_cella = self.__tmpInc.get_incrementation(self.__listaMisurazioni.get_list_by_cella_and_type(cella,HealthCalculator.temperature_measure_type_naming)) 
+            punteggio_cella = self.__tmpInc.get_incrementation(self.__listaMisurazioni.get_list_by_cella_and_type(cella, self.__temperature_measure_type_naming)) 
             self.__writers.write(MisurazioneSalute(datetime.now(), punteggio_cella , self.__healthScore_measure_type_naming, cella))
             self.__listaMisurazioni.clear_list()
     
