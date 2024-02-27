@@ -37,8 +37,8 @@ symExecAggregator \
     .add_simulator(SensorFactory.create_ecological_island_sensor(ecoIs_writers, 45.291214, 11.901271, "Murelle", 1))  \
     .add_simulator(SensorFactory.create_dust_PM10_sensor(dust_writers, 45.272214, 11.931271, "Murelle", 1))  \
     .add_simulator(SensorFactory.create_dust_PM10_sensor(dust_writers, 45.282314, 11.921271, "Montegrotto", 1))  \
-    .add_simulator(SensorFactory.create_eletrical_fault_sensor(dust_writers, 45.268214, 11.931271, "Murelle", 10))  \
-    .add_simulator(SensorFactory.create_eletrical_fault_sensor(dust_writers, 45.279114, 11.891271, "Montegrotto", 10))  \
+    .add_simulator(SensorFactory.create_eletrical_fault_sensor(eletricalFault_writers, 45.268214, 11.931271, "Murelle", 10))  \
+    .add_simulator(SensorFactory.create_eletrical_fault_sensor(eletricalFault_writers, 45.279114, 11.891271, "Montegrotto", 10))  \
 .add_simulator(SensorFactory.create_water_presence_sensor(waPr_writers, 45.591214, 11.879001271,"Murelle", 2)) \
 .run()
 

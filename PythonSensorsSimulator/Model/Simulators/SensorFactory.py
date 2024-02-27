@@ -3,6 +3,9 @@ from .HumiditySimulator import HumiditySimulator
 from .ChargingStationSimulator import ChargingStationSimulator
 from .EcologicalIslandSimulator import EcologicalIslandSimulator
 from .WaterPresenceSensor import WaterPresenceSensor
+from .ElectricalFaultSimulator import ElectricalFaultSimulator
+from .DustPM10Simulator import DustPM10Simulator
+
 from ..Writers.Writer import Writer
 
 class SensorFactory:
@@ -28,9 +31,9 @@ class SensorFactory:
 
     @staticmethod
     def create_dust_PM10_sensor(writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_value=20):
-        return WaterPresenceSensor(writer, latitude, longitude, cella, frequency_in_s, initial_value)
+        return DustPM10Simulator(writer, latitude, longitude, cella, frequency_in_s, initial_value)
 
     @staticmethod
     def create_eletrical_fault_sensor(writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, fault_probability=0.5):
-        return WaterPresenceSensor(writer, latitude, longitude, cella, frequency_in_s, fault_probability)
+        return ElectricalFaultSimulator(writer, latitude, longitude, cella, frequency_in_s, fault_probability)
 
