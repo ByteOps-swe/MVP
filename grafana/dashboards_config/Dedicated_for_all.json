@@ -16,10 +16,298 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 7,
+    "id": 1,
     "links": [],
     "liveNow": false,
     "panels": [{
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 3,
+                "x": 0,
+                "y": 0
+            },
+            "id": 3,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "Cella"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 3,
+                "x": 3,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "tabella"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 6,
+                "y": 0
+            },
+            "id": 5,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": true,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": true,
+                "sticky": false,
+                "variable": "sensors_id"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 5,
+                "x": 12,
+                "y": 0
+            },
+            "id": 6,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": true,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": true,
+                "sticky": false,
+                "variable": "AggregazioneTemporale"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 6,
+                "x": 17,
+                "y": 0
+            },
+            "id": 8,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "Min"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
+            "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 6,
+                "x": 17,
+                "y": 4
+            },
+            "id": 7,
+            "options": {
+                "alwaysVisibleFilter": false,
+                "autoScroll": false,
+                "displayMode": "table",
+                "emptyValue": false,
+                "favorites": false,
+                "filter": false,
+                "groupSelection": false,
+                "header": true,
+                "padding": 10,
+                "persistent": false,
+                "showName": false,
+                "statusSort": false,
+                "sticky": false,
+                "variable": "Max"
+            },
+            "type": "volkovlabs-variable-panel"
+        },
+        {
             "datasource": {
                 "type": "grafana-clickhouse-datasource",
                 "uid": "PDEE91DDB90597936"
@@ -107,7 +395,7 @@
                 "h": 12,
                 "w": 24,
                 "x": 0,
-                "y": 0
+                "y": 8
             },
             "id": 1,
             "options": {
@@ -196,7 +484,7 @@
                 "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 12
+                "y": 20
             },
             "id": 2,
             "options": {
@@ -266,14 +554,14 @@
                     "type": "grafana-clickhouse-datasource",
                     "uid": "PDEE91DDB90597936"
                 },
-                "definition": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
-                "hide": 0,
+                "definition": "SELECT DISTINCT cella\nFROM innovacity.$tabella",
+                "hide": 2,
                 "includeAll": false,
                 "label": "Seleziona cella",
                 "multi": true,
                 "name": "Cella",
                 "options": [],
-                "query": "SELECT DISTINCT cella\nFROM innovacity.temperatures",
+                "query": "SELECT DISTINCT cella\nFROM innovacity.$tabella",
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -283,31 +571,36 @@
             {
                 "current": {
                     "selected": false,
-                    "text": "temperatures",
+                    "text": "Temperatura",
                     "value": "temperatures"
                 },
-                "hide": 0,
+                "hide": 2,
                 "includeAll": false,
                 "label": "Tipologia misurazioni",
                 "multi": false,
                 "name": "tabella",
                 "options": [{
                         "selected": true,
-                        "text": "temperatures",
+                        "text": "Temperatura",
                         "value": "temperatures"
                     },
                     {
                         "selected": false,
-                        "text": "umidities",
+                        "text": "Umdità",
                         "value": "umidities"
                     },
                     {
                         "selected": false,
-                        "text": "ecoIslands",
+                        "text": "Isole ecologiche",
                         "value": "ecoIslands"
+                    },
+                    {
+                        "selected": false,
+                        "text": "Polveri Sottili",
+                        "value": "dustPM10"
                     }
                 ],
-                "query": "temperatures,umidities,ecoIslands",
+                "query": "Temperatura : temperatures, Umdità : umidities, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
                 "queryValue": "",
                 "skipUrlSync": false,
                 "type": "custom"
@@ -327,7 +620,7 @@
                     "uid": "PDEE91DDB90597936"
                 },
                 "definition": "select distinct ID_sensore from innovacity.$tabella WHERE cella IN ($Cella)",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": true,
                 "label": "Seleziona i sensori fonte",
                 "multi": true,
@@ -347,7 +640,7 @@
                     "value": "Automatico"
                 },
                 "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
-                "hide": 0,
+                "hide": 2,
                 "includeAll": false,
                 "label": "Aggregazione temporale",
                 "multi": false,
@@ -395,7 +688,7 @@
                     "value": "100"
                 },
                 "description": "Filtra per misurazioni, inserisci la misurazione massima visualizzabile",
-                "hide": 0,
+                "hide": 2,
                 "label": "Misurazione massima",
                 "name": "Max",
                 "options": [{
@@ -414,7 +707,7 @@
                     "value": "-100"
                 },
                 "description": "Filtro per misurazioni definisci la misurazione minima da visualizzare.",
-                "hide": 0,
+                "hide": 2,
                 "label": "Misurazione minima",
                 "name": "Min",
                 "options": [{
@@ -436,6 +729,6 @@
     "timezone": "",
     "title": "Zoom in Dashboard",
     "uid": "c102cb76-e36e-4fdb-924e-788ff2dfef24",
-    "version": 1,
+    "version": 4,
     "weekStart": ""
 }

@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 5,
+    "id": 3,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -932,7 +932,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.temperatures\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${tmp_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.temperatures\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${tmp_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Temperatura",
@@ -1353,7 +1353,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.umidities\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${umd_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.umidities\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${umd_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Umidità",
@@ -1591,7 +1591,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dustPM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dustPM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Polveri sottili",
@@ -1925,7 +1925,7 @@
                 },
                 "pluginVersion": "4.0.2",
                 "queryType": "table",
-                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value),\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.ecoIslands\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+                "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.ecoIslands\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($ecoIs_sensors_id)\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
                 "refId": "A"
             }],
             "title": "Isole ecologiche",
@@ -3165,11 +3165,15 @@
             },
             {
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": [
+                        "Tmp2",
+                        "Tmp3",
                         "Tmp1"
                     ],
                     "value": [
+                        "Tmp2",
+                        "Tmp3",
                         "Tmp1"
                     ]
                 },
@@ -3362,13 +3366,13 @@
         ]
     },
     "time": {
-        "from": "now-5m",
+        "from": "now-6h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Main Dashboard",
     "uid": "e8b17515-2cf3-43e2-be39-3323fd37af67",
-    "version": 4,
+    "version": 2,
     "weekStart": ""
 }
