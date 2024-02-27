@@ -17,7 +17,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 1,
     "links": [],
     "liveNow": true,
     "panels": [{
@@ -1875,6 +1875,7 @@
                             }
                         ]
                     },
+                    "unit": "percent",
                     "unitScale": true
                 },
                 "overrides": []
@@ -3337,14 +3338,14 @@
             },
             {
                 "current": {
-                    "selected": false,
+                    "selected": true,
                     "text": [
-                        "GstE2",
-                        "GstE1"
+                        "GstE1",
+                        "GstE2"
                     ],
                     "value": [
-                        "GstE2",
-                        "GstE1"
+                        "GstE1",
+                        "GstE2"
                     ]
                 },
                 "datasource": {
