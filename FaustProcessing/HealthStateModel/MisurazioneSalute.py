@@ -1,4 +1,5 @@
-class MisurazioneSalute:
+from .Writers.Writable import Writable
+class MisurazioneSalute(Writable):
     def __init__(self, timestamp, value, type_, cella):
         self.__timestamp = timestamp
         self.__value = value

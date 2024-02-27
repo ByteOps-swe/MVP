@@ -1,12 +1,14 @@
-class Misurazione:
+from ..Writers.Writable import Writable
+
+class Misurazione(Writable):
     def __init__(self, timestamp, value, type_, latitude, longitude, ID_sensore, cella):
-        self.timestamp = timestamp
-        self.value = value
-        self.type = type_
-        self.latitude = latitude
-        self.longitude = longitude
-        self.ID_sensore = ID_sensore
-        self.cella = cella
+        self.__timestamp = timestamp
+        self.__value = value
+        self.__type = type_
+        self.__latitude = latitude
+        self.__longitude = longitude
+        self.__ID_sensore = ID_sensore
+        self.__cella = cella
 
     @classmethod
     def from_json(cls, json_data):
@@ -21,16 +23,17 @@ class Misurazione:
 
     def to_json(self):
         return {
-            "timestamp": str(self.timestamp),
-            "value": self.__format_value(self.value),
-            "type": self.type,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-            "ID_sensore": self.ID_sensore,
-            "cella": self.cella
+            "timestamp": str(self.__timestamp),
+            "value": Misurazione.__format_value(self.__value),
+            "type": self.__type,
+            "latitude": self.__latitude,
+            "longitude": self.__longitude,
+            "ID_sensore": self.__ID_sensore,
+            "cella": self.__cella
         }
 
-    def __format_value(self, value):
+    @staticmethod
+    def __format_value(value):
         if isinstance(value, bool):
             return 1 if value else 0
         elif isinstance(value, float):

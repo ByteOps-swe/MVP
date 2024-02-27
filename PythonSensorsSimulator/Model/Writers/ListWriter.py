@@ -1,8 +1,6 @@
 from .Writer import Writer
 from threading import Lock
-import json
-from datetime import datetime
-from ..Simulators.Misurazione import Misurazione
+from .Writable import Writable
 
 
 class ListWriter(Writer):
@@ -10,7 +8,7 @@ class ListWriter(Writer):
         self.__data_list = []
         self.__lock = Lock()  # Lock per garantire l'accesso thread-safe alla lista
 
-    def write(self, to_write: Misurazione) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock: 
             self.__data_list.append(to_write)
 

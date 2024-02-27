@@ -1,11 +1,13 @@
 from .Incrementer import Incrementer
+from typing import List
+from Misurazione import Misurazione
 
 class TemperatureIncrementer(Incrementer):
     def __init__(self, upper_health_soglia=20, under_health_soglia=30):
         self.__upper_health_soglia = upper_health_soglia
         self.__under_health_soglia = under_health_soglia
     
-    def get_incrementation(self, misurazioni):
+    def get_incrementation(self, misurazioni: List[Misurazione]):
         incremento_totale = 0
         num_misurazioni = len(misurazioni)
         for misurazione in misurazioni:

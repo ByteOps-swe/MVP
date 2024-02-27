@@ -1,8 +1,9 @@
 from .Misurazione import Misurazione
+from typing import List
 
 class ListaMisurazioni:
     def __init__(self):
-        self.__list = []
+        self.__list = List[Misurazione]
 
     def add_misurazione(self, timestamp, value, type_, latitude, longitude, ID_sensore, cella):
         self.__list.append(Misurazione( timestamp, value, type_, latitude, longitude, ID_sensore, cella))

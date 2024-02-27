@@ -2,7 +2,7 @@ from .Writer import Writer
 from .kafkaAdapter.KafkaTarget import KafkaTarget
 import json
 from threading import Lock
-from ..MisurazioneSalute import MisurazioneSalute
+from ..Writable import Writable
 
 class KafkaWriter(Writer):
     __kafka_target: KafkaTarget = None
@@ -11,6 +11,6 @@ class KafkaWriter(Writer):
     def __init__(self, kafka_target: KafkaTarget):
         self.__kafka_target = kafka_target
 
-    def write(self, to_write: MisurazioneSalute) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock:  # Acquisisce il lock prima di eseguire l'operazione di scrittura su KafkaTarget
             self.__kafka_target.write_to_kafka(json.dumps(to_write.to_json()))

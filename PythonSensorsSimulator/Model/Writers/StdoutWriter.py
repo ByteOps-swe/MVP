@@ -1,5 +1,5 @@
 from .Writer import Writer
-from ..Simulators.Misurazione import Misurazione
+from .Writable import Writable
 import threading
 
 class StdoutWriter(Writer):
@@ -9,7 +9,7 @@ class StdoutWriter(Writer):
     def __init__(self):
         self.__lock = threading.Lock()
         
-    def write(self, to_write: Misurazione) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock:
             print(to_write.to_json())
             self.__update_counter()

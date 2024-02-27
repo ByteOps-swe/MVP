@@ -36,6 +36,3 @@ class HealthCalculator():
 
     def stop(self) -> None:
         self.__is_running = False
-    
-    def get_temperature_measure_type_naming(self):
-        return self.__temperature_measure_type_naming
