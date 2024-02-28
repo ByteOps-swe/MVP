@@ -1,5 +1,5 @@
 from .Writer import Writer
-from ..Writable import Writable
+from .Writable import Writable
 import threading
 
 class StdoutWriter(Writer):

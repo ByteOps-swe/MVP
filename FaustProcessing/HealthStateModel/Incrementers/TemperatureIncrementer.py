@@ -1,6 +1,6 @@
 from .Incrementer import Incrementer
 from typing import List
-from Misurazione import Misurazione
+from ..Misurazione import Misurazione
 
 class TemperatureIncrementer(Incrementer):
     def __init__(self, upper_health_soglia=20, under_health_soglia=30):

@@ -2,7 +2,7 @@ from .Writer import Writer
 from .kafkaAdapter.KafkaTarget import KafkaTarget
 import json
 from threading import Lock
-from ..Writable import Writable
+from .Writable import Writable
 
 class KafkaWriter(Writer):
     __kafka_target: KafkaTarget = None

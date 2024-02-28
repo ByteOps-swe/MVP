@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ..Writable import Writable
+from .Writable import Writable
 
 #Pattern Strategy
 class Writer(ABC):

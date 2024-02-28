@@ -9,6 +9,17 @@ class Misurazione(Writable):
         self.__ID_sensore = ID_sensore
         self.__cella = cella
 
+    def to_json(self):
+        return {
+            "timestamp": str(self.__timestamp),
+            "value": Misurazione.__format_value(self.__value),
+            "type": self.__type,
+            "latitude": self.__latitude,
+            "longitude": self.__longitude,
+            "ID_sensore": self.__ID_sensore,
+            "cella": self.__cella
+        }
+
     def get_timestamp(self):
         return self.__timestamp
 
