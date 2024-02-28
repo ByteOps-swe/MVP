@@ -13,6 +13,11 @@ Per fermare tutti i container
 Per connettersi a clichouse con client e ed effettuare query:
 `winpty docker exec -it clickhouse clickhouse-client`
 
+
+TEST
+`docker exec simulators pytest`
+
+
 #Pattern
 Simulazioni:
     -Writers : Strategy, Adapter, Composite 

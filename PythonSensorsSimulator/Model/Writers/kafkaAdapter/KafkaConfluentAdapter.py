@@ -8,7 +8,7 @@ def acked(err, msg):
               (str(msg), str(err)))
 
 class KafkaConfluentAdapter(KafkaTarget):
-    def __init__(self,topic:str, ip: str = "localhost", port: str = "9092"):
+    def __init__(self,topic:str, ip: str = "kafka", port: str = "9092"):
         self.__producer = None
         self.__topic = topic
         self.__configure_producer(ip, port)

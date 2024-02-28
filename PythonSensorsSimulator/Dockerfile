@@ -1,8 +1,8 @@
-FROM python:3.11-bookworm
+FROM python:3.9
 
 WORKDIR /app
 
-RUN pip install confluent-kafka clickhouse-driver 
+RUN pip install confluent-kafka clickhouse-driver pytest faust pytest-asyncio
 
 COPY . .
 

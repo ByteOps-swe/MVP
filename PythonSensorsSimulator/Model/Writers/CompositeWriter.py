@@ -26,6 +26,10 @@ class CompositeWriter(Writer):
     def add_list_writer(self):
         self.add_writer(ListWriter())
         return self
+    
+    def add_list_writer(self, writer_list : ListWriter ):
+        self.add_writer(writer_list)
+        return self
 
     def remove_writer(self, writer):
         self._writers.remove(writer)
