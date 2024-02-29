@@ -1,15 +1,14 @@
 import random
 from .Simulator import Simulator
-from ..Writers.Writer import Writer
 
 
 class ElectricalFaultSimulator(Simulator):
     __count = 0
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float, cella: str = "Centro", frequency_in_s: int = 5, initial_fault_probability=0.1):
+    def __init__(self, latitude: float, longitude: float, cella: str = "Centro", initial_fault_probability=0.1):
         ElectricalFaultSimulator.__count += 1
-        super().__init__(writer, latitude, longitude, cella,
-                         f"GstE{ElectricalFaultSimulator.__count}", frequency_in_s, "guastoElettrico")
+        super().__init__(latitude, longitude, cella,
+                         f"GstE{ElectricalFaultSimulator.__count}", "guastoElettrico")
         self._fault_probability = initial_fault_probability
 
     def _generate_measure(self) -> None:
