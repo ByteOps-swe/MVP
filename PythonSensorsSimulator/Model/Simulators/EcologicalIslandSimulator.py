@@ -1,18 +1,18 @@
 import random
 from .Simulator import Simulator
-from ..Writers.Writer import Writer
 
 class EcologicalIslandSimulator(Simulator):
     __count = 0
+    __max_fill_percentage = 90  
+    __min_fill_percentage = 10  
+    __fill_rate = 5  
 
-    def __init__(self, writer: Writer, latitude: float, longitude: float,cella: str = "Centro", frequency_in_s: int = 5, initial_fill_percentage=50):
+    def __init__(self, latitude: float, longitude: float,cella: str = "Centro", initial_fill_percentage=50):
         EcologicalIslandSimulator.__count += 1
-        self.__max_fill_percentage = 90  
-        self.__min_fill_percentage = 10  
-        self.__fill_rate = 5  
-        super().__init__(writer, latitude, longitude,cella,
-                         f"EcoIsl{EcologicalIslandSimulator.__count}", frequency_in_s,initial_fill_percentage,"EcologicalIsland")
+       
+        super().__init__(latitude, longitude,cella,
+                         f"EcoIsl{EcologicalIslandSimulator.__count}", initial_fill_percentage,"EcologicalIsland")
 
     def _generate_measure(self):
-        self._misurazione += random.uniform(-self.__fill_rate, self.__fill_rate)
-        self._misurazione = max(self.__min_fill_percentage, min(self.__max_fill_percentage, self._misurazione))
+        self._misurazione += random.uniform(-EcologicalIslandSimulator.__fill_rate, EcologicalIslandSimulator.__fill_rate)
+        self._misurazione = max(EcologicalIslandSimulator.__min_fill_percentage, min(EcologicalIslandSimulator.__max_fill_percentage, self._misurazione))
