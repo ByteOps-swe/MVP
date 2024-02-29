@@ -20,3 +20,4 @@ async def test_1_misurazione():
         assert float(result.result_rows[0][3]) == 17
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
+        #manca il finally close connection
