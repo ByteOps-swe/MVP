@@ -16,7 +16,9 @@ Per connettersi a clichouse con client e ed effettuare query:
 
 TEST
 `docker exec simulators pytest`
+docker exec simulators pytest --capture=no clickHouseDataTest.py
 
+per avere print
 
 #Pattern
 Simulazioni:

@@ -2,7 +2,7 @@ FROM python:3.9
 
 WORKDIR /app
 
-RUN pip install confluent-kafka clickhouse-driver pytest faust pytest-asyncio
+RUN pip install confluent-kafka clickhouse-connect pytest faust pytest-asyncio
 
 COPY . .
 
