@@ -1,4 +1,5 @@
 from .Misurazione import Misurazione
+from .Coordinate import Coordinate
 from typing import List
 
 class ListaMisurazioni:
@@ -6,7 +7,7 @@ class ListaMisurazioni:
         self.__list: List[Misurazione] = []
 
     def add_misurazione(self, timestamp, value, type_, latitude, longitude, ID_sensore, cella):
-        self.__list.append(Misurazione(timestamp, value, type_, latitude, longitude, ID_sensore, cella))
+        self.__list.append(Misurazione(timestamp, value, type_, Coordinate(latitude, longitude), ID_sensore, cella))
 
     def clear_list(self):
         self.__list.clear()

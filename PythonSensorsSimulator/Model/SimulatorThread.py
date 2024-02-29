@@ -1,6 +1,7 @@
 from .Simulators.Simulator import Simulator
 from .ComponentSimulatorThread import ComponentSimulatorThread
 from .Writers.Writer import Writer
+from .AdapterMisurazione import AdapterMisurazione
 import time
 
 class SimulatorThread(ComponentSimulatorThread):
@@ -19,7 +20,7 @@ class SimulatorThread(ComponentSimulatorThread):
                     self.stop()
                 else:
                     self.__data_to_generate -= 1 
-            self.__writers.write(self.__simulator.simulate())
+            self.__writers.write(AdapterMisurazione(self.__simulator.simulate()))
             time.sleep(self.__frequency)
 
     def stop(self) -> None:
