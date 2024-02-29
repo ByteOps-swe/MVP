@@ -3,16 +3,16 @@ from .Simulator import Simulator
 
 class ChargingStationSimulator(Simulator):
     __count = 0
-
-    def __init__(self, latitude: float, longitude: float, cella: str = "Centro", initial_probability_occupied=0.5):
+    __transition_probability = 0.1
+    def __init__(self, latitude: float, longitude: float, cella: str = "Centro", initial_value=0):
         ChargingStationSimulator.__count += 1
-        self.__transition_probability = 0.1
+        ChargingStationSimulator.__transition_probability = 0.1
         super().__init__(latitude, longitude,cella,
-                         f"ChS{ChargingStationSimulator.__count}", initial_probability_occupied,"ChargingStation")
+                         f"ChS{ChargingStationSimulator.__count}", initial_value,"ChargingStation")
 
     def _generate_measure(self):
         if self._misurazione:
-            new_probability = self.__transition_probability
+            new_probability = ChargingStationSimulator.__transition_probability
         else:
-            new_probability = 1 - self.__transition_probability
+            new_probability = 1 - ChargingStationSimulator.__transition_probability
         self._misurazione = random.random() < new_probability
