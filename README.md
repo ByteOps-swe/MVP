@@ -8,10 +8,10 @@ Avvio tramite _docker_
 
 Per fermare tutti i container 
 `docker-compose down`
-Per connettersi a clichouse con client e ed effettuare query:
+Per connettersi a clickhouse con client e ed effettuare query:
 `winpty docker exec -it clickhouse clickhouse-client`
 
-Per generare uml, ex:
+Per generare uml:
 `pyreverse .\PythonSensorsSimulator\`
  
 ## Gli UML sono presenti in \UMLModel
@@ -20,7 +20,7 @@ Per generare uml, ex:
 
  `docker exec simulators pytest --capture=no clickHouseDataTest.py`
 
-#Pattern
+## Pattern
 Simulazioni:
     -Writers : Strategy, Adapter, Composite 
     -Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> Writable(che è il target) (Modello writer)
