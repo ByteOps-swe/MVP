@@ -26,3 +26,9 @@ class KafkaConfluentAdapter(KafkaTarget):
             self.__producer.poll(1)
         except KafkaException as e:
             print(f"Errore durante la scrittura in Kafka: {e}")
+            
+    def flush_kafka_producer(self):
+        try:
+            self.__producer.flush()
+        except Exception as e:
+            print(f"Error while flushing Kafka producer: {e}")

@@ -14,3 +14,6 @@ class KafkaWriter(Writer):
     def write(self, to_write: Writable) -> None:
         with self.__lock:  # Acquisisce il lock prima di eseguire l'operazione di scrittura su KafkaTarget
             self.__kafka_target.write_to_kafka(json.dumps(to_write.to_json()))
+            
+    def flush_kafka_producer(self):
+        self.__kafka_target.flush_kafka_producer()
