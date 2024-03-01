@@ -1,28 +1,53 @@
 # InnovaCity
-Progetto del corso di [Ingegneria del Software 2023-2024]
-## Utilizzo
-Avvio tramite _docker_
-`docker-compose up -d `
 
-## Il container clickhouse deve essere riavviato una volta in esecuzione senno non prende le tabelle
+Progetto del corso di [Ingegneria del Software 2023-2024]
+
+## Utilizzo
+
+Avvio tramite _docker_
+
+```bash
+docker-compose up -d 
+```
+
+Il container clickhouse deve essere riavviato una volta in esecuzione senno non prende le tabelle.
+
+### Accesso dashboard
+
+- Username: admin
+- Password: admin
 
 Per fermare tutti i container 
-`docker-compose down`
+
+```bash
+docker-compose down
+```
+
 Per connettersi a clickhouse con client e ed effettuare query:
-`winpty docker exec -it clickhouse clickhouse-client`
+
+```bash
+winpty docker exec -it clickhouse clickhouse-client
+```
 
 Per generare uml:
-`pyreverse .\PythonSensorsSimulator\`
+
+```bash
+pyreverse .\PythonSensorsSimulator\
+```
  
 ## Gli UML sono presenti in \UMLModel
 
-## Per avviare speicifici test con possibilita di vedere le print
+## Per avviare specifici test con possibilità di vedere le print
 
- `docker exec simulators pytest --capture=no clickHouseDataTest.py`
+```bash
+docker exec simulators pytest --capture=no clickHouseDataTest.py
+```
 
 ## Pattern
-Simulazioni:
-    -Writers : Strategy, Adapter, Composite 
-    -Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> Writable(che è il target) (Modello writer)
-    -Pool thread: Adpater per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
-    -SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
+
+### Simulazioni:
+
+- Writers: Strategy, Adapter, Composite 
+- Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> Writable (che è il target) (Modello writer)
+- Pool thread: Adapter per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
+- SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
