@@ -1,0 +1,108 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: Polveri sottili allert
+      folder: Innovacity alerts
+      interval: 30s
+      rules:
+        - uid: e5b77e05-8234-4d32-b479-84719da958b9
+          title: Dust alert
+          condition: C
+          data:
+            - refId: A
+              queryType: table
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PDEE91DDB90597936
+              model:
+                editorType: sql
+                format: 1
+                intervalMs: 1000
+                maxDataPoints: 43200
+                meta:
+                    builderOptions:
+                        columns: []
+                        database: ""
+                        limit: 1000
+                        mode: list
+                        queryType: table
+                        table: ""
+                pluginVersion: 4.0.2
+                queryType: table
+                rawSql: SELECT ID_sensore, max(value) FROM "innovacity"."dustPM10" GROUP BY ID_sensore LIMIT 1000
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: max
+                refId: B
+                settings:
+                    mode: dropNN
+                type: reduce
+            - refId: C
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 50
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                      unloadEvaluator:
+                        params:
+                            - 50
+                        type: lt
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: e8b17515-2cf3-43e2-be39-3323fd37af67
+          panelId: 36
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            __dashboardUid__: e8b17515-2cf3-43e2-be39-3323fd37af67
+            __panelId__: "36"
+            description: Il livello di polveri sottili ha superato il limite di pericolosità. Un esposizione continua a questo livello causa problemi di salute
+            summary: Il livello di polveri sottili ha superato il limite di pericolosità.
+          labels: {}
+          isPaused: false

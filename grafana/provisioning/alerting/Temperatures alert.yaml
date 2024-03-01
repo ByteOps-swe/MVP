@@ -1,0 +1,117 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: Temperatures alert
+      folder: Innovacity alerts
+      interval: 30s
+      rules:
+        - uid: dc0a2a87-af4d-427d-ae8d-597cdaafae21
+          title: Temperature alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: PDEE91DDB90597936
+              model:
+                builderOptions:
+                    aggregates:
+                        - aggregateType: max
+                          column: value
+                    columns:
+                        - custom: false
+                          name: ID_sensore
+                          type: String
+                    database: innovacity
+                    filters: []
+                    groupBy:
+                        - ID_sensore
+                    limit: 1000
+                    meta: {}
+                    mode: aggregate
+                    orderBy: []
+                    queryType: table
+                    table: temperatures
+                editorType: builder
+                format: 1
+                intervalMs: 1000
+                maxDataPoints: 43200
+                pluginVersion: 4.0.2
+                rawSql: SELECT ID_sensore, max(value) FROM "innovacity"."temperatures" GROUP BY ID_sensore LIMIT 1000
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                settings:
+                    mode: dropNN
+                type: reduce
+            - refId: C
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - -5
+                            - 30
+                        type: outside_range
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                      unloadEvaluator:
+                        params:
+                            - -5
+                            - 29
+                        type: within_range
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: e8b17515-2cf3-43e2-be39-3323fd37af67
+          panelId: 2
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: e8b17515-2cf3-43e2-be39-3323fd37af67
+            __panelId__: "2"
+            summary: Attenzione un sensore ha misurato una temperatura pericolosa!
+          labels: {}
+          isPaused: false
