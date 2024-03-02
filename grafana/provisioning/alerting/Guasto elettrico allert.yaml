@@ -32,36 +32,6 @@ groups:
                 queryType: table
                 rawSql: SELECT ID_sensore,cella, argMax(value,timestamp) from innovacity.electricalFault GROUP BY ID_sensore,cella LIMIT 1000
                 refId: A
-            - refId: B
-              relativeTimeRange:
-                from: 600
-                to: 0
-              datasourceUid: __expr__
-              model:
-                conditions:
-                    - evaluator:
-                        params: []
-                        type: gt
-                      operator:
-                        type: and
-                      query:
-                        params:
-                            - B
-                      reducer:
-                        params: []
-                        type: last
-                      type: query
-                datasource:
-                    type: __expr__
-                    uid: __expr__
-                expression: A
-                intervalMs: 1000
-                maxDataPoints: 43200
-                reducer: last
-                refId: B
-                settings:
-                    mode: dropNN
-                type: reduce
             - refId: C
               relativeTimeRange:
                 from: 600
@@ -94,7 +64,7 @@ groups:
           panelId: 44
           noDataState: NoData
           execErrState: Error
-          for: 15s
+          for: 1m
           annotations:
             __dashboardUid__: e8b17515-2cf3-43e2-be39-3323fd37af67
             __panelId__: "44"

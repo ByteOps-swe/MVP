@@ -5,7 +5,7 @@ policies:
       group_by:
         - grafana_folder
       routes:
-        - receiver: grafana-default-email
+        - receiver: Discord contact
           object_matchers:
             - - grafana_folder
               - =
