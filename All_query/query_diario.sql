@@ -50,7 +50,7 @@ SELECT
                     (toUnixTimestamp($__toTime) - toUnixTimestamp($__fromTime)) > 2592000
                 )
             )
-        ) THEN toDate(timestamp)
+        ) THEN toStartOfMonth(timestamp)
         ELSE timestamp
     END AS timestamp
 FROM innovacity.$tabella
