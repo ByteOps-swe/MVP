@@ -10,6 +10,7 @@ groups:
           condition: C
           data:
             - refId: A
+              queryType: table
               relativeTimeRange:
                 from: 300
                 to: 0
@@ -33,12 +34,32 @@ groups:
                     orderBy: []
                     queryType: table
                     table: temperatures
-                editorType: builder
+                editorType: sql
                 format: 1
                 intervalMs: 1000
                 maxDataPoints: 43200
-                pluginVersion: 4.0.2
-                rawSql: SELECT ID_sensore, max(value) FROM "innovacity"."temperatures" GROUP BY ID_sensore LIMIT 1000
+                meta:
+                    builderOptions:
+                        aggregates:
+                            - aggregateType: max
+                              column: value
+                        columns:
+                            - custom: false
+                              name: ID_sensore
+                              type: String
+                        database: innovacity
+                        filters: []
+                        groupBy:
+                            - ID_sensore
+                        limit: 1000
+                        meta: {}
+                        mode: aggregate
+                        orderBy: []
+                        queryType: table
+                        table: temperatures
+                pluginVersion: 4.0.3
+                queryType: table
+                rawSql: SELECT ID_sensore, argMax(value,timestamp) FROM "innovacity"."temperatures" GROUP BY ID_sensore LIMIT 1000
                 refId: A
             - refId: B
               relativeTimeRange:
@@ -80,7 +101,7 @@ groups:
                     - evaluator:
                         params:
                             - -5
-                            - 30
+                            - 45
                         type: outside_range
                       operator:
                         type: and
@@ -94,7 +115,7 @@ groups:
                       unloadEvaluator:
                         params:
                             - -5
-                            - 29
+                            - 39
                         type: within_range
                 datasource:
                     type: __expr__
@@ -112,6 +133,9 @@ groups:
           annotations:
             __dashboardUid__: e8b17515-2cf3-43e2-be39-3323fd37af67
             __panelId__: "2"
+            description: ""
+            runbook_url: ""
             summary: Attenzione un sensore ha misurato una temperatura pericolosa!
-          labels: {}
+          labels:
+            "": ""
           isPaused: false

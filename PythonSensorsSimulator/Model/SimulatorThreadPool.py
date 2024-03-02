@@ -1,5 +1,4 @@
-import concurrent.futures
-from .Simulators.Simulator import Simulator
+from .SimulatorThread import SimulatorThread
 from .ThreadPoolAdapter.ThreadPoolTarget import ThreadPoolTarget
 
 #utilizzo di una THREADPOOL ADAPTER
@@ -14,11 +13,13 @@ class SimulatorThreadPool:
         self.__thread_pool_adapter.map(self.__start_simulator, self.__simulators)
 
     def stop_all(self):
-        for simulator in self.__simulators:
-            simulator.stop()
+        self.__thread_pool_adapter.map(self.__stop_simulator, self.__simulators)
 
-    def append_simulator(self, simulator):
+    def append_simulator(self, simulator: SimulatorThread):
         self.__simulators.append(simulator)
 
-    def __start_simulator(self, simulator):
+    def __start_simulator(self, simulator: SimulatorThread):
         simulator.start()
+    
+    def __stop_simulator(self, simulator: SimulatorThread):
+        simulator.stop()
