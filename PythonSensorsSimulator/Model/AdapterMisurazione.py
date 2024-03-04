@@ -1,5 +1,8 @@
 from .Writers.Writable import Writable
 from .Simulators.Misurazione import Misurazione
+from .Simulators.Coordinate import Coordinate
+from datetime import datetime
+
 class AdapterMisurazione(Writable):
     def __init__(self, misurazione : Misurazione):
         self.__misurazione = misurazione
@@ -23,3 +26,14 @@ class AdapterMisurazione(Writable):
             return "{:.2f}".format(value)
         else:
             return value
+    @staticmethod
+    def from_json(json_data:dict):
+        timestamp = json_data["timestamp"]
+        value = json_data["value"]
+        type_ = json_data["type"]
+        latitude = json_data["latitude"]
+        longitude = json_data["longitude"]
+        ID_sensore = json_data["ID_sensore"]
+        cella = json_data["cella"]
+        coordinate = Coordinate(latitude, longitude)
+        return Misurazione(datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f'), value, type_, coordinate, ID_sensore, cella)

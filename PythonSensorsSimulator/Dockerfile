@@ -2,9 +2,8 @@ FROM python:3.9
 
 WORKDIR /app
 
-RUN pip install confluent-kafka clickhouse-connect pytest faust pytest-asyncio
+RUN pip install confluent-kafka clickhouse-connect pytest kafka-python pytest-asyncio
 
 COPY . .
 
 CMD ["python3", "main.py"]
-#CMD ["python3", "testScript.py"]
