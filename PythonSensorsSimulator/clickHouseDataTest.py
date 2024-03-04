@@ -51,10 +51,10 @@ async def test_2_misurazione(clickhouse_client):
         
         # Send data to Kafka
         for i in range(num_messages):
-            misurazione = AdapterMisurazione(Misurazione(f'2020-02-28 10:20:37.{i}', 4001 + i, "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "ArcellaTest"))
+            misurazione = AdapterMisurazione(Misurazione(f'2020-02-28 10:20:37.{i}', 5001 + i, "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "ArcellaTest"))
             kafka_writer.write(misurazione) 
-            kafka_writer.flush_kafka_producer()
-        time.sleep(30)
+        kafka_writer.flush_kafka_producer()
+        time.sleep(10)
         # Poll Kafka consumer until all messages are consumed
         # timeout = 60  # Maximum wait time in seconds
         # start_time = time.time()
@@ -70,9 +70,10 @@ async def test_2_misurazione(clickhouse_client):
         #     time.sleep(1)  # Polling interval
 
         # Query ClickHouse to check if all data has been inserted
-        result = clickhouse_client.query(f'SELECT COUNT(*) FROM innovacity.temperatures WHERE cella = "ArcellaTest"')
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.temperatures WHERE cella = 'ArcellaTest'")
         print(result.result_rows)
         for i in range(num_messages):
+            print(result.result_rows[i][2])
             assert float(result.result_rows[i][3]) == 5001 + i
 
     except Exception as e:
