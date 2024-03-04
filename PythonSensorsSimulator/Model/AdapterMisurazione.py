@@ -26,6 +26,7 @@ class AdapterMisurazione(Writable):
             return "{:.2f}".format(value)
         else:
             return value
+        
     @staticmethod
     def from_json(json_data:dict):
         timestamp = json_data["timestamp"]
