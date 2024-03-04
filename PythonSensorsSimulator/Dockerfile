@@ -2,7 +2,7 @@ FROM python:3.11-bookworm
 
 WORKDIR /app
 
-RUN pip install confluent-kafka clickhouse-driver 
+RUN pip install confluent-kafka clickhouse-driver kafka-python clickhouse-connect pytest faust pytest-asyncio
 
 COPY . .
 
