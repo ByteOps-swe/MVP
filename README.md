@@ -31,6 +31,7 @@ winpty docker exec -it clickhouse clickhouse-client
 
 Per generare uml:
 
+<<<<<<< HEAD
 ```bash
 pyreverse .\PythonSensorsSimulator\
 ```
@@ -39,6 +40,15 @@ Con attributi:
 ```bash
 pyreverse -f ALL .\PythonSensorsSimulator\
 ```
+=======
+TEST
+`docker exec simulators pytest`
+docker exec simulators pytest --capture=no clickHouseDataTest.py
+per avere print
+
+Per generare uml, ex:
+`pyreverse .\PythonSensorsSimulator\`
+>>>>>>> clickhouseTestInt
  
 ## Gli UML sono presenti in \UMLModel
 

@@ -1,6 +1,7 @@
 from .Coordinate import Coordinate
+import datetime
 class Misurazione():
-    def __init__(self, timestamp, value, type_, coordinate: Coordinate, ID_sensore, cella):
+    def __init__(self, timestamp:datetime, value, type_:str, coordinate: Coordinate, ID_sensore:str, cella:str):
         self.__timestamp = timestamp
         self.__value = value
         self.__type = type_
@@ -29,3 +30,14 @@ class Misurazione():
     def get_cella(self):
         return self.__cella
    
+    def __eq__(self, other):
+            if not isinstance(other, Misurazione):
+                return False
+            
+            return (
+                    str(self.__timestamp) == str(other.__timestamp) and
+                    self.__value == other.__value and
+                    self.__type == other.__type and
+                    self.__coordinates == other.__coordinates and
+                    self.__ID_sensore == other.__ID_sensore and
+                    self.__cella == other.__cella)
