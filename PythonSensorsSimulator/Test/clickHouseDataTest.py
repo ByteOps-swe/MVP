@@ -1,10 +1,10 @@
 import pytest
 import os
-from .Model.Simulators.Coordinate import Coordinate
-from .Model.Simulators.Misurazione import Misurazione
-from .Model.Writers.KafkaWriter import KafkaWriter
-from .Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from .Model.AdapterMisurazione import AdapterMisurazione
+from ..Model.Simulators.Coordinate import Coordinate
+from ..Model.Simulators.Misurazione import Misurazione
+from ..Model.Writers.KafkaWriter import KafkaWriter
+from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ..Model.AdapterMisurazione import AdapterMisurazione
 import clickhouse_connect
 import time
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
