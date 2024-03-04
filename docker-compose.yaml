@@ -51,6 +51,7 @@ services:
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
       - ./grafana/dashboards_config:/etc/grafana/dashboards_config
     environment:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource, volkovlabs-variable-panel,orchestracities-map-panel
