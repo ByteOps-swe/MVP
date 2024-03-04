@@ -13,7 +13,6 @@ CREATE TABLE innovacity.temperatures_kafka (
     'JSONEachRow'
 );
 
-
 CREATE TABLE innovacity.temperatures
 (
     ID_sensore String,
@@ -24,7 +23,12 @@ CREATE TABLE innovacity.temperatures
     longitude Float64
 )
 ENGINE = MergeTree()
-ORDER BY (ID_sensore, timestamp);
+PARTITION BY toYYYYMM(timestamp) 
+PRIMARY KEY (ID_sensore,toStartOfHour(timestamp), timestamp)
+TTL toDateTime(timestamp) + INTERVAL 1 MONTH
+    GROUP BY ID_sensore,toStartOfHour(timestamp)
+    SET
+        value = avg(value);
 
 
 CREATE MATERIALIZED VIEW mv_temperatures TO innovacity.temperatures
@@ -33,3 +37,4 @@ AS SELECT * FROM innovacity.temperatures_kafka;
 ALTER TABLE innovacity.temperatures ADD PROJECTION tmp_sensor_cell_projection (SELECT * ORDER BY cella);
 
 ALTER TABLE innovacity.temperatures MATERIALIZE PROJECTION tmp_sensor_cell_projection;
+

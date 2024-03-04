@@ -18,7 +18,12 @@ CREATE TABLE innovacity.healthScore
     value Float32
 )
 ENGINE = MergeTree()
-ORDER BY (cella, timestamp);
+PARTITION BY toYYYYMM(timestamp) 
+PRIMARY KEY (cella,toStartOfHour(timestamp), timestamp)
+TTL toDateTime(timestamp) + INTERVAL 1 MONTH
+    GROUP BY cella,toStartOfHour(timestamp)
+    SET
+        value = avg(value);
 
 
 CREATE MATERIALIZED VIEW mv_healthScore TO innovacity.healthScore
