@@ -22,8 +22,14 @@ measurement_processor = HealthModelProcessorAdapter(healthCalculator)
 
 @app.agent(topic)
 async def process(measurements):
-    async for measurement in measurements:
-        await measurement_processor.process_measurement(measurement)
+    try:
+        async for measurement in measurements:
+            await measurement_processor.process_measurement(measurement)
+    except Exception as e:
+        print(f"Errore durante il processamento delle misurazioni: {e}")
 
-healthThread.start()
+@app.task()
+async def mytask():
+    healthThread.start()
+
 app.main()

@@ -39,13 +39,17 @@ class SimulatorThread(ComponentSimulatorThread):
         until the specified number of data points is generated or the stop() method
         is called.
         """
+        last_measure = None
         while self.__is_running:
             if self.__data_to_generate != -1:
                 if self.__data_to_generate <= 0:
                     self.stop()
                 else:
                     self.__data_to_generate -= 1
-            self.__writers.write(AdapterMisurazione(self.__simulator.simulate()))
+            new_measure = self.__simulator.simulate()
+            if not(last_measure == new_measure): #faccio in modo che venga inviato il dato solo se è differente dal precedente, altrimenti non ha senso
+                self.__writers.write(AdapterMisurazione(new_measure))
+                last_measure = new_measure
             time.sleep(self.__frequency)
 
     def stop(self) -> None:
