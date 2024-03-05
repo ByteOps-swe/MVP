@@ -1,6 +1,6 @@
 import threading
 import time
-from .HealthCalculator import HealthCalculator
+from .HealthAlgorithm import HealthAlgorithm
 from .Writers.Writer import Writer
 from .AdapterMisurazioneSalute import AdapterMisurazione
 
@@ -26,7 +26,7 @@ class HealthCalculatorThread(threading.Thread):
         stop(): Stops the thread.
 
     """
-    def __init__(self, healthCalculator: HealthCalculator, writers: Writer, frequency:float = 10, data_to_generate:int = -1 ):
+    def __init__(self, healthCalculator: HealthAlgorithm, writers: Writer, frequency:float = 10, data_to_generate:int = -1 ):
         super().__init__()
         self.__healthCalculator = healthCalculator
         self.__frequency = frequency

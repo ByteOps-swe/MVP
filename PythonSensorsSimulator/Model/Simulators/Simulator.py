@@ -12,7 +12,7 @@ class Simulator(ABC):
         self.__type = type
 
     #TEMPLATEMETHOD
-    def simulate(self) -> Misurazione: 
+    def simulate(self) -> Misurazione:
             self._generate_measure()
             while not self._filter():
                 self._generate_measure() #First template step
