@@ -9,7 +9,7 @@ class SimulatorExecutorFactory(ComponentSimulatorThread):
     def __init__(self):
         self.__simulator_executor = SimulatorThreadPool(ThreadPoolExecutorAdapter())
 
-    def add_simulator(self, simulator: Simulator, writers: Writer, frequency:float = 10, data_to_generate:int = None) -> "SimulatorExecutorFactory":
+    def add_simulator(self, simulator: Simulator, writers: Writer, frequency:float = 10, data_to_generate:int = -1) -> "SimulatorExecutorFactory":
         self.__simulator_executor.append_simulator(SimulatorThread(simulator ,writers,frequency, data_to_generate))
         return self
     

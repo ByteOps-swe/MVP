@@ -1,5 +1,5 @@
 from .Coordinate import Coordinate
-import datetime
+from datetime import datetime
 class Misurazione():
     def __init__(self, timestamp:datetime, value, type_:str, coordinate: Coordinate, ID_sensore:str, cella:str):
         self.__timestamp = timestamp
@@ -8,10 +8,10 @@ class Misurazione():
         self.__coordinates = coordinate
         self.__ID_sensore = ID_sensore
         self.__cella = cella
-        
+            
     def get_timestamp(self):
         return self.__timestamp
-    
+        
     def get_value(self):
         return self.__value
     

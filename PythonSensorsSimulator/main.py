@@ -1,7 +1,6 @@
 import os
 
 from Model.Simulators.SensorFactory import SensorFactory
-
 from Model.SimulatorExecutorFactory import SimulatorExecutorFactory
 from Model.Writers.CompositeWriter import CompositeWriter
 
@@ -42,6 +41,3 @@ symExecAggregator \
     .add_simulator(SensorFactory.create_water_presence_sensor(45.393142, 11.895443, "Terranegra"), waPr_writers, 1) \
     .add_simulator(SensorFactory.create_water_presence_sensor(45.398187, 11.865407, "Sacra Famiglia"), waPr_writers, 1) \
     .run()
-
-
-
