@@ -35,5 +35,5 @@ class DustPM10Incrementer(Incrementer):
             if misurazione.get_type() == self.__dust_type_naming:
                 dato = float(misurazione.get_value())
                 if dato > 0:
-                    incremento_totale += math.log(dato)
+                    incremento_totale += math.log(dato) *  0.1
         return int(incremento_totale / num_misurazioni) if num_misurazioni != 0 else 0
