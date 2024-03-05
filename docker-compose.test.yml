@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  kafka:
+    image: "bitnami/kafka:latest"
+    container_name: kafka-test
+    hostname: kafka-test
+    ports:
+      - "9095:9095"
+    environment:
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_LISTENERS: CONTROLLER://kafka:19090,INTERNAL://kafka:9090,EXTERNAL://localhost:9095
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9090,EXTERNAL://localhost:9090
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:19090
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+    healthcheck:
+      test:
+        - "CMD"
+        - "kafka-topics.sh"
+        - "--bootstrap-server"
+        - "kafka:9090"
+        - "--list"
+      interval: 5s
+      timeout: 30s
+      retries: 10
+
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    hostname: clickhouse-test
+    container_name: clickhouse-test
+    ports:
+      - "8120:8120"
+    environment:
+      # Use a different ClickHouse database name for testing
+      CLICKHOUSE_DB: innovacity_test
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 0
+    volumes:
+      # Use a temporary volume for ClickHouse data during testing
+      - ./InitDB/Test:/docker-entrypoint-initdb.d
+
+  simulators:
+    build:
+      context: ./PythonSensorsSimulator
+    hostname: simulators-test
+    container_name: simulators-test
+    environment:
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "9090"

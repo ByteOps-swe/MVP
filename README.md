@@ -53,6 +53,12 @@ pyreverse -f ALL .\PythonSensorsSimulator\
 docker exec simulators pytest --capture=no clickHouseDataTest.py
 ```
 
+## Eseguire docker-compose.test.yml
+
+```bash
+docker compose -f docker-compose.test.yml up -d
+```
+
 ## Pattern
 
 ### Simulazioni:
