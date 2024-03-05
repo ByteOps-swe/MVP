@@ -12,9 +12,11 @@ healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
 
 temperature_topic = "temperature"
 humidity_topic = "umidity"
+dustPm10_topic = "dust_level_PM10"
+
 
 app = faust.App('myapp', broker='kafka://kafka:9092')
-topic = app.topic(temperature_topic,humidity_topic, value_type=FaustMeasurement)
+topic = app.topic(temperature_topic,humidity_topic,dustPm10_topic, value_type=FaustMeasurement)
 
 measurement_processor = HealthModelProcessorAdapter(healthCalculator)
 
