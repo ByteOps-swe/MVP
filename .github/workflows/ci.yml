@@ -1,10 +1,9 @@
 name: CI Pipeline
 
 on:
-  push
-
-paths-ignore:
-  - '**.md'
+  push:
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build-and-test:
