@@ -33,7 +33,7 @@ async def test_1_misurazione(clickhouse_client):
         kafka_writer.flush_kafka_producer()
         time.sleep(1)
         result = clickhouse_client.query('SELECT * FROM innovacity.temperatures where value =4001 LIMIT 1')
-        print(result.result_rows)
+        #print(result.result_rows)
         assert result.result_rows
         assert float(result.result_rows[0][3]) == 4001
     except Exception as e:
@@ -57,9 +57,9 @@ async def test_2_misurazione(clickhouse_client):
         
         # Query ClickHouse to check if all data has been inserted
         result = clickhouse_client.query("SELECT * FROM innovacity.temperatures WHERE cella = 'ArcellaTest'")
-        print(result.result_rows)
+       # print(result.result_rows)
         for i in range(num_messages):
-            print(result.result_rows[i][2])
+           # print(result.result_rows[i][2])
             assert float(result.result_rows[i][3]) == 5001 + i
 
     except Exception as e:

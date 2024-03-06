@@ -39,7 +39,7 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_1_misurazione(kafka_consumer, kafka_writer):
+async def test_1_misurazione_kafka(kafka_consumer, kafka_writer):
     """
     Test function for sending and receiving a measurement via Kafka.
 
@@ -63,12 +63,11 @@ async def test_1_misurazione(kafka_consumer, kafka_writer):
         received_json = json.loads(received_message)
         arrived = AdapterMisurazione.from_json(received_json)
         assert arrived == to_send
-
     except Exception as e:
         pytest.fail(f"Failed to connect to kafka: {e}")
 
 @pytest.mark.asyncio
-async def test_multiple_misurazioni(kafka_consumer, kafka_writer):
+async def test_multiple_misurazioni_kafka(kafka_consumer, kafka_writer):
     """
     Test function to send multiple measurements to Kafka and verify if they are received correctly.
 
@@ -96,8 +95,8 @@ async def test_multiple_misurazioni(kafka_consumer, kafka_writer):
             msg_json = next(iter(messages.values()))[i].value.decode('utf-8')
             msg = AdapterMisurazione.from_json(json.loads(msg_json))
             arrived.append(msg)
-            if msg in misurazioni:
-                print(msg_json)
+            #if msg in misurazioni:
+            #    print(msg_json)
         for msg in misurazioni:
             assert msg in arrived
     except Exception as e:
