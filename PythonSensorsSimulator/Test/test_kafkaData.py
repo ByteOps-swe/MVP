@@ -1,5 +1,6 @@
 import os
 import time
+from datetime import datetime
 import json
 import pytest
 from kafka import KafkaConsumer
@@ -15,15 +16,17 @@ test_topic = "test"
 
 @pytest.fixture
 def kafka_consumer():
-    """
-    Creates a Kafka consumer and yields it for processing.
+   # Crea il consumatore Kafka
+        kafka_consumer = KafkaConsumer(test_topic,
+                                        bootstrap_servers=f"{KAFKA_HOST}:{KAFKA_PORT}",
+                                        auto_offset_reset='earliest',
+                                        enable_auto_commit=True,
+                                        group_id="test_id",
+                                        value_deserializer=lambda x: x.decode('utf-8'),
+                                        consumer_timeout_ms=10000)
+        yield kafka_consumer
 
-    Returns:
-        KafkaConsumer: The Kafka consumer instance.
-    """
-    kafka_consumer = KafkaConsumer(test_topic, bootstrap_servers=f"{KAFKA_HOST}:{KAFKA_PORT}", auto_offset_reset='earliest', group_id=None)
-    yield kafka_consumer
-    kafka_consumer.close()
+        kafka_consumer.close()
 
 @pytest.fixture
 def kafka_writer():
@@ -51,53 +54,42 @@ async def test_1_misurazione_kafka(kafka_consumer,kafka_writer):
 
     """
     try:
-        to_send = Misurazione('2022-02-28 10:20:37.206573', 4001, "temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella1")
+        timestamp = datetime.now()
+        to_send = Misurazione(timestamp, 4001, "temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella1")
         misurazione = AdapterMisurazione(to_send)
         kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
         time.sleep(2)
-        messages = kafka_consumer.poll(timeout_ms=10000)
         arrived = []
-        assert len(messages) > 0, "Message not received on Kafka"
-        for i in range(len(next(iter(messages.values())))):
-            msg_json = next(iter(messages.values()))[i].value.decode('utf-8')
-            msg = AdapterMisurazione.from_json(json.loads(msg_json))
+        for _ in kafka_consumer:
+            print(_.value)
+            msg = AdapterMisurazione.from_json(json.loads(_.value))
             arrived.append(msg)
+       
         assert to_send in arrived
     except Exception as e:
         pytest.fail(f"Failed to connect to kafka: {e}")
 
 @pytest.mark.asyncio
 async def test_multiple_misurazioni_kafka(kafka_consumer, kafka_writer):
-    """
-    Test function to send multiple measurements to Kafka and verify if they are received correctly.
-
-    Args:
-        kafka_consumer: The Kafka consumer object.
-        kafka_writer: The Kafka writer object.
-
-    Raises:
-        AssertionError: If any of the sent measurements are not received.
-
-    """
     try:
         misurazioni = []
         data_to_send = 100
+        timestamps =[]
         for i in range(data_to_send):
-            to_send = Misurazione('2022-02-28 10:20:37.206573',600 + i, "test", Coordinate(45, 11), "Tmp1", "Arcella")
+            timestamp = datetime.now()
+            timestamps.append(timestamp)
+            to_send = Misurazione(timestamp,600 + i, "test", Coordinate(45, 11), "Tmp1", "Arcella")
             misurazione = AdapterMisurazione(to_send)
             misurazioni.append(to_send)
             kafka_writer.write(misurazione)
             kafka_writer.flush_kafka_producer()
-        time.sleep(5)
+        time.sleep(10)
         arrived = []
-        messages = kafka_consumer.poll(timeout_ms=10000)
-        for i in range(len(next(iter(messages.values())))):
-            msg_json = next(iter(messages.values()))[i].value.decode('utf-8')
-            msg = AdapterMisurazione.from_json(json.loads(msg_json))
+        for _ in kafka_consumer:
+            print(_.value)
+            msg = AdapterMisurazione.from_json(json.loads(_.value))
             arrived.append(msg)
-            #if msg in misurazioni:
-            #    print(msg_json)
         for msg in misurazioni:
             assert msg in arrived
     except Exception as e:
