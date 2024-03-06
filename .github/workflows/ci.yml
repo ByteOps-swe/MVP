@@ -17,10 +17,14 @@ jobs:
     - name: Run tests
       run: |
         docker compose --profile test up -d
-        ls
 
-    # - name: Copy coverage report from Docker container
-    #   run: docker cp tests:/app/coverage.xml ./coverage.xml
+     - name: Wait for tests to complete
+      run: |
+        while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
+
+    - name: Copy coverage report from stopped Docker container
+      run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
+
 
     - name: Install Coveralls
       run: |
