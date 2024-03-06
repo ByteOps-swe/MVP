@@ -11,8 +11,7 @@ class DustPM10Simulator(Simulator):
                          f"DstPM10{DustPM10Simulator.__count}", initial_dust_level,SensorTypes.DUST_PM10.value)
 
     def _generate_measure(self) -> None:
-        variation = random.uniform(-5, 5)  
+        variation = random.uniform(-5, 5)
         self._misurazione += variation
-        self._misurazione = max(0, min(100, self._misurazione)) 
-
-
+        self._misurazione = max(0, min(100, self._misurazione))
+        

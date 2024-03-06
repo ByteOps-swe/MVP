@@ -11,6 +11,6 @@ class TemperatureSimulator(Simulator):
                          f"Tmp{TemperatureSimulator.__count}", initial_temperature,SensorTypes.TEMPERATURE.value)
 
     def _generate_measure(self) -> None:
-        variation = random.uniform(-0.5, 0.5)  
+        variation = random.uniform(-0.5, 0.5)
         self._misurazione += variation
         self._misurazione = max(0, min(100, self._misurazione))

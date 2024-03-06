@@ -11,7 +11,6 @@ from ..Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
-
 test_topic = "test"
 
 @pytest.fixture
@@ -39,7 +38,7 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_1_misurazione_kafka(kafka_consumer, kafka_writer):
+async def test_1_misurazione_kafka(kafka_consumer,kafka_writer):
     """
     Test function for sending and receiving a measurement via Kafka.
 
@@ -61,10 +60,9 @@ async def test_1_misurazione_kafka(kafka_consumer, kafka_writer):
         arrived = []
         assert len(messages) > 0, "Message not received on Kafka"
         for i in range(len(next(iter(messages.values())))):
-                msg_json = next(iter(messages.values()))[i].value.decode('utf-8')
-                msg = AdapterMisurazione.from_json(json.loads(msg_json))
-                arrived.append(msg)
-       
+            msg_json = next(iter(messages.values()))[i].value.decode('utf-8')
+            msg = AdapterMisurazione.from_json(json.loads(msg_json))
+            arrived.append(msg)
         assert to_send in arrived
     except Exception as e:
         pytest.fail(f"Failed to connect to kafka: {e}")

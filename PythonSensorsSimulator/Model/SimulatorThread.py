@@ -36,7 +36,6 @@ class SimulatorThread(ComponentSimulatorThread):
         Executes the task associated with the thread.
         """
         self.task()
-        
     def task(self):
         """
         Starts the data generation process.
@@ -47,13 +46,14 @@ class SimulatorThread(ComponentSimulatorThread):
         """
         last_measure = None
         while self.__is_running:
-            if self.__data_to_generate != -1:
-                if self.__data_to_generate <= 0:
-                    self.stop()
-                else:
-                    self.__data_to_generate -= 1
+            if self.__data_to_generate == 0:
+                self.stop()
+            elif self.__data_to_generate > 0:
+                self.__data_to_generate -= 1
             new_measure = self.__simulator.simulate()
-            if last_measure is None or last_measure.get_value() != new_measure.get_value(): #faccio in modo che venga inviato il dato solo se è differente dal precedente, altrimenti non ha senso
+            if last_measure is None or last_measure.get_value() != new_measure.get_value():
+                #faccio in modo che venga inviato il dato solo se è differente dal precedente,
+                #altrimenti non ha senso
                 self.__writers.write(AdapterMisurazione(new_measure))
                 last_measure = new_measure
             time.sleep(self.__frequency)

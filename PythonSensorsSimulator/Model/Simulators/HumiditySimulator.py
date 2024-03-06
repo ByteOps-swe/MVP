@@ -11,8 +11,6 @@ class HumiditySimulator(Simulator):
                          f"Umd{HumiditySimulator.__count}",initial_humidity,SensorTypes.HUMIDITY.value)
 
     def _generate_measure(self):
-        variation = random.uniform(-5, 5)  
+        variation = random.uniform(-5, 5)
         self._misurazione += variation
         self._misurazione = max(0, min(100, self._misurazione))
-
-

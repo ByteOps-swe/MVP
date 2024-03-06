@@ -1,8 +1,8 @@
 import os
 import time
+from unittest.mock import Mock
 import pytest
 import clickhouse_connect
-from unittest.mock import Mock
 
 from ..Model.Simulators.Coordinate import Coordinate
 from ..Model.Simulators.Misurazione import Misurazione
@@ -29,15 +29,18 @@ async def test_string_value(clickhouse_client):
     try:
         adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
         kafka_writer = KafkaWriter(adapter_kafka)
-        misurazione = AdapterMisurazione(Misurazione('2021-02-28 10:20:37.216572', "$$$$", "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella"))
-        kafka_writer.write(misurazione) 
-        misurazione = AdapterMisurazione(Misurazione('2021-02-28 10:20:37.206573', 503, "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella"))
+        misurazione = AdapterMisurazione(
+            Misurazione('2021-02-28 10:20:37.216572', "$$$$", "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella"))
+        kafka_writer.write(misurazione)
+        misurazione = AdapterMisurazione(
+            Misurazione('2021-02-28 10:20:37.206573', 503, "Temperature", Coordinate(45.39214, 11.859271), "Tmp1", "Arcella"))
         kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
-        time.sleep(3)
+        time.sleep(5)
         result = clickhouse_client.query(f'SELECT * FROM innovacity.{table_to_test} where value =503 LIMIT 1')
         assert float(result.result_rows[0][3]) == 503
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'Tmp1' and timestamp = '2021-02-28 10:20:37.216572' LIMIT 1")
+        result = clickhouse_client.query(
+            f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'Tmp1' and timestamp = '2021-02-28 10:20:37.216572' LIMIT 1")
         assert not result.result_rows
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
@@ -69,7 +72,7 @@ async def test_dirty_timestamp(clickhouse_client):
         kafka_writer = KafkaWriter(adapter_kafka)
         kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
-        time.sleep(3)
+        time.sleep(5)
         result = clickhouse_client.query(f'SELECT * FROM innovacity.{table_to_test} where value =25.5 LIMIT 1')
         assert float(result.result_rows[0][3]) == 25.5
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'sensore_unique1' LIMIT 1")
@@ -102,9 +105,9 @@ async def test_dirty_coordinates(clickhouse_client):
         }
         adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
         kafka_writer = KafkaWriter(adapter_kafka)
-        kafka_writer.write(mock_adapter_misurazione_corretta) 
+        kafka_writer.write(mock_adapter_misurazione_corretta)
         kafka_writer.flush_kafka_producer()
-        time.sleep(3)
+        time.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_right' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_wrong' LIMIT 1")
