@@ -1,5 +1,8 @@
+from datetime import datetime
 from .Writers.Writable import Writable
 from .Simulators.Misurazione import Misurazione
+from .Simulators.Coordinate import Coordinate
+
 class AdapterMisurazione(Writable):
     def __init__(self, misurazione : Misurazione):
         self.__misurazione = misurazione
@@ -14,12 +17,22 @@ class AdapterMisurazione(Writable):
             "ID_sensore": self.__misurazione.get_ID_sensore(),  # Usiamo il metodo getter per ottenere l'ID del sensore
             "cella": self.__misurazione.get_cella()  # Usiamo il metodo getter per ottenere il nome della cella
         }
-
     @staticmethod
     def __format_value(value):
         if isinstance(value, bool):
             return 1 if value else 0
-        elif isinstance(value, float):
+        if isinstance(value, float):
             return "{:.2f}".format(value)
-        else:
-            return value
+        return value
+    @staticmethod
+    def from_json(json_data:dict):
+        timestamp = json_data["timestamp"]
+        value = json_data["value"]
+        type_ = json_data["type"]
+        latitude = json_data["latitude"]
+        longitude = json_data["longitude"]
+        ID_sensore = json_data["ID_sensore"]
+        cella = json_data["cella"]
+        coordinate = Coordinate(latitude, longitude)
+        return Misurazione(datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f'), value, type_, coordinate, ID_sensore, cella)
+    

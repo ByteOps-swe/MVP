@@ -8,9 +8,9 @@ CREATE TABLE innovacity.electricalFault_kafka (
 ) ENGINE = Kafka(
     'kafka:9092',
     'electrical_fault',
-    'CG_Clickhouse_1',
-    'JSONEachRow'
-);
+    'CG_Clickhouse_1'
+) SETTINGS kafka_format = 'JSONEachRow',
+           kafka_skip_broken_messages = 10;
 
 
 CREATE TABLE innovacity.electricalFault

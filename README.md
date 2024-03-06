@@ -1,3 +1,5 @@
+![build](https://github.com/ByteOps-swe/MVP/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/ByteOps-swe/MVP/badge.svg?branch=Action-test)](https://coveralls.io/github/ByteOps-swe/MVP?branch=Action-test)
 # InnovaCity
 
 Progetto del corso di [Ingegneria del Software 2023-2024]
@@ -28,6 +30,11 @@ Per connettersi a clickhouse con client e ed effettuare query:
 ```bash
 winpty docker exec -it clickhouse clickhouse-client
 ```
+
+TEST
+`docker exec simulators pytest`
+docker exec simulators pytest --capture=no clickHouseDataTest.py
+per avere print
 
 Per generare uml:
 

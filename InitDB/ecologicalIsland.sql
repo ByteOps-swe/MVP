@@ -9,10 +9,9 @@ CREATE TABLE innovacity.ecoIslands_kafka (
 ) ENGINE = Kafka(
     'kafka:9092',
     'ecologicalIsland',
-    'CG_Clickhouse_1',
-    'JSONEachRow'
-);
-
+    'CG_Clickhouse_1'
+) SETTINGS kafka_format = 'JSONEachRow',
+           kafka_skip_broken_messages = 10;
 
 CREATE TABLE innovacity.ecoIslands
 (
@@ -24,7 +23,12 @@ CREATE TABLE innovacity.ecoIslands
     longitude Float64
 )
 ENGINE = MergeTree()
-ORDER BY (ID_sensore, timestamp);
+PRIMARY KEY (ID_sensore,toStartOfHour(timestamp), timestamp)
+TTL toDateTime(timestamp) + INTERVAL 1 MONTH
+    GROUP BY ID_sensore,toStartOfHour(timestamp)
+    SET
+        value = avg(value);
+
 
 
 CREATE MATERIALIZED VIEW mv_ecoIslands TO innovacity.ecoIslands

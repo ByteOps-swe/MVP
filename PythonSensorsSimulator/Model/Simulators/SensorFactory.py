@@ -34,4 +34,3 @@ class SensorFactory:
     @staticmethod
     def create_eletrical_fault_sensor(latitude: float, longitude: float, cella: str = "Centro", fault_probability=0.5):
         return ElectricalFaultSimulator(latitude, longitude, cella, fault_probability)
-

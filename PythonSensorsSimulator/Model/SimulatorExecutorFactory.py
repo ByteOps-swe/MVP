@@ -7,12 +7,13 @@ from .Writers.Writer import Writer
 
 class SimulatorExecutorFactory(ComponentSimulatorThread):
     def __init__(self):
-        self.__simulator_executor = SimulatorThreadPool(ThreadPoolExecutorAdapter())
+        super().__init__()
+        self.__simulator_executor = SimulatorThreadPool(ThreadPoolExecutorAdapter(20))
 
-    def add_simulator(self, simulator: Simulator, writers: Writer, frequency:float = 10, data_to_generate:int = None) -> "SimulatorExecutorFactory":
+    def add_simulator(self, simulator: Simulator, writers: Writer, frequency:float = 10, data_to_generate:int = -1) -> "SimulatorExecutorFactory":
         self.__simulator_executor.append_simulator(SimulatorThread(simulator ,writers,frequency, data_to_generate))
         return self
-    
+
     def add_simulator_thread(self, thread_simulator : ComponentSimulatorThread) -> "SimulatorExecutorFactory":
         self.__simulator_executor.append_simulator(thread_simulator)
         return self
@@ -22,3 +23,6 @@ class SimulatorExecutorFactory(ComponentSimulatorThread):
 
     def stop(self):
         self.__simulator_executor.stop_all()
+
+    def task(self):
+        self.__simulator_executor.run_all()
