@@ -1,0 +1,38 @@
+name: CI Pipeline
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Run tests
+      run: |
+        docker compose --profile test up -d
+
+    - name: Wait for tests to complete
+      run: |
+        while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
+
+    - name: Copy coverage report from stopped Docker container
+      run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
+
+
+    - name: Install Coveralls
+      run: |
+        pip install coveralls
+
+    - name: Coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: coverallsapp/github-action@v2
