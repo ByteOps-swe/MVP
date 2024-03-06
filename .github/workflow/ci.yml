@@ -1,7 +1,7 @@
 name: CI Pipeline
 
 on:
-  push:
+  push
 
 jobs:
   build-and-test:
