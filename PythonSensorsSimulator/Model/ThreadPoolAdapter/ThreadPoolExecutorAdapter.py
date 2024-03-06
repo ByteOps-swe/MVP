@@ -15,8 +15,8 @@ class ThreadPoolExecutorAdapter(ThreadPoolTarget):
 
     """
 
-    def __init__(self):
-        self.__executor = concurrent.futures.ThreadPoolExecutor()
+    def __init__(self,workers = 15):
+        self.__executor = concurrent.futures.ThreadPoolExecutor(max_workers=workers)
 
     def map(self, func, iterable):
         """

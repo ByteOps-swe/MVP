@@ -1,6 +1,6 @@
 import random
 from .Simulator import Simulator
-
+from .SensorTypes import SensorTypes
 class EcologicalIslandSimulator(Simulator):
     __count = 0
     __max_fill_percentage = 90  
@@ -11,7 +11,7 @@ class EcologicalIslandSimulator(Simulator):
         EcologicalIslandSimulator.__count += 1
        
         super().__init__(latitude, longitude,cella,
-                         f"EcoIsl{EcologicalIslandSimulator.__count}", initial_fill_percentage,"EcologicalIsland")
+                         f"EcoIsl{EcologicalIslandSimulator.__count}", initial_fill_percentage,SensorTypes.ECOLOGICAL_ISLAND.value)
 
     def _generate_measure(self):
         self._misurazione += random.uniform(-EcologicalIslandSimulator.__fill_rate, EcologicalIslandSimulator.__fill_rate)

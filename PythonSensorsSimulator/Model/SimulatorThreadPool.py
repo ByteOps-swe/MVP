@@ -46,7 +46,7 @@ class SimulatorThreadPool:
         Args:
             simulator (ComponentSimulatorThread): The component simulator thread to be started.
         """
-        simulator.start()
+        simulator.task()
 
     def __stop_simulator(self, simulator: ComponentSimulatorThread):
         """

@@ -1,5 +1,6 @@
 import random
 from .Simulator import Simulator
+from .SensorTypes import SensorTypes
 
 class WaterPresenceSensor(Simulator):
     __count = 0
@@ -8,7 +9,7 @@ class WaterPresenceSensor(Simulator):
         WaterPresenceSensor.__count += 1
         self.__threshold = threshold  # soglia per rilevare la presenza di acqua
         super().__init__( latitude, longitude,cella,
-                         f"Wp{WaterPresenceSensor.__count}", 0,"WaterPresence")
+                         f"Wp{WaterPresenceSensor.__count}", 0,SensorTypes.WATER_PRESENCE.value)
 
     def _generate_measure(self):
         # Genera casualmente se la presenza di acqua supera la soglia

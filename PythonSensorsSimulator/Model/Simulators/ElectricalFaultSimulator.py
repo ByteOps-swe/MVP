@@ -1,6 +1,6 @@
 import random
 from .Simulator import Simulator
-
+from .SensorTypes import SensorTypes
 
 class ElectricalFaultSimulator(Simulator):
     __count = 0
@@ -9,7 +9,7 @@ class ElectricalFaultSimulator(Simulator):
         ElectricalFaultSimulator.__count += 1
         self._fault_probability = 0.1
         super().__init__(latitude, longitude, cella,
-                         f"GstE{ElectricalFaultSimulator.__count}",initial_value, "guastoElettrico")
+                         f"GstE{ElectricalFaultSimulator.__count}",initial_value, SensorTypes.ELECTRICAL_FAULT.value)
 
     def _generate_measure(self) -> None:
         if self._misurazione == 1:

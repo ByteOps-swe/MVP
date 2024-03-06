@@ -32,6 +32,15 @@ class ComponentSimulatorThread(threading.Thread):
             None
         """
     @abstractmethod
+    def task(self) -> None:
+        """
+        Parameters:
+            None
+
+        Returns:
+            None
+        """
+    @abstractmethod
     def stop(self) -> None:
         """
         Stops the component simulator thread.
