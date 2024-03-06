@@ -5,5 +5,5 @@ WORKDIR /app
 RUN pip install confluent-kafka clickhouse-connect pytest kafka-python pytest-asyncio
 
 COPY . .
-
-CMD ["pytest", "./"]
+RUN ls
+CMD ["pytest", "--capture=no","./"]
