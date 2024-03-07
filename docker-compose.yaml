@@ -93,7 +93,7 @@ services:
 
   test:
     build:
-      context: ./PythonSensorsSimulator
+      context: .
       dockerfile: Test/Dockerfile
     hostname: tests
     container_name: tests
