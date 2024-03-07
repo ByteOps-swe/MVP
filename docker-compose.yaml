@@ -89,12 +89,12 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["test", "prod"]
+    profiles: ["test","prod"]
 
   test:
     build:
-      context: ./PythonSensorsSimulator
-      dockerfile: Test/Dockerfile
+      context: .
+      dockerfile: PythonSensorsSimulator/Test/Dockerfile
     hostname: tests
     container_name: tests
     environment:
@@ -105,5 +105,7 @@ services:
         condition: service_healthy
       clickhouse:
         condition: service_healthy
+      processor: 
+        condition: service_started
     profiles: ["test"]
 

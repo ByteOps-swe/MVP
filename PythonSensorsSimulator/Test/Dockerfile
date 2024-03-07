@@ -1,11 +1,21 @@
+# Stage 1: Build the PythonSensorsSimulator
 FROM python:3.9
 
 WORKDIR /app
+# Create directories for both PythonSensorsSimulator and FaustProcessing
+RUN mkdir -p /app/PythonSensorsSimulator /app/FaustProcessing
 
-RUN pip install confluent-kafka clickhouse-connect pytest kafka-python pytest-asyncio mypy pylint pytest-cov
+# Copy files from PythonSensorsSimulator directory
+COPY ./PythonSensorsSimulator /app/PythonSensorsSimulator
 
-COPY . .
+# Copy files from FaustProcessing directory
+COPY ./FaustProcessing /app/FaustProcessing
 
-#CMD ["sh", "-c", "pylint --rcfile=Test/pylintrc .; mypy Model/; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+COPY ./__init__.py /app/
 
-CMD ["sh", "-c", "pytest --capture=no ./Test/test_HealthModelIntegration.py"]
+RUN pip install confluent-kafka clickhouse-connect faust pytest kafka-python pytest-asyncio mypy pylint pytest-cov
+
+
+CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; mypy ./; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+
+# CMD ["sh", "-c", "pytest --capture=no ./Test/test_HealthModelIntegration.py"]
