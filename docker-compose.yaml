@@ -101,11 +101,10 @@ services:
       KAFKA_HOST: "kafka"
       KAFKA_PORT: "9092"
     depends_on:
-      kafka:
+      - kafka:
         condition: service_healthy
-      clickhouse:
+      - clickhouse:
         condition: service_healthy
-      processor:
-        condition: service_healthy
+      - processor
     profiles: ["test"]
 
