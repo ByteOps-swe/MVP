@@ -33,7 +33,7 @@ async def test_1_misurazione(clickhouse_client,kafka_writer):
         timestamp = datetime.now()
         misurazione = AdapterMisurazione(
             Misurazione(timestamp, 4001, "Temperature", Coordinate(45.39214, 11.859271), "Id_1_mis_test", "Arcella1"))
-        await kafka_writer.write(misurazione)
+        kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(10)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='Id_1_mis_test' and timestamp = '{str(timestamp)}' LIMIT 1")
@@ -54,7 +54,7 @@ async def test_multiple_misurazioni(clickhouse_client,kafka_writer):
             timestamps.append(timestamp)
             misurazione = AdapterMisurazione(
                             Misurazione(timestamp, starting_value + i, "Temperature", Coordinate(45.39214, 11.859271), "Id_multi_mis_test", "ArcellaTest"))
-            await kafka_writer.write(misurazione)
+            kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(10)
         # Query ClickHouse to check if all data has been inserted

@@ -41,7 +41,7 @@ async def test_string_value(clickhouse_client,kafka_writer):
         for data in sensor_data:
             misurazione = AdapterMisurazione(
                 Misurazione(data["timestamp"], data["value"], data["type"], Coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            await kafka_writer.write(misurazione)
+            kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(5)
 
@@ -78,7 +78,7 @@ async def test_dirty_timestamp(clickhouse_client,kafka_writer):
             "ID_sensore": "id_drt_time_wrong",
             "cella": "cella"
         }
-        await kafka_writer.write(mock_adapter_misurazione_corretta) 
+        kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_drt_time_correct' LIMIT 1")
@@ -112,7 +112,7 @@ async def test_dirty_coordinates(clickhouse_client,kafka_writer):
             "ID_sensore": "ID_drty_coord_wrong",
             "cella": "cella"
         }
-        await kafka_writer.write(mock_adapter_misurazione_corretta)
+        kafka_writer.write(mock_adapter_misurazione_corretta)
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_right' and timestamp = '{str(timestamp)}' LIMIT 1")
