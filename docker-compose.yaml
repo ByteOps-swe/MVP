@@ -89,7 +89,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["prod"]
+    profiles: ["test", "prod"]
 
   test:
     build:

@@ -41,7 +41,7 @@ async def test_1_misurazione_kafka(kafka_consumer,kafka_writer):
         timestamp = datetime.now()
         to_send = Misurazione(timestamp, 4001, "temperature", Coordinate(45.39214, 11.859271), "test_kfk_1", "Arcella1")
         misurazione = AdapterMisurazione(to_send)
-        await kafka_writer.write(misurazione)
+        kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(2)
         arrived = []
@@ -66,7 +66,7 @@ async def test_multiple_misurazioni_kafka(kafka_consumer, kafka_writer):
             to_send = Misurazione(timestamp,600 + i, "test", Coordinate(45, 11), "test_kfk_multi", "Arcella")
             misurazione = AdapterMisurazione(to_send)
             misurazioni.append(to_send)
-            await kafka_writer.write(misurazione)
+            kafka_writer.write(misurazione)
             kafka_writer.flush_kafka_producer()
         await asyncio.sleep(10)
         arrived = []

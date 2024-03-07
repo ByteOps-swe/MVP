@@ -44,7 +44,7 @@ async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
         for data in sensor_data:
             misurazione = AdapterMisurazione(
                 Misurazione(data["timestamp"], data["value"], data["type"], Coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            await kafka_writer.write(misurazione)
+            kafka_writer.write(misurazione)
 
         kafka_writer.flush_kafka_producer()
         await asyncio.sleep(5)
