@@ -1,5 +1,5 @@
 ![build](https://github.com/ByteOps-swe/MVP/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/ByteOps-swe/MVP/badge.svg?branch=Action-test)](https://coveralls.io/github/ByteOps-swe/MVP?branch=Action-test)
+[![Coverage Status](https://coveralls.io/repos/github/ByteOps-swe/MVP/badge.svg?branch=main)](https://coveralls.io/github/ByteOps-swe/MVP?branch=main)
 # InnovaCity
 
 Progetto del corso di [Ingegneria del Software 2023-2024]
