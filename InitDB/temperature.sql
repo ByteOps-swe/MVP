@@ -33,7 +33,7 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 CREATE MATERIALIZED VIEW mv_temperatures TO innovacity.temperatures
 AS SELECT * FROM innovacity.temperatures_kafka
-    WHERE value > -50 AND value < 50;
+    WHERE (value >= -50 AND value <= 50);
 
 ALTER TABLE innovacity.temperatures ADD PROJECTION tmp_sensor_cell_projection (SELECT * ORDER BY cella);
 

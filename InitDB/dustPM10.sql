@@ -33,7 +33,7 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 
 CREATE MATERIALIZED VIEW mv_dustPM10 TO innovacity.dustPM10
-AS SELECT * FROM innovacity.dustPM10_kafka;
+AS SELECT * FROM innovacity.dustPM10_kafka ;
 
 ALTER TABLE innovacity.dustPM10 ADD PROJECTION dust_sensor_cell_projection (SELECT * ORDER BY cella);
 

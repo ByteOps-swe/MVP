@@ -1,6 +1,6 @@
 import os
-import time
 from datetime import datetime
+import asyncio
 import pytest
 import clickhouse_connect
 
@@ -17,20 +17,12 @@ table_to_test = "test"
 
 @pytest.fixture(scope='module')
 def clickhouse_client():
-    # Set up ClickHouse client
     client = clickhouse_connect.get_client(host='clickhouse', port=8123, database="innovacity")
     yield client
-    # Teardown: Close connection after all tests in the module have run
     client.close()
 
 @pytest.fixture
 def kafka_writer():
-    """
-    This function creates a Kafka writer object and yields it.
-
-    Returns:
-        KafkaWriter: The Kafka writer object.
-    """
     adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
     kafka_writer = KafkaWriter(adapter_kafka)
     yield kafka_writer
@@ -41,9 +33,9 @@ async def test_1_misurazione(clickhouse_client,kafka_writer):
         timestamp = datetime.now()
         misurazione = AdapterMisurazione(
             Misurazione(timestamp, 4001, "Temperature", Coordinate(45.39214, 11.859271), "Id_1_mis_test", "Arcella1"))
-        kafka_writer.write(misurazione)
+        await kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
-        time.sleep(5)
+        await asyncio.sleep(10)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='Id_1_mis_test' and timestamp = '{str(timestamp)}' LIMIT 1")
         #print(result.result_rows)
         assert result.result_rows
@@ -55,7 +47,6 @@ async def test_1_misurazione(clickhouse_client,kafka_writer):
 async def test_multiple_misurazioni(clickhouse_client,kafka_writer):
     try:
         num_messages = 100  # Number of messages to send
-        # Send data to Kafka
         starting_value = 5001
         timestamps = []
         for i in range(num_messages):
@@ -63,20 +54,13 @@ async def test_multiple_misurazioni(clickhouse_client,kafka_writer):
             timestamps.append(timestamp)
             misurazione = AdapterMisurazione(
                             Misurazione(timestamp, starting_value + i, "Temperature", Coordinate(45.39214, 11.859271), "Id_multi_mis_test", "ArcellaTest"))
-            kafka_writer.write(misurazione)
+            await kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
-        time.sleep(15)
+        await asyncio.sleep(10)
         # Query ClickHouse to check if all data has been inserted
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='Id_multi_mis_test' ORDER BY (timestamp,value) DESC LIMIT {num_messages}")
        # print(result.result_rows)
         for i in range(num_messages):
-            print((starting_value + num_messages - 1 -i))
-            print( str(timestamps[num_messages -1 -i])[:22])
-            print("----")
-
-            print(float(result.result_rows[i][3]))
-            print(str(result.result_rows[i][2])[:22])
-            print("-----------")
             assert (starting_value + num_messages - 1 -i) == float(result.result_rows[i][3])
             assert str(timestamps[num_messages -1 -i])[:22] == str(result.result_rows[i][2])[:22]
     except Exception as e:
