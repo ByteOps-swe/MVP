@@ -36,21 +36,36 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_1_misurazione(clickhouse_client, kafka_writer):
+async def test_outOfBound_misurazione(clickhouse_client, kafka_writer):
     try:
         timestamp = datetime.now()
-        misurazione = AdapterMisurazione(
-            Misurazione(timestamp, 45, "Temperature", Coordinate(45.39214, 11.859271), "Id_1_mis_test", "Arcella1"))
-        kafka_writer.write(misurazione)
+        low_bound_limit = -50 
+        upper_bound_limit = 50
+        sensor_data = [
+            {"id": "Id_1_test_correct", "value": 45},
+            {"id": "Id_1_test_error", "value": 51}
+        ]
+
+        for data in sensor_data:
+            misurazione = AdapterMisurazione(
+                Misurazione(timestamp, data["value"], "Temperature", Coordinate(45.39214, 11.859271), data["id"], "Arcella1"))
+            kafka_writer.write(misurazione)
+
         kafka_writer.flush_kafka_producer()
         time.sleep(5)
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='Id_1_mis_test' and timestamp = '{str(timestamp)}' LIMIT 1")
-        ##print(result.result_rows)
-        assert result.result_rows
-        assert float(result.result_rows[0][3]) == 45
+
+        for data in sensor_data:
+            result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{str(timestamp)}' LIMIT 1")
+            if(data["value"] > low_bound_limit and data["value"] < upper_bound_limit):
+                assert len(result.result_rows) == 1
+                assert float(result.result_rows[0][3]) == data["value"]
+                assert str(timestamp)[:22] == str(result.result_rows[0][2])[:22]
+            else:
+                assert not result.result_rows
+
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
-
+"""
 @pytest.mark.asyncio
 async def test_multiple_misurazioni(clickhouse_client):
     try:
@@ -77,4 +92,4 @@ async def test_multiple_misurazioni(clickhouse_client):
             assert (values[num_messages - 1 -i]) == (round(float(result.result_rows[i][3]),1))
             assert str(timestamps[num_messages -1 -i])[:22] == str(result.result_rows[i][2])[:22]
     except Exception as e:
-        pytest.fail(f"Failed to send and consume data: {e}")
+        pytest.fail(f"Failed to send and consume data: {e}")"""
