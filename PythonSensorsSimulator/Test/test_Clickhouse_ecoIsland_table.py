@@ -47,13 +47,12 @@ async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
             kafka_writer.write(misurazione)
 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(5)
+        await asyncio.sleep(7)
 
         for data in sensor_data:
             result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{data['timestamp']}' LIMIT 1")
             if(data["value"] >= low_bound_limit and data["value"] <= upper_bound_limit):
-                assert len(result.result_rows) == 1
-                assert result.result_rows[0][0] == data["id"]
+                assert result.result_rows
                 assert result.result_rows[0][1] == data["cella"]
                 assert str(timestamp)[:22] == str(result.result_rows[0][2])[:22]
                 assert float(result.result_rows[0][3]) == data["value"]

@@ -16,6 +16,6 @@ COPY ./__init__.py /app/
 RUN pip install confluent-kafka clickhouse-connect faust pytest kafka-python pytest-asyncio mypy pylint pytest-cov
 
 
-#CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; mypy ./; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; mypy ./; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
 
-CMD ["sh", "-c", "pytest --capture=no ./Test/test_HealthModelIntegration.py"]
+#CMD ["sh", "-c", "pytest --capture=no ./PythonSensorsSimulator/Test/test_HealthModelIntegration.py"]

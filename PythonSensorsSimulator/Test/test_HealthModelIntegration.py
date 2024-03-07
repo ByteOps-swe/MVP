@@ -68,9 +68,8 @@ async def test_heatlh_score_integration(clickhouse_client,kafka_writer_tmp,kafka
         await asyncio.sleep(10)
 
         expected_result = 0
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test}")
-        print(result.result_rows)
-        #assert  float(result.result_rows[0][2]) == expected_result
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} order by timestamp desc")
+        assert  float(result.result_rows[0][2]) == expected_result
 
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
