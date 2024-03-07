@@ -5,5 +5,5 @@ from .Writable import Writable
 class Writer(ABC):
 
     @abstractmethod
-    async def write(self, to_write: Writable) -> None:
+    def write(self, to_write: Writable) -> None:
         pass

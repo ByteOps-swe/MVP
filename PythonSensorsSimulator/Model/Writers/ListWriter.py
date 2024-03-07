@@ -9,7 +9,7 @@ class ListWriter(Writer):
         self.__data_list = []
         self.__lock = Lock()  # Lock per garantire l'accesso thread-safe alla lista
 
-    async def write(self, to_write: Writable) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock:
             self.__data_list.append(to_write)
 

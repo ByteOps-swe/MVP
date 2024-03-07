@@ -9,7 +9,7 @@ class StdoutWriter(Writer):
     def __init__(self):
         self.__lock = threading.Lock()
 
-    async def write(self, to_write: Writable) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock:
             print(to_write.to_json())
             self.__update_counter()

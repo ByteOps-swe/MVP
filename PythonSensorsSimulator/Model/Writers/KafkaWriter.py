@@ -11,7 +11,7 @@ class KafkaWriter(Writer):
     def __init__(self, kafka_target: KafkaTarget):
         self.__kafka_target = kafka_target
 
-    async def write(self, to_write: Writable) -> None:
+    def write(self, to_write: Writable) -> None:
         with self.__lock:
             self.__kafka_target.write_to_kafka(json.dumps(to_write.to_json()))
 
