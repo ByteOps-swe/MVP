@@ -25,11 +25,21 @@ def clickhouse_client():
     # Teardown: Close connection after all tests in the module have run
     client.close()
 
+@pytest.fixture
+def kafka_writer():
+    """
+    This function creates a Kafka writer object and yields it.
+
+    Returns:
+        KafkaWriter: The Kafka writer object.
+    """
+    adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
+    kafka_writer = KafkaWriter(adapter_kafka)
+    yield kafka_writer
+
 @pytest.mark.asyncio
-async def test_string_value(clickhouse_client):
+async def test_string_value(clickhouse_client,kafka_writer):
     try:
-        adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-        kafka_writer = KafkaWriter(adapter_kafka)
         timestamp = datetime.now()
         misurazione = AdapterMisurazione(
             Misurazione(timestamp, "$$$$", "Temperature", Coordinate(45.39214, 11.859271), "error_test", "Arcella"))
@@ -49,7 +59,7 @@ async def test_string_value(clickhouse_client):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
 
 @pytest.mark.asyncio
-async def test_dirty_timestamp(clickhouse_client):
+async def test_dirty_timestamp(clickhouse_client,kafka_writer):
     try:
         mock_adapter_misurazione_corretta = Mock()
         mock_adapter_misurazione_corretta.to_json.return_value = {
@@ -71,8 +81,6 @@ async def test_dirty_timestamp(clickhouse_client):
             "ID_sensore": "sensore_unique1",
             "cella": "cella"
         }
-        adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-        kafka_writer = KafkaWriter(adapter_kafka)
         kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
         time.sleep(5)
@@ -84,7 +92,7 @@ async def test_dirty_timestamp(clickhouse_client):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
 
 @pytest.mark.asyncio
-async def test_dirty_coordinates(clickhouse_client):
+async def test_dirty_coordinates(clickhouse_client,kafka_writer):
     try:
         timestamp = datetime.now()
         mock_adapter_misurazione_corretta = Mock()
@@ -107,8 +115,6 @@ async def test_dirty_coordinates(clickhouse_client):
             "ID_sensore": "ID_drty_coord_wrong",
             "cella": "cella"
         }
-        adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-        kafka_writer = KafkaWriter(adapter_kafka)
         kafka_writer.write(mock_adapter_misurazione_corretta)
         kafka_writer.flush_kafka_producer()
         time.sleep(5)

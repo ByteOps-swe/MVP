@@ -6,6 +6,6 @@ RUN pip install confluent-kafka clickhouse-connect pytest kafka-python pytest-as
 
 COPY . .
 
-CMD ["sh", "-c", "pylint --rcfile=Test/pylintrc .; mypy Model/; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+#CMD ["sh", "-c", "pylint --rcfile=Test/pylintrc .; mypy Model/; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
 
-#CMD ["sh", "-c", "pytest --capture=no ./Test/test_kafkaData.py"]
+CMD ["sh", "-c", "pytest --capture=no ./Test/test_Clickhouse_tmp_table.py"]

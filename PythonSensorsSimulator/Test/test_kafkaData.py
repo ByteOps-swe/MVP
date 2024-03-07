@@ -62,7 +62,7 @@ async def test_1_misurazione_kafka(kafka_consumer,kafka_writer):
         time.sleep(2)
         arrived = []
         for _ in kafka_consumer:
-            print(_.value)
+            #print(_.value)
             msg = AdapterMisurazione.from_json(json.loads(_.value))
             arrived.append(msg)
        
@@ -87,7 +87,7 @@ async def test_multiple_misurazioni_kafka(kafka_consumer, kafka_writer):
         time.sleep(10)
         arrived = []
         for _ in kafka_consumer:
-            print(_.value)
+            #print(_.value)
             msg = AdapterMisurazione.from_json(json.loads(_.value))
             arrived.append(msg)
         for msg in misurazioni:
