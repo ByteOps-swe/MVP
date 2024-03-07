@@ -74,14 +74,7 @@ async def test_multiple_misurazioni(clickhouse_client):
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='Id_multi_mis_test' ORDER BY (timestamp,value) DESC LIMIT {num_messages}")
        # #print(result.result_rows)
         for i in range(num_messages):
-            print(values[num_messages - 1 -i])
-            print( str(timestamps[num_messages -1 -i])[:22])
-            print("----")
-
-            print(round(float(result.result_rows[i][3])),1)
-            print(str(result.result_rows[i][2])[:22])
-            print("-----------")
-            #assert (starting_value + (num_messages - 1 -i)/10) == float(result.result_rows[i][3])
-            #assert str(timestamps[num_messages -1 -i])[:22] == str(result.result_rows[i][2])[:22]
+            assert (values[num_messages - 1 -i]) == (round(float(result.result_rows[i][3]),1))
+            assert str(timestamps[num_messages -1 -i])[:22] == str(result.result_rows[i][2])[:22]
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
