@@ -608,7 +608,7 @@
           {
             "selected": false,
             "text": "Umidità",
-            "value": "umidities"
+            "value": "humidity"
           },
           {
             "selected": false,
@@ -621,7 +621,7 @@
             "value": "dustPM10"
           }
         ],
-        "query": "Temperatura : temperatures, Umidità : umidities, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
+        "query": "Temperatura : temperatures, Umidità : humidity, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
