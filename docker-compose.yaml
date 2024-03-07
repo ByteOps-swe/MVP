@@ -94,7 +94,7 @@ services:
   test:
     build:
       context: .
-      dockerfile: Test/Dockerfile
+      dockerfile: PythonSensorsSimulator/Test/Dockerfile
     hostname: tests
     container_name: tests
     environment:
