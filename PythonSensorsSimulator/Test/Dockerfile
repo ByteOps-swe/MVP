@@ -11,7 +11,7 @@ COPY ./PythonSensorsSimulator /app/PythonSensorsSimulator
 # Copy files from FaustProcessing directory
 COPY ./FaustProcessing /app/FaustProcessing
 
-COPY ./__init__py /app/
+COPY ./__init__.py /app/
 
 
 RUN pip install confluent-kafka clickhouse-connect pytest kafka-python pytest-asyncio mypy pylint pytest-cov
