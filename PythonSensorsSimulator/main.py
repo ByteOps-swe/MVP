@@ -10,7 +10,7 @@ KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 # senza dover cambiare nulla sul resto del codice.
 
 temp_writers = CompositeWriter().add_kafkaConfluent_writer("temperature", KAFKA_HOST, KAFKA_PORT)
-umd_writers = CompositeWriter().add_kafkaConfluent_writer("umidity", KAFKA_HOST, KAFKA_PORT)
+umd_writers = CompositeWriter().add_kafkaConfluent_writer("humidity", KAFKA_HOST, KAFKA_PORT)
 chS_writers = CompositeWriter().add_kafkaConfluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT)
 ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecologicalIsland", KAFKA_HOST, KAFKA_PORT)
 waPr_writers = CompositeWriter().add_kafkaConfluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT)

@@ -11,7 +11,7 @@ healthCalculator = HealthCalculator()
 healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
 
 temperature_topic = "temperature"
-humidity_topic = "umidity"
+humidity_topic = "humidity"
 dustPm10_topic = "dust_level_PM10"
 
 

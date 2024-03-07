@@ -105,5 +105,7 @@ services:
         condition: service_healthy
       clickhouse:
         condition: service_healthy
+      processor: 
+        condition: service_started
     profiles: ["test"]
 
