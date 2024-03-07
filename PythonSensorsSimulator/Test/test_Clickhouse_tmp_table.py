@@ -34,9 +34,9 @@ async def test_outOfBound_misurazione_tmp(clickhouse_client, kafka_writer):
         low_bound_limit = -50 
         upper_bound_limit = 50
         sensor_data = [
-            {"id": "Id_1_tmp_correct_ofb","cella":"Arcella","timestamp":timestamp,"value": 45,"longitude": 11.859271,"latitude": 45.39214,"type": "Temperature"},
-            {"id": "Id_1_tmp_error_ofb","cella":"Arcella","timestamp":timestamp,"value": 51,"longitude": 11.859271,"latitude": 45.39214,"type": "Temperature"},
-            {"id": "Id_2_tmp_error_ofb","cella":"Arcella","timestamp":timestamp,"value": -51,"longitude": 11.859271,"latitude": 45.39214,"type": "Temperature"}
+            {"id": "Id_1_tmp_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 45, "longitude": 11.859271, "latitude":45.39214, "type": "Temperature"},
+            {"id": "Id_1_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 51, "longitude": 11.859271, "latitude":45.39214, "type": "Temperature"},
+            {"id": "Id_2_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -51, "longitude": 11.859271, "latitude":45.39214, "type": "Temperature"}
         ]
 
         for data in sensor_data:
