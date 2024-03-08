@@ -12,29 +12,34 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
+    - name: Set DOCKER_BUILDKIT to false
+      env:
+        DOCKER_BUILDKIT: "0"  # Or "false"
+      run: |
+        echo "DOCKER_BUILDKIT=0" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
     - name: Run tests
       run: |
-          docker context list
-    #     docker compose --profile test up kafka test_base_image clickhouse -d
-    #     docker compose --profile test up test
+        docker compose --profile test up kafka test_base_image clickhouse -d
+        docker compose --profile test up test
 
-    # - name: Wait for tests to complete
-    #   run: |
-    #     while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
+    - name: Wait for tests to complete
+      run: |
+        while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
 
-    # - name: Copy coverage report from stopped Docker container
-    #   run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
+    - name: Copy coverage report from stopped Docker container
+      run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
 
 
-    # - name: Install Coveralls
-    #   run: |
-    #     pip install coveralls
+    - name: Install Coveralls
+      run: |
+        pip install coveralls
 
-    # - name: Coveralls
-    #   env:
-    #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-    #   uses: coverallsapp/github-action@v2
+    - name: Coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: coverallsapp/github-action@v2
