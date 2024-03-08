@@ -47,8 +47,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -127,8 +126,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -604,8 +602,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "green",
@@ -744,8 +741,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#6ED0E0",
@@ -907,8 +903,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -932,7 +927,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard temperatura",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&from=now-5m&to=now&var-AggregazioneTemporale=Automatico"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=temperatures&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 500,
@@ -1039,8 +1034,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -1135,8 +1129,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1261,8 +1254,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               },
               {
                 "color": "green",
@@ -1377,8 +1369,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1401,7 +1392,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard umidità",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&from=now-5m&to=now&var-AggregazioneTemporale=Automatico&var-tabella=umidities"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=umidities&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1478,8 +1469,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1625,8 +1615,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1649,7 +1638,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard polveri sottili",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100&from=now-5m&to=now"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1717,8 +1706,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               },
               {
                 "color": "green",
@@ -1809,8 +1797,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "super-light-yellow",
@@ -1964,8 +1951,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1995,7 +1981,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard isole ecologiche",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100&from=now-5m&to=now"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "options": {
@@ -2061,8 +2047,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "orange",
@@ -2180,8 +2165,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2294,8 +2278,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2372,8 +2355,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               }
             ]
           },
@@ -2470,8 +2452,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2555,8 +2536,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2669,8 +2649,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2747,8 +2726,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               }
             ]
           },
@@ -2845,8 +2823,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2930,15 +2907,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3044,15 +3021,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3079,7 +3056,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -3122,12 +3099,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3154,7 +3131,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -3220,15 +3197,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3253,7 +3230,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.4.0",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -3290,7 +3267,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -3522,6 +3499,6 @@
   "timezone": "",
   "title": "Main Dashboard",
   "uid": "e8b17515-2cf3-43e2-be39-3323fd37af67",
-  "version": 6,
+  "version": 4,
   "weekStart": ""
 }
