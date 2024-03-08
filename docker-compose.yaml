@@ -103,8 +103,6 @@ services:
     build:
       context: .
       dockerfile: PythonSensorsSimulator/Test/Dockerfile
-      environment:
-        PULL_IMAGE: false
     hostname: tests
     container_name: tests
     environment:
