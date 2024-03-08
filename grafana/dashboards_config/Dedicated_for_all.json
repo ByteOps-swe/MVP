@@ -618,10 +618,10 @@
           {
             "selected": false,
             "text": "Polveri Sottili",
-            "value": "dustPM10"
+            "value": "dust_PM10"
           }
         ],
-        "query": "Temperatura : temperatures, Umidità : humidity, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
+        "query": "Temperatura : temperatures, Umidità : humidity, Isole ecologiche : ecoIslands, Polveri Sottili : dust_PM10",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"

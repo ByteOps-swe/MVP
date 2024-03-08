@@ -15,7 +15,7 @@ class HealthCalculator(HealthAlgorithm):
     __umdInc = HumidityIncrementer()
     __dstPm10Inc = DustPM10Incrementer()
 
-    def __init__(self, temperature_measure_type_naming:str="temperature",humidity_measure_type_naming:str="humidity",dtsPm10_measure_type_naming:str="dust_level_PM10", healthScore_measure_type_naming:str="PunteggioSalute"):
+    def __init__(self, temperature_measure_type_naming:str="temperature",humidity_measure_type_naming:str="humidity",dtsPm10_measure_type_naming:str="dust_PM10", healthScore_measure_type_naming:str="PunteggioSalute"):
         """
         Initializes a HealthCalculator object.
 

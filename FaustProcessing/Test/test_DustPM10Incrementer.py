@@ -19,7 +19,7 @@ class TestDustPM10Incrementer(unittest.TestCase):
     def test_get_incrementation_single_measurement(self):
         incrementer = DustPM10Incrementer()
         misurazione = Mock()
-        misurazione.get_type.return_value = "dust_level_PM10"
+        misurazione.get_type.return_value = "dust_PM10"
         misurazione.get_value.return_value = 10.0
         misurazioni = [misurazione]
 
@@ -31,10 +31,10 @@ class TestDustPM10Incrementer(unittest.TestCase):
     def test_get_incrementation_multiple_measurements(self):
         incrementer = DustPM10Incrementer()
         misurazione1 = Mock()
-        misurazione1.get_type.return_value = "dust_level_PM10"
+        misurazione1.get_type.return_value = "dust_PM10"
         misurazione1.get_value.return_value = 10.0
         misurazione2 = Mock()
-        misurazione2.get_type.return_value = "dust_level_PM10"
+        misurazione2.get_type.return_value = "dust_PM10"
         misurazione2.get_value.return_value = 20.0
         misurazioni = [misurazione1, misurazione2]
 

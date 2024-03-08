@@ -30,7 +30,7 @@ groups:
                         table: ""
                 pluginVersion: 4.0.3
                 queryType: table
-                rawSql: SELECT ID_sensore,cella, argMax(value,timestamp) FROM "innovacity"."dustPM10" GROUP BY ID_sensore,cella LIMIT 1000
+                rawSql: SELECT ID_sensore,cella, argMax(value,timestamp) FROM "innovacity"."dust_PM10" GROUP BY ID_sensore,cella LIMIT 1000
                 refId: A
             - refId: C
               relativeTimeRange:

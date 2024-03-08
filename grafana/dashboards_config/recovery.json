@@ -412,7 +412,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "dustPM10",
+            "name": "dust_PM10",
             "query": "G",
             "titleField": "Tipo",
             "type": "markers"
@@ -584,7 +584,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n     argMax(value, timestamp) as value,\r\n    'Polveri sottili' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.dustPM10\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+          "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n     argMax(value, timestamp) as value,\r\n    'Polveri sottili' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.dust_PM10\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
           "refId": "G"
         }
       ],
@@ -1559,7 +1559,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT \r\n    ID_sensore as dstPM10_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.dustPM10\r\nGROUP BY \r\n    ID_sensore\r\n",
+          "rawSql": "SELECT \r\n    ID_sensore as dstPM10_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.dust_PM10\r\nGROUP BY \r\n    ID_sensore\r\n",
           "refId": "A"
         },
         {
@@ -1582,7 +1582,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT distinct ID_sensore as dstPM10_sensors_id , cella as Cella from innovacity.dustPM10",
+          "rawSql": "SELECT distinct ID_sensore as dstPM10_sensors_id , cella as Cella from innovacity.dust_PM10",
           "refId": "B"
         }
       ],
@@ -1661,7 +1661,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard polveri sottili",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=dust_PM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1699,7 +1699,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dustPM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+          "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dust_PM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
           "refId": "A"
         }
       ],
@@ -1791,7 +1791,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT\r\n  avg(value) as avgPM10\r\nFROM innovacity.dustPM10\r\nWHERE  $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($dstPM10_sensors_id);\r\n",
+          "rawSql": "SELECT\r\n  avg(value) as avgPM10\r\nFROM innovacity.dust_PM10\r\nWHERE  $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($dstPM10_sensors_id);\r\n",
           "refId": "A"
         }
       ],
@@ -3319,14 +3319,14 @@
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dustPM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
+        "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dust_PM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
         "hide": 2,
         "includeAll": false,
         "label": "Seleziona cella",
         "multi": true,
         "name": "Cella",
         "options": [],
-        "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dustPM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
+        "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dust_PM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3487,14 +3487,14 @@
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "select distinct ID_sensore from innovacity.dustPM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
+        "definition": "select distinct ID_sensore from innovacity.dust_PM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
         "hide": 2,
         "includeAll": true,
         "label": "Sensori polveri sottili PM10",
         "multi": true,
         "name": "dstPM10_sensors_id",
         "options": [],
-        "query": "select distinct ID_sensore from innovacity.dustPM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
+        "query": "select distinct ID_sensore from innovacity.dust_PM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

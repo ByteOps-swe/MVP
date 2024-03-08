@@ -14,7 +14,7 @@ umd_writers = CompositeWriter().add_kafkaConfluent_writer("humidity", KAFKA_HOST
 chS_writers = CompositeWriter().add_kafkaConfluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT)
 ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecologicalIsland", KAFKA_HOST, KAFKA_PORT)
 waPr_writers = CompositeWriter().add_kafkaConfluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT)
-dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_level_PM10", KAFKA_HOST, KAFKA_PORT)
+dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT)
 eletricalFault_writers = CompositeWriter().add_kafkaConfluent_writer("electrical_fault", KAFKA_HOST, KAFKA_PORT)
 symExecAggregator = SimulatorExecutorFactory()
 

@@ -15,7 +15,7 @@ class DustPM10Incrementer(Incrementer):
 
     """
 
-    def __init__(self, dust_type_naming: str = "dust_level_PM10"):
+    def __init__(self, dust_type_naming: str = "dust_PM10"):
         self.__dust_type_naming = dust_type_naming
 
     def get_incrementation(self, misurazioni: List[Misurazione]):
