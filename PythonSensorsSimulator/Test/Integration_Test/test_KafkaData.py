@@ -1,15 +1,14 @@
 import os
-import time
 from datetime import datetime
 import json
 import pytest
 import asyncio
 from kafka import KafkaConsumer
-from ..Model.Simulators.Coordinate import Coordinate
-from ..Model.Simulators.Misurazione import Misurazione
-from ..Model.Writers.KafkaWriter import KafkaWriter
-from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from ..Model.AdapterMisurazione import AdapterMisurazione
+from ...Model.Simulators.Coordinate import Coordinate
+from ...Model.Simulators.Misurazione import Misurazione
+from ...Model.Writers.KafkaWriter import KafkaWriter
+from ...Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")

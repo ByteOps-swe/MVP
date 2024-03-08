@@ -1,7 +1,7 @@
 from HealthStateModel.HealthCalculator import HealthCalculator
 from .FaustMeasurement import FaustMeasurement
-
-class HealthModelProcessorAdapter:
+from .FaustProcessor import Processor
+class HealthModelProcessorAdapter(Processor):
     """
     Adapter class for processing health model measurements.
     """

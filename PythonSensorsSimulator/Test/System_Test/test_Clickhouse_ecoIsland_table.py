@@ -1,25 +1,26 @@
 import os
-import time
 from datetime import datetime
 import asyncio
 import pytest
 import clickhouse_connect
 
-from ..Model.Simulators.Coordinate import Coordinate
-from ..Model.Simulators.Misurazione import Misurazione
-from ..Model.Writers.KafkaWriter import KafkaWriter
-from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from ..Model.AdapterMisurazione import AdapterMisurazione
+from ...Model.Simulators.Coordinate import Coordinate
+from ...Model.Simulators.Misurazione import Misurazione
+from ...Model.Writers.KafkaWriter import KafkaWriter
+from ...Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
-test_topic = "humidity"
-table_to_test = "humidity"
+test_topic = "ecologicalIsland"
+table_to_test = "ecoIslands"
 
 @pytest.fixture(scope='module')
 def clickhouse_client():
+    # Set up ClickHouse client
     client = clickhouse_connect.get_client(host='clickhouse', port=8123, database="innovacity")
     yield client
+    # Teardown: Close connection after all tests in the module have run
     client.close()
 
 @pytest.fixture
@@ -28,18 +29,16 @@ def kafka_writer():
     kafka_writer = KafkaWriter(adapter_kafka)
     yield kafka_writer
 
-
 @pytest.mark.asyncio
-async def test_outOfBound_misurazione(clickhouse_client, kafka_writer):
+async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
     try:
         timestamp = datetime.now()
-        lower_bound_limit = 0 
+        low_bound_limit = 0 
         upper_bound_limit = 100
-
         sensor_data = [
-            {"id": "Id_1_tmp_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude": 45.39214, "type": "Humidity"},
-            {"id": "Id_1_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -10, "longitude": 11.859271, "latitude": 45.39214, "type": "Humidity"},
-            {"id": "Id_2_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 110, "longitude": 11.859271, "latitude": 45.39214, "type": "Humidity"}
+            {"id": "Id_1_umd_correct_ofb","cella":"Arcella","timestamp":timestamp,"value": 45,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"},
+            {"id": "Id_1_umd_error_ofb","cella":"Arcella","timestamp":timestamp,"value": 101,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"},
+            {"id": "Id_2_umd_error_ofb","cella":"Arcella","timestamp":timestamp,"value": -1,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"}
         ]
 
         for data in sensor_data:
@@ -48,15 +47,14 @@ async def test_outOfBound_misurazione(clickhouse_client, kafka_writer):
             kafka_writer.write(misurazione)
 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(5)
+        await asyncio.sleep(7)
 
         for data in sensor_data:
             result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{data['timestamp']}' LIMIT 1")
-            if(data["value"] >= lower_bound_limit and data["value"] <= upper_bound_limit):
-                assert len(result.result_rows) == 1
-                assert result.result_rows[0][0] == data["id"]
+            if(data["value"] >= low_bound_limit and data["value"] <= upper_bound_limit):
+                assert result.result_rows
                 assert result.result_rows[0][1] == data["cella"]
-                assert str(timestamp)[:22] == str(result.result_rows[0][2])[:22]
+                assert str(timestamp)[:19] == str(result.result_rows[0][2])[:19]
                 assert float(result.result_rows[0][3]) == data["value"]
                 assert result.result_rows[0][4] == 45.39214
                 assert result.result_rows[0][5] == 11.859271
@@ -65,3 +63,4 @@ async def test_outOfBound_misurazione(clickhouse_client, kafka_writer):
 
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
+

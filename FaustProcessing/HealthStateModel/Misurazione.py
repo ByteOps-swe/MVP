@@ -7,25 +7,24 @@ class Misurazione():
         self.__coordinates = coordinate
         self.__ID_sensore = ID_sensore
         self.__cella = cella
-        
+
     def get_timestamp(self):
         return self.__timestamp
-    
+
     def get_value(self):
         return self.__value
-    
+
     def get_type(self):
         return self.__type
-    
+
     def get_latitude(self):
         return self.__coordinates.get_latitude()
-    
+
     def get_longitude(self):
         return self.__coordinates.get_longitude()
-    
+
     def get_ID_sensore(self):
         return self.__ID_sensore
-    
+
     def get_cella(self):
         return self.__cella
-   

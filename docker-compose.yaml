@@ -91,6 +91,14 @@ services:
         condition: service_healthy
     profiles: ["test","prod"]
 
+  test_base_image:
+    build:
+      context: .
+      dockerfile: PythonSensorsSimulator/Test/Docker_test_base_image/Dockerfile
+    hostname: test-base
+    container_name: test-base
+    profiles: ["test"]
+
   test:
     build:
       context: .
@@ -107,5 +115,7 @@ services:
         condition: service_healthy
       processor: 
         condition: service_started
+      test_base_image:
+        condition: service_completed_successfully
     profiles: ["test"]
 

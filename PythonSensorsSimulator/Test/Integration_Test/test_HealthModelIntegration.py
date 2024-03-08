@@ -4,12 +4,12 @@ import asyncio
 import pytest
 import clickhouse_connect
 
-from ..Model.Simulators.Coordinate import Coordinate
-from ..Model.Simulators.Misurazione import Misurazione
-from ..Model.Writers.KafkaWriter import KafkaWriter
-from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from ..Model.AdapterMisurazione import AdapterMisurazione
-from ..Model.Simulators.SensorTypes import SensorTypes
+from ...Model.Simulators.Coordinate import Coordinate
+from ...Model.Simulators.Misurazione import Misurazione
+from ...Model.Writers.KafkaWriter import KafkaWriter
+from ...Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ...Model.AdapterMisurazione import AdapterMisurazione
+from ...Model.Simulators.SensorTypes import SensorTypes
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")

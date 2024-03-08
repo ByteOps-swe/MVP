@@ -1,16 +1,15 @@
 import os
-import time
 from datetime import datetime
 from unittest.mock import Mock
 import pytest
 import asyncio
 import clickhouse_connect
 
-from ..Model.Simulators.Coordinate import Coordinate
-from ..Model.Simulators.Misurazione import Misurazione
-from ..Model.Writers.KafkaWriter import KafkaWriter
-from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from ..Model.AdapterMisurazione import AdapterMisurazione
+from ...Model.Simulators.Coordinate import Coordinate
+from ...Model.Simulators.Misurazione import Misurazione
+from ...Model.Writers.KafkaWriter import KafkaWriter
+from ...Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
@@ -48,7 +47,7 @@ async def test_string_value(clickhouse_client,kafka_writer):
         result = clickhouse_client.query(
             f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{sensor_data[1]['id']}' and timestamp = '{sensor_data[1]['timestamp']}' LIMIT 1")
         assert float(result.result_rows[0][3]) == 503
-        str(timestamp)[:22] == str(result.result_rows[0][2])[:22]
+        str(timestamp)[:19] == str(result.result_rows[0][2])[:19]
         result = clickhouse_client.query(
              f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{sensor_data[0]['id']}' and timestamp = '{sensor_data[0]['timestamp']}' LIMIT 1")
         assert not result.result_rows

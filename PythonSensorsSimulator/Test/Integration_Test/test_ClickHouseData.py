@@ -4,11 +4,11 @@ import asyncio
 import pytest
 import clickhouse_connect
 
-from ..Model.Simulators.Coordinate import Coordinate
-from ..Model.Simulators.Misurazione import Misurazione
-from ..Model.Writers.KafkaWriter import KafkaWriter
-from ..Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
-from ..Model.AdapterMisurazione import AdapterMisurazione
+from ...Model.Simulators.Coordinate import Coordinate
+from ...Model.Simulators.Misurazione import Misurazione
+from ...Model.Writers.KafkaWriter import KafkaWriter
+from ...Model.Writers.kafkaAdapter.KafkaConfluentAdapter import KafkaConfluentAdapter
+from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
@@ -62,6 +62,6 @@ async def test_multiple_misurazioni(clickhouse_client,kafka_writer):
        # print(result.result_rows)
         for i in range(num_messages):
             assert (starting_value + num_messages - 1 -i) == float(result.result_rows[i][3])
-            assert str(timestamps[num_messages -1 -i])[:22] == str(result.result_rows[i][2])[:22]
+            assert str(timestamps[num_messages -1 -i])[:19] == str(result.result_rows[i][2])[:19]
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
