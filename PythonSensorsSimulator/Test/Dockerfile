@@ -1,5 +1,5 @@
 # Stage 1: Build the PythonSensorsSimulator
-FROM mvp_prove-test_base_image
+FROM mvp-test_base_image
 
 WORKDIR /app
 # Create directories for both PythonSensorsSimulator and FaustProcessing
