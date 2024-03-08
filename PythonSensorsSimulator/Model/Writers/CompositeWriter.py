@@ -15,15 +15,15 @@ class CompositeWriter(Writer):
             raise ValueError("Object is not a Writer instance")
         self._writers.append(writer)
         return self
-    
+
     def add_kafkaConfluent_writer(self, topic:str,host,port):
         self.add_writer(KafkaWriter(KafkaConfluentAdapter(topic,host,port)))
         return self
-    
+
     def add_stdOut_writer(self):
         self.add_writer(StdoutWriter())
         return self
-    
+
     def add_list_writer(self, writer_list : ListWriter ):
         self.add_writer(writer_list)
         return self

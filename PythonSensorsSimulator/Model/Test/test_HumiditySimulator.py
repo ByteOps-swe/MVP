@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.HumiditySimulator import HumiditySimulator
 from ..Simulators.Coordinate import Coordinate

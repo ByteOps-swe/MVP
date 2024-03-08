@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.ElectricalFaultSimulator import ElectricalFaultSimulator
 from ..Simulators.Coordinate import Coordinate

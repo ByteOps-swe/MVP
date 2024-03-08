@@ -7,13 +7,13 @@ class MisurazioneSalute():
 
     def get_timestamp(self):
         return self.__timestamp
-    
+
     def get_value(self):
         return self.__value
-    
+
     def get_type(self):
         return self.__type
-    
+
     def get_cella(self):
         return self.__cella
     

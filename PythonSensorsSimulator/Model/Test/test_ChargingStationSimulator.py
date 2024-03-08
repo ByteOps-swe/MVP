@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.ChargingStationSimulator import ChargingStationSimulator
 from ..Simulators.Coordinate import Coordinate

@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.TemperatureSimulator import TemperatureSimulator
 from ..Simulators.Coordinate import Coordinate

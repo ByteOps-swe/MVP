@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.WaterPresenceSensor import WaterPresenceSensor
 from ..Simulators.Coordinate import Coordinate

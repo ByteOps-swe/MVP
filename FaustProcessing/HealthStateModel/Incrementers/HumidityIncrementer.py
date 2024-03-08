@@ -16,10 +16,8 @@ class HumidityIncrementer(Incrementer):
             # Controlla che il tipo di misurazione sia 'umidità'
             if misurazione.get_type() == self.__umidity_type_naming:
                 dato = float(misurazione.get_value())
-                if self.__under_health_soglia <= dato <= self.__upper_health_soglia:
-                    incremento_totale += 0
-                elif dato > self.__upper_health_soglia:
+                if dato > self.__upper_health_soglia:
                     incremento_totale += dato - self.__upper_health_soglia
-                else:
+                elif dato < self.__under_health_soglia:
                     incremento_totale += self.__under_health_soglia - dato
         return int(incremento_totale / num_misurazioni) if num_misurazioni != 0 else 0
