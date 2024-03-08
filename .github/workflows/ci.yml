@@ -19,7 +19,7 @@ jobs:
     - name: Run tests
       run: |
         docker compose --profile test up test_base_image
-        docker ps
+        docker images
 
     # - name: Wait for tests to complete
     #   run: |

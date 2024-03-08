@@ -5,5 +5,4 @@ WORKDIR /app
 
 RUN pip install confluent-kafka clickhouse-connect faust pytest kafka-python pytest-asyncio pylint pytest-cov
 
-CMD ["sh", "-c", "tail -f /dev/null"]
 
