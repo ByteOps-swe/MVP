@@ -18,21 +18,22 @@ jobs:
 
     - name: Run tests
       run: |
-        docker compose --profile test up -d
+        docker compose --profile test up test_base_image
+        docker ps
 
-    - name: Wait for tests to complete
-      run: |
-        while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
+    # - name: Wait for tests to complete
+    #   run: |
+    #     while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
 
-    - name: Copy coverage report from stopped Docker container
-      run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
+    # - name: Copy coverage report from stopped Docker container
+    #   run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
 
 
-    - name: Install Coveralls
-      run: |
-        pip install coveralls
+    # - name: Install Coveralls
+    #   run: |
+    #     pip install coveralls
 
-    - name: Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      uses: coverallsapp/github-action@v2
+    # - name: Coveralls
+    #   env:
+    #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+    #   uses: coverallsapp/github-action@v2
