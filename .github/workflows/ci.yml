@@ -18,7 +18,8 @@ jobs:
 
     - name: Run tests
       run: |
-        docker compose --profile test up -d
+        docker compose --profile test up kafka test_base_image clickhouse -d
+        docker compose --profile test up test
 
     - name: Wait for tests to complete
       run: |
