@@ -47,8 +47,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -59,8 +58,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -128,16 +126,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 99
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -412,7 +408,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "dustPM10",
+            "name": "dust_PM10",
             "query": "G",
             "titleField": "Tipo",
             "type": "markers"
@@ -584,7 +580,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n     argMax(value, timestamp) as value,\r\n    'Polveri sottili' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.dustPM10\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
+          "rawSql": "SELECT\r\n    ID_sensore,\r\n     argMax(cella, timestamp) as cella_sensore,\r\n     argMax(value, timestamp) as value,\r\n    'Polveri sottili' as Tipo,\r\n    argMax(latitude, timestamp) AS latitude,\r\n    argMax(longitude, timestamp) AS longitude\r\nFROM innovacity.dust_PM10\r\nGROUP BY ID_sensore\r\nHAVING cella_sensore IN ($Cella);\r\n",
           "refId": "G"
         }
       ],
@@ -606,8 +602,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "green",
@@ -630,8 +625,7 @@
                 "value": 40
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -658,7 +652,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -747,8 +741,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#6ED0E0",
@@ -771,8 +764,7 @@
                 "value": 40
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -911,8 +903,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -920,8 +911,7 @@
               }
             ]
           },
-          "unit": "celsius",
-          "unitScale": true
+          "unit": "celsius"
         },
         "overrides": []
       },
@@ -937,7 +927,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard temperatura",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=temperatures&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=temperatures&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 500,
@@ -1044,8 +1034,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -1061,8 +1050,7 @@
               }
             ]
           },
-          "unit": "celsius",
-          "unitScale": true
+          "unit": "celsius"
         },
         "overrides": []
       },
@@ -1089,7 +1077,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1115,7 +1103,6 @@
         }
       ],
       "title": "Temperatura media ",
-      "transformations": [],
       "type": "stat"
     },
     {
@@ -1142,8 +1129,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1162,8 +1148,7 @@
                 "value": 70
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -1269,8 +1254,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               },
               {
                 "color": "green",
@@ -1282,8 +1266,7 @@
               }
             ]
           },
-          "unit": "humidity",
-          "unitScale": true
+          "unit": "humidity"
         },
         "overrides": []
       },
@@ -1310,7 +1293,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1386,8 +1369,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1395,8 +1377,7 @@
               }
             ]
           },
-          "unit": "humidity",
-          "unitScale": true
+          "unit": "humidity"
         },
         "overrides": []
       },
@@ -1411,7 +1392,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard umidità",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=humidity&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=umidities&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1488,16 +1469,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -1559,7 +1538,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT \r\n    ID_sensore as dstPM10_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.dustPM10\r\nGROUP BY \r\n    ID_sensore\r\n",
+          "rawSql": "SELECT \r\n    ID_sensore as dstPM10_sensors_id,\r\n    max(timestamp) AS last_timestamp,\r\n    argMax(value, timestamp) AS last_value\r\nFROM \r\n    innovacity.dust_PM10\r\nGROUP BY \r\n    ID_sensore\r\n",
           "refId": "A"
         },
         {
@@ -1582,7 +1561,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT distinct ID_sensore as dstPM10_sensors_id , cella as Cella from innovacity.dustPM10",
+          "rawSql": "SELECT distinct ID_sensore as dstPM10_sensors_id , cella as Cella from innovacity.dust_PM10",
           "refId": "B"
         }
       ],
@@ -1636,8 +1615,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1645,8 +1623,7 @@
               }
             ]
           },
-          "unit": "conmgm3",
-          "unitScale": true
+          "unit": "conmgm3"
         },
         "overrides": []
       },
@@ -1661,7 +1638,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard polveri sottili",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1699,7 +1676,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dustPM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
+          "rawSql": "SELECT \r\n    ID_sensore,\r\n    avg(value) as value,\r\n    $__timeInterval(timestamp) as timestamp\r\nFROM \r\n    innovacity.dust_PM10\r\n    WHERE\r\n    $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore in (${dstPM10_sensors_id})\r\nGROUP BY \r\n    ID_sensore, timestamp;\r\n",
           "refId": "A"
         }
       ],
@@ -1729,8 +1706,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               },
               {
                 "color": "green",
@@ -1742,8 +1718,7 @@
               }
             ]
           },
-          "unit": "conmgNm3",
-          "unitScale": true
+          "unit": "conmgNm3"
         },
         "overrides": []
       },
@@ -1770,7 +1745,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1791,7 +1766,7 @@
           },
           "pluginVersion": "4.0.2",
           "queryType": "table",
-          "rawSql": "SELECT\r\n  avg(value) as avgPM10\r\nFROM innovacity.dustPM10\r\nWHERE  $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($dstPM10_sensors_id);\r\n",
+          "rawSql": "SELECT\r\n  avg(value) as avgPM10\r\nFROM innovacity.dust_PM10\r\nWHERE  $__timeFilter(timestamp) AND cella IN ($Cella) AND ID_sensore IN ($dstPM10_sensors_id);\r\n",
           "refId": "A"
         }
       ],
@@ -1822,8 +1797,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "super-light-yellow",
@@ -1838,8 +1812,7 @@
                 "value": 70
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -1978,8 +1951,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1994,8 +1966,7 @@
                 "value": 90
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2010,7 +1981,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard isole ecologiche",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=Arcella&var-Cella=Murelle&var-Cella=Montegrotto&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=ecoIslands&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "options": {
@@ -2076,8 +2047,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "orange",
@@ -2089,8 +2059,7 @@
               }
             ]
           },
-          "unit": "percent",
-          "unitScale": true
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -2114,7 +2083,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "builderOptions": {
@@ -2196,16 +2165,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2311,16 +2278,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2347,7 +2312,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -2390,13 +2355,11 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -2423,7 +2386,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -2489,16 +2452,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2523,7 +2484,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -2582,8 +2543,7 @@
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2696,8 +2656,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2724,7 +2683,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -2771,8 +2730,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -2799,7 +2757,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -2872,8 +2830,7 @@
                 "value": 1
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -2898,7 +2855,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -3308,32 +3265,28 @@
   "templating": {
     "list": [
       {
-        "allValue": "Citta completa",
+        "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "Arcella",
-            "Montegrotto",
-            "Murelle"
+            "All"
           ],
           "value": [
-            "Arcella",
-            "Montegrotto",
-            "Murelle"
+            "$__all"
           ]
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dustPM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
+        "definition": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dust_PM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
         "hide": 2,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Seleziona cella",
         "multi": true,
         "name": "Cella",
         "options": [],
-        "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dustPM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
+        "query": "SELECT DISTINCT cella\nFROM (\n    SELECT cella FROM innovacity.temperatures where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.humidity where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.chargingStations where $__timeFilter(timestamp)\n    UNION ALL\n    SELECT cella FROM innovacity.ecoIslands where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.waterPresence where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.dust_PM10 where $__timeFilter(timestamp)\nUNION ALL\n    SELECT cella FROM innovacity.electricalFault where $__timeFilter(timestamp)\n)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3494,14 +3447,14 @@
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "select distinct ID_sensore from innovacity.dustPM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
+        "definition": "select distinct ID_sensore from innovacity.dust_PM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
         "hide": 2,
         "includeAll": true,
         "label": "Sensori polveri sottili PM10",
         "multi": true,
         "name": "dstPM10_sensors_id",
         "options": [],
-        "query": "select distinct ID_sensore from innovacity.dustPM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
+        "query": "select distinct ID_sensore from innovacity.dust_PM10 WHERE cella IN ($Cella) AND $__timeFilter(timestamp)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3546,6 +3499,6 @@
   "timezone": "",
   "title": "Main Dashboard",
   "uid": "e8b17515-2cf3-43e2-be39-3323fd37af67",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }

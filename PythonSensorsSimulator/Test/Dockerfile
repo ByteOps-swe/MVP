@@ -1,5 +1,5 @@
 # Stage 1: Build the PythonSensorsSimulator
-FROM mvp-test_base_image:latest
+FROM mvp-test_base_image
 
 WORKDIR /app
 # Create directories for both PythonSensorsSimulator and FaustProcessing
@@ -13,6 +13,8 @@ COPY ./FaustProcessing /app/FaustProcessing
 
 COPY ./__init__.py /app/
 
-#CMD ["sh", "-c", "pytest -p pytest_asyncio"]
 
-CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+#CMD ["sh", "-c", "pytest ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_dust_table.py"]
+
+CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; pytest --cov-report=xml --cov=./ --capture=no ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_dust_table.py && cp coverage.xml /app/coverage.xml"]
+

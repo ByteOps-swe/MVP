@@ -27,7 +27,8 @@ ORDER BY (ID_sensore, timestamp);
 
 
 CREATE MATERIALIZED VIEW mv_chargingStations TO innovacity.chargingStations
-AS SELECT * FROM innovacity.chargingStations_kafka where value = 0 or value = 1;
+AS SELECT * FROM innovacity.chargingStations_kafka 
+    WHERE (value = 0 or value = 1);
 
 ALTER TABLE innovacity.chargingStations ADD PROJECTION chS_sensor_cell_projection (SELECT * ORDER BY cella);
 

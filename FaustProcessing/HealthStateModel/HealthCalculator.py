@@ -13,7 +13,7 @@ class HealthCalculator(HealthAlgorithm):
 
     def __init__(self, temperature_measure_type_naming:str="temperature",
                 humidity_measure_type_naming:str="humidity",
-                dtsPm10_measure_type_naming:str="dust_level_PM10",
+                dtsPm10_measure_type_naming:str="dust_PM10",
                 healthScore_measure_type_naming:str="PunteggioSalute"):
 
         self.__listaMisurazioni = ListaMisurazioni()
