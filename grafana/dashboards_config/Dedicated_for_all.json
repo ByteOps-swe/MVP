@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,8 +41,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -90,8 +89,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -139,8 +137,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -188,8 +185,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -237,8 +233,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -286,8 +281,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -396,8 +390,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -490,8 +483,7 @@
               }
             ]
           },
-          "unit": "none",
-          "unitScale": true
+          "unit": "none"
         },
         "overrides": []
       },
@@ -519,7 +511,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -556,18 +548,12 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
-            "Arcella",
-            "",
-            "Murelle",
-            "Montegrotto"
+            "All"
           ],
           "value": [
-            "Arcella",
-            "",
-            "Murelle",
-            "Montegrotto"
+            "$__all"
           ]
         },
         "datasource": {
@@ -576,7 +562,7 @@
         },
         "definition": "SELECT DISTINCT cella\nFROM innovacity.$tabella WHERE\n    $__timeFilter(timestamp)",
         "hide": 2,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Seleziona cella",
         "multi": true,
         "name": "Cella",
@@ -628,7 +614,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -657,8 +643,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Mese",
-          "value": "Mese"
+          "text": "Automatico",
+          "value": "Automatico"
         },
         "description": "Aggrega i dati visualizzati nell'asse temperale secondo l'intervallo specificato",
         "hide": 2,
@@ -668,7 +654,7 @@
         "name": "AggregazioneTemporale",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "Automatico",
             "value": "Automatico"
           },
@@ -693,7 +679,7 @@
             "value": "Giorno"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "Mese",
             "value": "Mese"
           },
@@ -753,7 +739,7 @@
     ]
   },
   "time": {
-    "from": "now-90d",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},

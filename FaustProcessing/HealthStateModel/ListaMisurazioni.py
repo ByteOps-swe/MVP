@@ -16,7 +16,7 @@ class ListaMisurazioni:
         return [misurazione for misurazione in self.__list if misurazione.get_cella() == cella and misurazione.get_type() == tipo_dato]
 
     def get_unique_celle(self):
-        unique_celle = set()  
+        unique_celle = set()
         for misurazione in self.__list:
             unique_celle.add(misurazione.get_cella())
         return list(unique_celle)

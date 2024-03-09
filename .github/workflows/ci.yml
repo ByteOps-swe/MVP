@@ -4,6 +4,11 @@ on:
   push:
     paths-ignore:
       - '**.md'
+      - '**.svg'
+      - '**.pdf'
+      - '**.mdj'
+      - '**.dot'
+      - '**.json'
 
 jobs:
   build-and-test:
@@ -12,6 +17,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    # Only run the remaining steps if changes were detected
+    - name: Check for changes and proceed if needed
+      run: |
+        if [ -z "$(git diff --name-only --cached HEAD)" ]; then
+          echo "No relevant files changed, skipping remaining steps."
+          exit 0
+        fi
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3

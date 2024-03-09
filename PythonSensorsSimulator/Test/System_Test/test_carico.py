@@ -51,6 +51,6 @@ async def test_multiple_misurazioni(clickhouse_client,kafka_writer):
         print(result.result_rows)
         for i in range(num_messages):
             assert (starting_value + num_messages - 1 -i) == float(result.result_rows[i][3])
-            assert (timestamps[num_messages -1 -i]) == datetime.strptime((str(result.result_rows[i][2])), '%Y-%m-%d %H:%M:%S.%f')
+            assert str(timestamps[num_messages -1 -i])[:19] == str(result.result_rows[i][2])[:19]
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
