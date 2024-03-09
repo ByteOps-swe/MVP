@@ -63,3 +63,15 @@ docker exec simulators pytest --capture=no clickHouseDataTest.py
 - Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> Writable (che è il target) (Modello writer)
 - Pool thread: Adapter per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
 - SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
+
+### Problemi docker su pull immagini locali:
+
+- Se si riscontrano errori *"pull access denied, repository does not exist or may require authorization:"*, provare a risolvere nel seguente modo:  
+- Aprire Docker Desktop
+- Settings
+- Docker Engine
+- Aggiungere:
+  "features": {  
+    "buildkit": false  
+  }
+- Riavviare Docker Desktop
