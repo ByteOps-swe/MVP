@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from unittest.mock import Mock
 from ..HealthStateModel.Incrementers.TemperatureIncrementer import TemperatureIncrementer

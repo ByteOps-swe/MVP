@@ -1,3 +1,4 @@
+# pylint: skip-file
 import os
 from datetime import datetime
 import asyncio

@@ -16,7 +16,7 @@ class SimulatorThread(ComponentSimulatorThread):
 
     def run(self) -> None:
         self.task()
-        
+
     def task(self):
         last_measure = None
         while self.__is_running:

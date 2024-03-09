@@ -1,5 +1,4 @@
 [MASTER]
-
 disable=similarities,protected-access,no-member,missing-docstring,import-error,invalid-name
 
 [FORMAT]

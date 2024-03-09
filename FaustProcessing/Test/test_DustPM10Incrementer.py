@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 import math
 from unittest.mock import Mock

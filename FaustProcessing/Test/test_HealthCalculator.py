@@ -1,5 +1,5 @@
+# pylint: skip-file
 import unittest
-
 from ..HealthStateModel.HealthCalculator import HealthCalculator
 
 
