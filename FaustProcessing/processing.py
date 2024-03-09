@@ -12,7 +12,7 @@ healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
 
 temperature_topic = "temperature"
 humidity_topic = "humidity"
-dustPm10_topic = "dust_level_PM10"
+dustPm10_topic = "dust_PM10"
 
 
 app = faust.App('myapp', broker='kafka://kafka:9092')

@@ -5,3 +5,4 @@ WORKDIR /app
 
 RUN pip install confluent-kafka clickhouse-connect faust pytest kafka-python pytest-asyncio pylint pytest-cov
 
+

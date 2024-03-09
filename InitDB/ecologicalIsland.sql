@@ -32,7 +32,8 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 
 CREATE MATERIALIZED VIEW mv_ecoIslands TO innovacity.ecoIslands
-AS SELECT * FROM innovacity.ecoIslands_kafka where (value >= 0 and value <= 100);
+AS SELECT * FROM innovacity.ecoIslands_kafka
+    WHERE (value >= 0 and value <= 100);
 
 ALTER TABLE innovacity.ecoIslands ADD PROJECTION umd_sensor_cell_projection (SELECT * ORDER BY cella);
 

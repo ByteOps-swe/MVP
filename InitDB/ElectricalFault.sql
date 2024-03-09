@@ -28,7 +28,7 @@ ORDER BY (ID_sensore, timestamp);
 
 CREATE MATERIALIZED VIEW mv_electricalFault TO innovacity.electricalFault
 AS SELECT * FROM innovacity.electricalFault_kafka
-where value = 0 or value = 1;
+    WHERE (value = 0 or value = 1);
 
 
 --Da valutare se ha senso tenere nei valori binari

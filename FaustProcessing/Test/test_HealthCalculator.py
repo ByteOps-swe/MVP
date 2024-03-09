@@ -23,7 +23,7 @@ class TestHealthCalculator(unittest.TestCase):
     def test_generate_new_health_score(self):
         self.calculator.add_misurazione("2024-03-07 09:07:00", 25, "temperature", 45.4642, 9.1900, "ID1", "cella1")
         self.calculator.add_misurazione("2024-03-07 09:07:00", 60, "humidity", 45.4642, 9.1900, "ID1", "cella1")
-        self.calculator.add_misurazione("2024-03-07 09:07:00", 50, "dust_level_PM10", 45.4642, 9.1900, "ID1", "cella1")
+        self.calculator.add_misurazione("2024-03-07 09:07:00", 50, "dust_PM10", 45.4642, 9.1900, "ID1", "cella1")
         health_scores = self.calculator.generate_new_health_score()
         self.assertEqual(len(health_scores), 1)
 
