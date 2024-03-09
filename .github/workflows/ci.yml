@@ -17,6 +17,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
+    - name: Set DOCKER_BUILDKIT to false
+      env:
+        DOCKER_BUILDKIT: "0"  # Or "false"
+      run: |
+        echo "DOCKER_BUILDKIT=0" >> $GITHUB_ENV
 
     # Only run the remaining steps if changes were detected
     - name: Check for changes and proceed if needed
@@ -31,7 +37,8 @@ jobs:
 
     - name: Run tests
       run: |
-        docker compose --profile test up -d
+        docker compose --profile test up kafka test_base_image clickhouse -d
+        docker compose --profile test up test
 
     - name: Wait for tests to complete
       run: |
