@@ -1,5 +1,5 @@
 CREATE TABLE innovacity.chargingStations_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8, --Type bool is internally stored as UInt8
     latitude Float64,
     longitude Float64,
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.chargingStations
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8,
     latitude Float64,
     longitude Float64

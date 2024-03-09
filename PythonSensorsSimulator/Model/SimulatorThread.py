@@ -22,7 +22,8 @@ class SimulatorThread(ComponentSimulatorThread):
         while self.__is_running:
             if self.__data_to_generate == 0:
                 self.stop()
-            elif self.__data_to_generate > 0:
+                break
+            if self.__data_to_generate > 0:
                 self.__data_to_generate -= 1
             new_measure = self.__simulator.simulate()
             if last_measure is None or last_measure.get_value() != new_measure.get_value():

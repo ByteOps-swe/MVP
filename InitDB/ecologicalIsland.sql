@@ -1,6 +1,6 @@
 -- Definizione della tabella "ecoIslands_kafka" per l'input dei dati provenienti da Kafka
 CREATE TABLE innovacity.ecoIslands_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64,
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.ecoIslands
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64

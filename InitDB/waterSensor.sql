@@ -1,5 +1,5 @@
 CREATE TABLE innovacity.waterPresence_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8,
     latitude Float64,
     longitude Float64,
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.waterPresence
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8,
     latitude Float64,
     longitude Float64

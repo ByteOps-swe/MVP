@@ -17,6 +17,8 @@ class AdapterMisurazione(Writable):
             "ID_sensore": self.__misurazione.get_ID_sensore(),  # Usiamo il metodo getter per ottenere l'ID del sensore
             "cella": self.__misurazione.get_cella()  # Usiamo il metodo getter per ottenere il nome della cella
         }
+    def get_Misurazione(self) -> Misurazione:
+        return self.__misurazione
     @staticmethod
     def __format_value(value):
         if isinstance(value, bool):

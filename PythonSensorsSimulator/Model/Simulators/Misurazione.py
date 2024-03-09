@@ -30,6 +30,9 @@ class Misurazione():
     def get_cella(self):
         return self.__cella
 
+    def to_string(self):
+        return f"Timestamp: {self.__timestamp.replace(microsecond=0)}, Value: {round(self.__value,2)}, Type: {self.__type}, Coordinates: {self.__coordinates.get_latitude()},{self.__coordinates.get_longitude()}, Sensor ID: {self.__ID_sensore}, Cell: {self.__cella}"
+
     def __eq__(self, other):
         if not isinstance(other, Misurazione):
             return False

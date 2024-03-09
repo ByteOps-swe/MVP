@@ -55,7 +55,7 @@ async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
             if(data["value"] >= low_bound_limit and data["value"] <= upper_bound_limit):
                 assert result.result_rows
                 assert result.result_rows[0][1] == data["cella"]
-                assert str(timestamp)[:19] == str(result.result_rows[0][2])[:19]
+                assert timestamp == result.result_rows[0][2]
                 assert float(result.result_rows[0][3]) == data["value"]
                 assert result.result_rows[0][4] == 45.39214
                 assert result.result_rows[0][5] == 11.859271

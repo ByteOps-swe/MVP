@@ -56,7 +56,7 @@ async def test_outOfBound_misurazione(clickhouse_client, kafka_writer):
                 assert result.result_rows
                 assert result.result_rows[0][0] == data["id"]
                 assert result.result_rows[0][1] == data["cella"]
-                assert str(timestamp)[:19] == str(result.result_rows[0][2])[:19]
+                assert timestamp == result.result_rows[0][2]
                 assert float(result.result_rows[0][3]) == data["value"]
                 assert result.result_rows[0][4] == 45.39214
                 assert result.result_rows[0][5] == 11.859271

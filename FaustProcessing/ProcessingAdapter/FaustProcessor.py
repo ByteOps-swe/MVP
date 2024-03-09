@@ -3,5 +3,5 @@ from .FaustMeasurement import FaustMeasurement
 #strategy
 class Processor(ABC):
     @abstractmethod
-    def process(self,misurazione:FaustMeasurement) -> None:
+    async def process(self,misurazione:FaustMeasurement):
         pass
