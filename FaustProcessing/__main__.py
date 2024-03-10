@@ -1,11 +1,8 @@
-import faust
-
 from FaustApp import getFaustApp
 from .HealthStateModel.HealthCalculator import HealthCalculator
 from .HealthStateModel.HealthCalculatorThread import HealthCalculatorThread
 from .HealthStateModel.Writers.CompositeWriter import CompositeWriter
-from .ProcessingAdapter.FaustMeasurement import FaustMeasurement
-from .ProcessingAdapter.HealthModelProcessorAdapter import HealthModelProcessorAdapter
+
 
 healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092").add_stdOut_writer()
 healthCalculator = HealthCalculator()

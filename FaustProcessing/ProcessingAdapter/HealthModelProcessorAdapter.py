@@ -1,6 +1,7 @@
 from HealthStateModel.HealthCalculator import HealthCalculator
 from .FaustMeasurement import FaustMeasurement
 from .FaustProcessor import Processor
+
 class HealthModelProcessorAdapter(Processor):
     def __init__(self, healthCalculator:HealthCalculator):
         self.healthCalculator = healthCalculator
@@ -13,3 +14,6 @@ class HealthModelProcessorAdapter(Processor):
                                                 measurement.longitude,
                                                 measurement.ID_sensore,
                                                 measurement.cella)
+
+    def process(self, measurement:FaustMeasurement):
+        pass
