@@ -13,6 +13,6 @@ class ListWriter(Writer):
         with self.__lock:
             self.__data_list.append(to_write)
 
-    def get_data_list(self) -> list:
+    def get_data_list(self):
         with self.__lock:
             return self.__data_list

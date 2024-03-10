@@ -1,6 +1,6 @@
 -- Definizione della tabella "healthScore_kafka" per l'input dei dati provenienti da Kafka
 CREATE TABLE innovacity.healthScore_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     cella String
 ) ENGINE = Kafka(
@@ -14,7 +14,7 @@ CREATE TABLE innovacity.healthScore_kafka (
 CREATE TABLE innovacity.healthScore
 (
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32
 )
 ENGINE = MergeTree()

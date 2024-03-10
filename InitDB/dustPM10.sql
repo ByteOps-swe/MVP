@@ -1,6 +1,6 @@
--- Definizione della tabella "dust_PM10_kafka" per l'input dei dati provenienti da Kafka
-CREATE TABLE innovacity.dust_PM10_kafka (
-    timestamp DATETIME64,
+-- Definizione della tabella "dustPM10_kafka" per l'input dei dati provenienti da Kafka
+CREATE TABLE innovacity.dustPM10_kafka (
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64,
@@ -18,7 +18,7 @@ CREATE TABLE innovacity.dust_PM10
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64

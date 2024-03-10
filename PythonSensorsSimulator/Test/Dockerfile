@@ -14,7 +14,5 @@ COPY ./FaustProcessing /app/FaustProcessing
 COPY ./__init__.py /app/
 
 
-#CMD ["sh", "-c", "pytest ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_dust_table.py"]
-
-CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .;  pytest --cov-report=xml --cov=./ --capture=no && cp coverage.xml /app/coverage.xml"]
-
+CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
+#CMD ["sh", "-c","pytest --cov-report=xml --cov=./ --capture=no ./PythonSensorsSimulator/Test/Integration_Test/test_ClickHouseData.py && cp coverage.xml /app/coverage.xml"]
