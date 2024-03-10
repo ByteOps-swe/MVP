@@ -1,16 +1,16 @@
 import faust
 
+from FaustApp import getFaustApp
 from .HealthStateModel.HealthCalculator import HealthCalculator
 from .HealthStateModel.HealthCalculatorThread import HealthCalculatorThread
 from .HealthStateModel.Writers.CompositeWriter import CompositeWriter
 from .ProcessingAdapter.FaustMeasurement import FaustMeasurement
 from .ProcessingAdapter.HealthModelProcessorAdapter import HealthModelProcessorAdapter
-from FaustApp import getFaustApp
 
 healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092").add_stdOut_writer()
 healthCalculator = HealthCalculator()
 healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
-appF = getFaustApp('kafka://kafka:9092', healthCalculator, "temperature", "umidity", "dust_level_PM10")
+appF = getFaustApp('kafka://kafka:9092', healthCalculator, "temperature", "humidity", "dust_PM10")
 
 
 # app = faust.App('myapp', broker='kafka://kafka:9092')

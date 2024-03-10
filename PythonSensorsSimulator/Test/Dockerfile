@@ -16,5 +16,5 @@ COPY ./__init__.py /app/
 
 #CMD ["sh", "-c", "pytest ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_dust_table.py"]
 
-CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .; pytest --cov-report=xml --cov=./ --capture=no ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_dust_table.py && cp coverage.xml /app/coverage.xml"]
+CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc .;  pytest ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_charge_table.py --cov-report=xml --cov=./ --capture=no && cp coverage.xml /app/coverage.xml"]
 

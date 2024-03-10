@@ -13,8 +13,8 @@ from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
-test_topic = "temperature"
-table_to_test = "temperatures"
+test_topic = "chargingStations"
+table_to_test = "chargingStations"
 
 @pytest.fixture(scope='module')
 def clickhouse_client():
@@ -29,15 +29,15 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_outOfBound_misurazione_tmp(clickhouse_client, kafka_writer):
+async def test_outOfBound_misurazione_charge(clickhouse_client, kafka_writer):
     try:
         timestamp = datetime.now()
-        low_bound_limit = -50 
-        upper_bound_limit = 50
+        low_bound_limit = 0
+        upper_bound_limit = 1
         sensor_data = [
-            {"id": "Id_1_tmp_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 45, "longitude": 11.859271, "latitude": 45.39214, "type": "Temperature"},
-            {"id": "Id_1_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 151, "longitude": 11.859271, "latitude": 45.39214, "type": "Temperature"},
-            {"id": "Id_2_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -51, "longitude": 11.859271, "latitude": 45.39214, "type": "Temperature"}
+            {"id": "Id_1_charge_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 0, "longitude": 11.859271, "latitude":45.39214, "type": "chargingStations"},
+            {"id": "Id_2_charge_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 1, "longitude": 11.859271, "latitude":45.39214, "type": "chargingStations"},
+            {"id": "Id_1_charge_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 2, "longitude": 11.859271, "latitude":45.39214, "type": "chargingStations"}
         ]
 
         for data in sensor_data:
@@ -46,11 +46,11 @@ async def test_outOfBound_misurazione_tmp(clickhouse_client, kafka_writer):
             kafka_writer.write(misurazione)
 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(7)
+        await asyncio.sleep(5)
 
         for data in sensor_data:
             result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{data['timestamp']}' LIMIT 1")
-            if(data["value"] >= low_bound_limit and data["value"] <= upper_bound_limit):
+            if(data["value"] == low_bound_limit or data["value"] == upper_bound_limit):
                 assert result.result_rows
                 assert result.result_rows[0][0] == data["id"]
                 assert result.result_rows[0][1] == data["cella"]

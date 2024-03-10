@@ -13,15 +13,13 @@ from ...Model.AdapterMisurazione import AdapterMisurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
-test_topic = "ecologicalIsland"
+test_topic = "ecoIslands"
 table_to_test = "ecoIslands"
 
 @pytest.fixture(scope='module')
 def clickhouse_client():
-    # Set up ClickHouse client
     client = clickhouse_connect.get_client(host='clickhouse', port=8123, database="innovacity")
     yield client
-    # Teardown: Close connection after all tests in the module have run
     client.close()
 
 @pytest.fixture
@@ -31,15 +29,15 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
+async def test_outOfBound_misurazione_eco(clickhouse_client, kafka_writer):
     try:
         timestamp = datetime.now()
         low_bound_limit = 0 
         upper_bound_limit = 100
         sensor_data = [
-            {"id": "Id_1_umd_correct_ofb","cella":"Arcella","timestamp":timestamp,"value": 45,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"},
-            {"id": "Id_1_umd_error_ofb","cella":"Arcella","timestamp":timestamp,"value": 101,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"},
-            {"id": "Id_2_umd_error_ofb","cella":"Arcella","timestamp":timestamp,"value": -1,"longitude": 11.859271,"latitude": 45.39214,"type": "umd"}
+            {"id": "Id_1_eco_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 45, "longitude": 11.859271, "latitude": 45.39214, "type": "EcoIsland"},
+            {"id": "Id_1_eco_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 101, "longitude": 11.859271, "latitude": 45.39214, "type": "EcoIsland"},
+            {"id": "Id_2_eco_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -1, "longitude": 11.859271, "latitude": 45.39214, "type": "EcoIsland"}
         ]
 
         for data in sensor_data:
@@ -54,6 +52,7 @@ async def test_outOfBound_misurazione_umd(clickhouse_client, kafka_writer):
             result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{data['timestamp']}' LIMIT 1")
             if(data["value"] >= low_bound_limit and data["value"] <= upper_bound_limit):
                 assert result.result_rows
+                assert result.result_rows[0][0] == data["id"]
                 assert result.result_rows[0][1] == data["cella"]
                 assert str(timestamp)[:19] == str(result.result_rows[0][2])[:19]
                 assert float(result.result_rows[0][3]) == data["value"]
