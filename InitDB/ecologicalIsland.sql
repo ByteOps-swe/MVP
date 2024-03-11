@@ -1,6 +1,6 @@
 -- Definizione della tabella "ecoIslands_kafka" per l'input dei dati provenienti da Kafka
 CREATE TABLE innovacity.ecoIslands_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64,
@@ -8,7 +8,7 @@ CREATE TABLE innovacity.ecoIslands_kafka (
     cella String
 ) ENGINE = Kafka(
     'kafka:9092',
-    'ecologicalIsland',
+    'ecoIslands',
     'CG_Clickhouse_1'
 ) SETTINGS kafka_format = 'JSONEachRow',
            kafka_skip_broken_messages = 10;
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.ecoIslands
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64
@@ -32,7 +32,8 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 
 CREATE MATERIALIZED VIEW mv_ecoIslands TO innovacity.ecoIslands
-AS SELECT * FROM innovacity.ecoIslands_kafka;
+AS SELECT * FROM innovacity.ecoIslands_kafka
+    WHERE (value >= 0 and value <= 100);
 
 ALTER TABLE innovacity.ecoIslands ADD PROJECTION umd_sensor_cell_projection (SELECT * ORDER BY cella);
 

@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.EcologicalIslandSimulator import EcologicalIslandSimulator
 from ..Simulators.Coordinate import Coordinate

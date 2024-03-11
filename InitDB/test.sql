@@ -1,5 +1,5 @@
 CREATE TABLE innovacity.test_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64,
@@ -16,10 +16,11 @@ CREATE TABLE innovacity.test
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
-    longitude Float64
+    longitude Float64,
+    arrival_timestamp DateTime64(6) DEFAULT now64(6)
 )
 ENGINE = MergeTree()
 ORDER BY (ID_sensore, timestamp);

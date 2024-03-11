@@ -1,5 +1,4 @@
 [MASTER]
-
 disable=similarities,protected-access,no-member,missing-docstring,import-error,invalid-name
 
 [FORMAT]
@@ -40,7 +39,7 @@ max-statements=20
 max-attributes=8
 
 
-max-args=7
+max-args=8
 
 
 max-branches=4

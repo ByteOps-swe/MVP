@@ -161,3 +161,10 @@ cython_debug/
 
 #hidden mac directory
 .DS_Store
+
+
+#vscode 
+.vscode/
+
+#.dot
+*.dot

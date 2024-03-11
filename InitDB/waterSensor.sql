@@ -1,5 +1,5 @@
 CREATE TABLE innovacity.waterPresence_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8,
     latitude Float64,
     longitude Float64,
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.waterPresence
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value UInt8,
     latitude Float64,
     longitude Float64
@@ -27,7 +27,8 @@ ORDER BY (ID_sensore, timestamp);
 
 
 CREATE MATERIALIZED VIEW mv_waterPresence TO innovacity.waterPresence
-AS SELECT * FROM innovacity.waterPresence_kafka;
+AS SELECT * FROM innovacity.waterPresence_kafka 
+    WHERE (value = 0 or value = 1);
 
 ALTER TABLE innovacity.waterPresence ADD PROJECTION waPr_sensor_cell_projection (SELECT * ORDER BY cella);
 

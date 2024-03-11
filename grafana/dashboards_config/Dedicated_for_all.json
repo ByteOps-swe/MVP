@@ -33,8 +33,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -81,8 +80,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -95,7 +93,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 3,
+        "w": 6,
         "x": 3,
         "y": 0
       },
@@ -129,8 +127,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -143,8 +140,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
-        "x": 6,
+        "w": 4,
+        "x": 9,
         "y": 0
       },
       "id": 5,
@@ -177,8 +174,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -192,7 +188,7 @@
       "gridPos": {
         "h": 8,
         "w": 5,
-        "x": 12,
+        "x": 13,
         "y": 0
       },
       "id": 6,
@@ -225,8 +221,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -240,7 +235,7 @@
       "gridPos": {
         "h": 4,
         "w": 6,
-        "x": 17,
+        "x": 18,
         "y": 0
       },
       "id": 8,
@@ -273,8 +268,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -288,7 +282,7 @@
       "gridPos": {
         "h": 4,
         "w": 6,
-        "x": 17,
+        "x": 18,
         "y": 4
       },
       "id": 7,
@@ -361,8 +355,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "dark-blue",
@@ -440,7 +433,7 @@
           "refId": "A"
         }
       ],
-      "title": "Grafico a linee",
+      "title": "Grafico a linee - $tabella",
       "transformations": [
         {
           "id": "prepareTimeSeries",
@@ -474,8 +467,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -536,7 +528,7 @@
           "refId": "Aggregazione per secondo"
         }
       ],
-      "title": "Tabella",
+      "title": "Tabella - $tabella",
       "transparent": true,
       "type": "table"
     }
@@ -548,7 +540,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -577,7 +569,7 @@
       {
         "current": {
           "selected": false,
-          "text": "Temperatura",
+          "text": "Temperatura Gradi C°",
           "value": "temperatures"
         },
         "hide": 2,
@@ -588,33 +580,33 @@
         "options": [
           {
             "selected": true,
-            "text": "Temperatura",
+            "text": "Temperatura Gradi C°",
             "value": "temperatures"
           },
           {
             "selected": false,
-            "text": "Umidità",
-            "value": "umidities"
+            "text": "Umidità %H",
+            "value": "humidity"
           },
           {
             "selected": false,
-            "text": "Isole ecologiche",
+            "text": "Isole ecologiche %Riempimento",
             "value": "ecoIslands"
           },
           {
             "selected": false,
-            "text": "Polveri Sottili",
-            "value": "dustPM10"
+            "text": "Polveri Sottili µg/m3",
+            "value": "dust_PM10"
           }
         ],
-        "query": "Temperatura : temperatures, Umidità : umidities, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
+        "query": "Temperatura Gradi C° : temperatures, Umidità %H : humidity, Isole ecologiche %Riempimento : ecoIslands, Polveri Sottili µg/m3 : dust_PM10",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -746,6 +738,6 @@
   "timezone": "",
   "title": "Zoom in Dashboard",
   "uid": "c102cb76-e36e-4fdb-924e-788ff2dfef24",
-  "version": 2,
+  "version": 5,
   "weekStart": ""
 }

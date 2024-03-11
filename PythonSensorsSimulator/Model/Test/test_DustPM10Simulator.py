@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from ..Simulators.DustPM10Simulator import DustPM10Simulator
 from ..Simulators.Coordinate import Coordinate

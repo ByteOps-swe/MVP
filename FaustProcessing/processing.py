@@ -11,8 +11,8 @@ healthCalculator = HealthCalculator()
 healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
 
 temperature_topic = "temperature"
-humidity_topic = "umidity"
-dustPm10_topic = "dust_level_PM10"
+humidity_topic = "humidity"
+dustPm10_topic = "dust_PM10"
 
 
 app = faust.App('myapp', broker='kafka://kafka:9092')
@@ -24,7 +24,7 @@ measurement_processor = HealthModelProcessorAdapter(healthCalculator)
 async def process(measurements):
     try:
         async for measurement in measurements:
-            await measurement_processor.process_measurement(measurement)
+            await measurement_processor.process(measurement)
     except Exception as e:
         print(f"Errore durante il processamento delle misurazioni: {e}")
 

@@ -5,6 +5,6 @@ class Coordinate():
 
     def get_latitude(self):
         return self.__latitude
-    
+
     def get_longitude(self):
         return self.__longitude

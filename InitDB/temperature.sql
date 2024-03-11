@@ -1,6 +1,6 @@
 -- Definizione della tabella "temperatures_kafka" per l'input dei dati provenienti da Kafka
 CREATE TABLE innovacity.temperatures_kafka (
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64,
@@ -17,7 +17,7 @@ CREATE TABLE innovacity.temperatures
 (
     ID_sensore String,
     cella String,
-    timestamp DATETIME64,
+    timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
     longitude Float64
@@ -32,7 +32,8 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 
 CREATE MATERIALIZED VIEW mv_temperatures TO innovacity.temperatures
-AS SELECT * FROM innovacity.temperatures_kafka;
+AS SELECT * FROM innovacity.temperatures_kafka
+    WHERE (value >= -50 AND value <= 50);
 
 ALTER TABLE innovacity.temperatures ADD PROJECTION tmp_sensor_cell_projection (SELECT * ORDER BY cella);
 

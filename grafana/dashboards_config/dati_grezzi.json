@@ -144,7 +144,7 @@
             },
             "pluginVersion": "4.0.2",
             "queryType": "table",
-            "rawSql": "SELECT* FROM (SELECT * FROM \"innovacity\".\"temperatures\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"umidities\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"chargingStations\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"ecoIslands\")\r\nORDER BY timestamp;\r\n",
+            "rawSql": "SELECT* FROM (SELECT * FROM \"innovacity\".\"temperatures\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"humidity\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"chargingStations\"\r\nUNION ALL\r\nSELECT * FROM \"innovacity\".\"ecoIslands\")\r\nORDER BY timestamp;\r\n",
             "refId": "A"
         }],
         "title": "Dati Grezzi",

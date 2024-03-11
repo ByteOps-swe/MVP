@@ -568,7 +568,7 @@
                 "current": {
                     "selected": false,
                     "text": "Polveri Sottili",
-                    "value": "dustPM10"
+                    "value": "dust_PM10"
                 },
                 "hide": 2,
                 "includeAll": false,
@@ -583,7 +583,7 @@
                     {
                         "selected": false,
                         "text": "Umidità",
-                        "value": "umidities"
+                        "value": "humidity"
                     },
                     {
                         "selected": false,
@@ -593,10 +593,10 @@
                     {
                         "selected": true,
                         "text": "Polveri Sottili",
-                        "value": "dustPM10"
+                        "value": "dust_PM10"
                     }
                 ],
-                "query": "Temperatura : temperatures, Umidità : umidities, Isole ecologiche : ecoIslands, Polveri Sottili : dustPM10",
+                "query": "Temperatura : temperatures, Umidità : humidity, Isole ecologiche : ecoIslands, Polveri Sottili : dust_PM10",
                 "queryValue": "",
                 "skipUrlSync": false,
                 "type": "custom"
