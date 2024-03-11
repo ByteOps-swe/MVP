@@ -2,33 +2,12 @@ from typing import List
 import math
 from .Incrementer import Incrementer
 from ..Misurazione import Misurazione
-
+from ..SensorTypes import SensorTypes
 class DustPM10Incrementer(Incrementer):
-    """
-    A class that calculates the incrementation value based on dust PM10 measurements.
-
-    Attributes:
-        dust_type_naming (str): The name of the dust level PM10.
-
-    Methods:
-        get_incrementation: Calculates the incrementation value based on the given measurements.
-
-    """
-
-    def __init__(self, dust_type_naming: str = "dust_PM10"):
+    def __init__(self, dust_type_naming: str = SensorTypes.DUST_PM10.value):
         self.__dust_type_naming = dust_type_naming
 
     def get_incrementation(self, misurazioni: List[Misurazione]):
-        """
-        Calculates the incrementation value based on the given measurements.
-
-        Args:
-            misurazioni (List[Misurazione]): A list of measurements.
-
-        Returns:
-            int: The calculated incrementation value.
-
-        """
         incremento_totale = 0.0  # Change the type to float
         num_misurazioni = len(misurazioni)
         for misurazione in misurazioni:
