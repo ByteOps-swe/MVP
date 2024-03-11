@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from .MisurazioneSalute import MisurazioneSalute
 from typing import List
+from .MisurazioneSalute import MisurazioneSalute
 
 #Pattern Strategy
 class HealthAlgorithm(ABC):
