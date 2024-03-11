@@ -1,0 +1,5 @@
+confluent-kafka 
+clickhouse-connect 
+faust
+kafka-python 
+pytest-asyncio

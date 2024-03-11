@@ -48,7 +48,8 @@ jobs:
       run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
 
 
-    - uses: Silleellie/pylint-github-action@v2
+    - name: Create Pylint Badge
+      uses: Silleellie/pylint-github-action@v2
       with:
         lint-path: |
           FaustProcessing
