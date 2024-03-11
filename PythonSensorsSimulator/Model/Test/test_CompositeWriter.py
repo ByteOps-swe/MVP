@@ -3,6 +3,7 @@ from unittest.mock import Mock, patch
 from ..Writers.Writer import Writer
 from ..Writers.CompositeWriter import CompositeWriter
 
+
 class TestCompositeWriter(unittest.TestCase):
 
     def setUp(self):
@@ -23,6 +24,7 @@ class TestCompositeWriter(unittest.TestCase):
         self.composite_writer.add_writer(self.mock_writer)
         self.composite_writer.write('test')
         self.mock_writer.write.assert_called_once_with('test')
+
 
 if __name__ == '__main__':
     unittest.main()
