@@ -56,3 +56,8 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       uses: coverallsapp/github-action@v2
+
+    - name: Codecov
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: codecov/codecov-action@v3
