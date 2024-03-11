@@ -2,7 +2,7 @@
 disable = similarities, protected-access, no-member, missing-docstring, import-error, invalid-name
 
 [FORMAT]
-max-line-length = 150
+max-line-length = 270
 max-module-lines = 1000
 indent-string = '    '
 indent-after-paren = 4

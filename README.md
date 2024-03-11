@@ -27,14 +27,27 @@ docker-compose down
 
 Per connettersi a clickhouse con client e ed effettuare query:
 
-```bash
+``` bash
+docker exec -it clickhouse clickhouse-client
+```
+
+Un possibile fix in caso non funzioni:
+
+``` bash
 winpty docker exec -it clickhouse clickhouse-client
 ```
 
-TEST
-`docker exec simulators pytest`
-docker exec simulators pytest --capture=no clickHouseDataTest.py
-per avere print
+**TEST**
+
+Per avere print:
+
+``` bash
+docker exec simulators pytest
+```
+
+``` bash
+docker exec simulators pytest --capture=no clickHouseDataTest.py  
+```
 
 Per generare uml:
 
@@ -71,7 +84,9 @@ docker exec simulators pytest --capture=no clickHouseDataTest.py
 - Settings
 - Docker Engine
 - Aggiungere:
+``` JSON
   "features": {  
     "buildkit": false  
   }
+```
 - Riavviare Docker Desktop

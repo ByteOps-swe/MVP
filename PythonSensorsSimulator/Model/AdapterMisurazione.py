@@ -24,7 +24,7 @@ class AdapterMisurazione(Writable):
         if isinstance(value, bool):
             return 1 if value else 0
         if isinstance(value, float):
-            return "{:.2f}".format(value)
+            return f"{value:.2f}"
         return value
     @staticmethod
     def from_json(json_data:dict):
@@ -37,4 +37,3 @@ class AdapterMisurazione(Writable):
         cella = json_data["cella"]
         coordinate = Coordinate(latitude, longitude)
         return Misurazione(datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f'), value, type_, coordinate, ID_sensore, cella)
-    
