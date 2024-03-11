@@ -66,10 +66,19 @@ async def test_heatlh_score_integration(clickhouse_client, kafka_writer_tmp, kaf
         kafka_writer_tmp.flush_kafka_producer()
         kafka_writer_umd.flush_kafka_producer()
 
-        await asyncio.sleep(10)
+        query = f"SELECT * FROM innovacity.{table_to_test} where timestamp >= '{timestamp}' order by timestamp desc"
+
+        result = clickhouse_client.query(query)
+        iter = 0
+        max_seconds_to_wait = 15
+        intervallo_sleep = 0.5
+        while (not result.result_rows) and (iter * intervallo_sleep < max_seconds_to_wait):
+            await asyncio.sleep(intervallo_sleep)
+            result = clickhouse_client.query(query)
+            iter += 1
 
         expected_result = 0
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} order by timestamp desc")
+        assert result.result_rows
         assert  float(result.result_rows[0][2]) == expected_result
 
     except Exception as e:

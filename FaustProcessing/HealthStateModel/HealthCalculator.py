@@ -41,12 +41,15 @@ class HealthCalculator(HealthAlgorithm):
 
     @staticmethod
     def __calcola_incremento_tmp(cella: str, listaMisurazioni):
-        return HealthCalculator.__tmpInc.get_incrementation(listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__temperature_measure_type_naming))
+        return HealthCalculator.__tmpInc.get_incrementation(
+            listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__temperature_measure_type_naming))
 
     @staticmethod
     def __calcola_incremento_umd(cella: str, listaMisurazioni):
-        return HealthCalculator.__umdInc.get_incrementation(listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__humidity_measure_type_naming))
+        return HealthCalculator.__umdInc.get_incrementation(
+            listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__humidity_measure_type_naming))
 
     @staticmethod
     def __calcola_incremento_dstPm10(cella: str, listaMisurazioni):
-        return HealthCalculator.__dstPm10Inc.get_incrementation(listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__dtsPm10_measure_type_naming))
+        return HealthCalculator.__dstPm10Inc.get_incrementation(
+            listaMisurazioni.get_list_by_cella_and_type(cella, HealthCalculator.__dtsPm10_measure_type_naming))

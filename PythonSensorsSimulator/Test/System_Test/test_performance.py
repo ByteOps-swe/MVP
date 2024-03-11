@@ -56,7 +56,7 @@ async def test_1_misurazione_time_pipeline(clickhouse_client,kafka_writer):
         assert result.result_rows
         time_difference = abs(result.result_rows[0][6] - timestamp)
         print(f"Message sended at:{timestamp} \n \t and arrived at:{result.result_rows[0][6]},\n\t la differenza è di: {time_difference} \n\tSelect query time: {query_time_after - query_time_before} \n")
-        #assert time_difference < timedelta(seconds=3)
+        assert time_difference < timedelta(seconds=10)
 
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
@@ -74,7 +74,7 @@ async def test_multi_misurazione_time_pipeline(clickhouse_client,kafka_writer):
                             Misurazione(timestamps[i], starting_value + i, "Temperature", Coordinate(45.39214, 11.859271), "id_t_perf_multi", "T_perf_cell"))
             kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
-        
+        time_sent = datetime.now()
         query = f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='id_t_perf_multi' and timestamp >= '{timestamps[0]}' ORDER BY (timestamp,value)   DESC LIMIT {num_messages}"
         result = clickhouse_client.query(query)
         iter = 0
@@ -86,8 +86,8 @@ async def test_multi_misurazione_time_pipeline(clickhouse_client,kafka_writer):
             iter += 1
 
         for i in range(num_messages):
-            time_difference = abs(result.result_rows[i][6] - timestamps[num_messages -1 - i])
-            print(f"Message sended at:{timestamps[num_messages -1 - i]}\n\t and arrived at:{result.result_rows[i][6]},\n\t la differenza è di: {time_difference} secondi\n")
-            #assert time_difference < timedelta(seconds=3)
+            time_difference = abs(result.result_rows[i][6] - time_sent)
+            print(f"Message sended at:{time_sent}\n\t and arrived at:{result.result_rows[i][6]},\n\t la differenza è di: {time_difference} secondi\n")
+            assert time_difference < timedelta(seconds=10)
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
