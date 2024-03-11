@@ -7,4 +7,4 @@ class SensorTypes(Enum):
     CHARGING_STATION = "charging_station"
     ECOLOGICAL_ISLAND = "eco_zone"
     WATER_PRESENCE = "water_presence"
-    ELECTRICAL_FAULT = "electrical_fault"
+    ELECTRICAL_FAULT = "electricalFault"

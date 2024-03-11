@@ -29,15 +29,15 @@ def kafka_writer():
     yield kafka_writer
 
 @pytest.mark.asyncio
-async def test_outOfBound_misurazione_tmp(clickhouse_client, kafka_writer):
+async def test_outOfBound_misurazione_dust(clickhouse_client, kafka_writer):
     try:
         timestamp = datetime.now()
         low_bound_limit = 0
         upper_bound_limit = 150
         sensor_data = [
-            {"id": "Id_1_tmp_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"},
-            {"id": "Id_1_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 200, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"},
-            {"id": "Id_2_tmp_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -10, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"}
+            {"id": "Id_1_dust_correct_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"},
+            {"id": "Id_1_dust_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": 200, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"},
+            {"id": "Id_2_dust_error_ofb", "cella": "Arcella", "timestamp": timestamp, "value": -10, "longitude": 11.859271, "latitude":45.39214, "type": "Dust_PM10"}
         ]
 
         for data in sensor_data:

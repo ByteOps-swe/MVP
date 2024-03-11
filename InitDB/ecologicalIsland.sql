@@ -8,7 +8,7 @@ CREATE TABLE innovacity.ecoIslands_kafka (
     cella String
 ) ENGINE = Kafka(
     'kafka:9092',
-    'ecologicalIsland',
+    'ecoIslands',
     'CG_Clickhouse_1'
 ) SETTINGS kafka_format = 'JSONEachRow',
            kafka_skip_broken_messages = 10;

@@ -15,7 +15,7 @@ from ...Model.Simulators.SensorTypes import SensorTypes
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 topic_tmp = "temperature"
-topic_umd = "umidity"
+topic_umd = "humidity"
 table_to_test = "healthScore"
 
 @pytest.fixture(scope='module')
@@ -37,20 +37,20 @@ def kafka_writer_umd():
     yield kafka_writer_umd
 
 @pytest.mark.asyncio
-async def test_heatlh_score_integration(clickhouse_client,kafka_writer_tmp,kafka_writer_umd):
+async def test_heatlh_score_integration(clickhouse_client, kafka_writer_tmp, kafka_writer_umd):
     try:
         timestamp = datetime.now()
 
         tmp_sensor_data = [
-            {"id": "HS_1_tmp","cella":"HSTestCell","timestamp":timestamp,"value": 25,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.TEMPERATURE.value},
-            {"id": "HS_1_tmp","cella":"HSTestCell","timestamp":timestamp,"value": 25,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.TEMPERATURE.value},
-            {"id": "HS_2_tmp","cella":"HSTestCell","timestamp":timestamp,"value": 25,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.TEMPERATURE.value}
+            {"id": "HS_1_tmp", "cella": "HSTestCell", "timestamp": timestamp, "value": 25, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.TEMPERATURE.value},
+            {"id": "HS_2_tmp", "cella": "HSTestCell", "timestamp": timestamp, "value": 25, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.TEMPERATURE.value},
+            {"id": "HS_3_tmp", "cella": "HSTestCell", "timestamp": timestamp, "value": 25, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.TEMPERATURE.value}
         ]
 
         umd_sensor_data = [
-            {"id": "HS_1_umd","cella":"HSTestCell","timestamp":timestamp,"value": 50,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.HUMIDITY.value},
-            {"id": "HS_1_umd","cella":"HSTestCell","timestamp":timestamp,"value": 50,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.HUMIDITY.value},
-            {"id": "HS_2_umd","cella":"HSTestCell","timestamp":timestamp,"value": 50,"longitude": 11.859271,"latitude": 45.39214,"type": SensorTypes.HUMIDITY.value}
+            {"id": "HS_1_umd", "cella": "HSTestCell", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.HUMIDITY.value},
+            {"id": "HS_2_umd", "cella": "HSTestCell", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.HUMIDITY.value},
+            {"id": "HS_3_umd", "cella": "HSTestCell", "timestamp": timestamp, "value": 50, "longitude": 11.859271, "latitude": 45.39214, "type": SensorTypes.HUMIDITY.value}
         ]
 
         for data in tmp_sensor_data:
