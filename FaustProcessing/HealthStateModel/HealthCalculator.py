@@ -19,7 +19,7 @@ class HealthCalculator(HealthAlgorithm):
     __healthScore_measure_type_naming = SensorTypes.HEALTH_SCORE.value
 
     def __init__(self):
-        self.__listaMisurazioni = ListaMisurazioni() 
+        self.__listaMisurazioni = ListaMisurazioni()
         self.__lock = threading.Lock()
 
     def add_misurazione(self, timestamp, value, type_, latitude, longitude, ID_sensore, cella):
