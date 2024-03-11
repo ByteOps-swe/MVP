@@ -87,7 +87,7 @@ async def test_multi_misurazione_time_pipeline(clickhouse_client,kafka_writer):
 
         for i in range(num_messages):
             time_difference = abs(result.result_rows[i][6] - time_sent)
-            print(f"Message sended at:{time_sent}\n\t and arrived at:{result.result_rows[i][6]},\n\t la differenza è di: {time_difference} secondi\n")
+            print(f"Message sent at:{time_sent}\n\t and arrived at:{result.result_rows[i][6]},\n\t la differenza è di: {time_difference} secondi\n")
             assert time_difference < timedelta(seconds=10)
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
