@@ -21,4 +21,4 @@ max-args = 8
 max-branches = 4
 
 [MESSAGES CONTROL]
-disable = C0114,C0115,N815
+disable = C0114,C0115
