@@ -74,10 +74,10 @@ async def test_RV1(clickhouse_client):
         temp_writers = CompositeWriter().add_kafkaConfluent_writer("temperature", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
         umd_writers = CompositeWriter().add_kafkaConfluent_writer("humidity", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
         chS_writers = CompositeWriter().add_kafkaConfluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecologicalIsland", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
+        ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
         waPr_writers = CompositeWriter().add_kafkaConfluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_level_PM10", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        eletricalFault_writers = CompositeWriter().add_kafkaConfluent_writer("electrical_fault", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
+        dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
+        eletricalFault_writers = CompositeWriter().add_kafkaConfluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
         symExecAggregator = SimulatorExecutorFactory()
         num_messages = 1
         num_sensor_per_type = 10
@@ -96,7 +96,7 @@ async def test_RV1(clickhouse_client):
         for i in range(num_sensor_per_type):
             symExecAggregator.add_simulator(SensorFactory.create_eletrical_fault_sensor(45.4056, 11.8788, "Test_cell_carico"), eletricalFault_writers, 0.01,num_messages)
         symExecAggregator.run()
-        while len(list_measure.get_data_list()) < num_messages*num_sensor_per_type*6:
+        while len(list_measure.get_data_list()) < num_messages*num_sensor_per_type*7:
             await asyncio.sleep(1)
         await asyncio.sleep(10)
         symExecAggregator.stop()
@@ -106,7 +106,7 @@ async def test_RV1(clickhouse_client):
         chS_table = "chargingStations"
         ecoIs_table = "ecoIslands"
         waPr_table = "waterPresence"
-        dust_table = "dustPM10"
+        dust_table = "dust_PM10"
         eletricalFault_table = "electricalFault"
         measure_arrived = []
         # Query ClickHouse to check if all data has been inserted
@@ -142,7 +142,9 @@ async def test_RV1(clickhouse_client):
         for measure in measure_arrived:
             str_measure.append(measure.to_string())
 
+        #print(str_measure)
         for measure in list_measure.get_data_list():
+            #print(measure.get_Misurazione().to_string())
             assert measure.get_Misurazione().to_string() in str_measure
 
 

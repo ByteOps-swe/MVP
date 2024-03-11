@@ -14,6 +14,3 @@ class HealthModelProcessorAdapter(Processor):
                                                 measurement.longitude,
                                                 measurement.ID_sensore,
                                                 measurement.cella)
-
-    def process(self, measurement:FaustMeasurement):
-        pass

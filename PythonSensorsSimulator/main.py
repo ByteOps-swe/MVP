@@ -1,8 +1,8 @@
 import os
 
-from .Model.Simulators.SensorFactory import SensorFactory
-from .Model.SimulatorExecutorFactory import SimulatorExecutorFactory
-from .Model.Writers.CompositeWriter import CompositeWriter
+from Model.Simulators.SensorFactory import SensorFactory
+from Model.SimulatorExecutorFactory import SimulatorExecutorFactory
+from Model.Writers.CompositeWriter import CompositeWriter
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")

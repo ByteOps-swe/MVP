@@ -1,5 +1,6 @@
 from datetime import datetime
 from .Coordinate import Coordinate
+#TYPE per poter gestire anche db monotabella oppure dividere celsius e fahrenheit
 class Misurazione():
     def __init__(self, timestamp:datetime, value, type_:str, coordinate: Coordinate, ID_sensore:str, cella:str):
         self.__timestamp = timestamp
