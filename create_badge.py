@@ -1,6 +1,6 @@
 import os.path
 import re
-import sys
+
 from get_pylintScore import get_pylintScore
 def get_color(score):
     if score > 9:
