@@ -9,6 +9,7 @@
 ![pylint]()
 
 </div>
+
 # InnovaCity
 
 Progetto del corso di [Ingegneria del Software 2023-2024]
