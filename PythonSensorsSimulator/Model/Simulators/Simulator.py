@@ -18,7 +18,6 @@ class Simulator(ABC):
             self._generate_measure() #First template step
         return Misurazione(datetime.now(), self._misurazione , self.__type, self.__coordinate, self.__ID_sensor,self.__cella_sensore)
 
-
     @abstractmethod
     def _generate_measure(self) -> None:
         pass

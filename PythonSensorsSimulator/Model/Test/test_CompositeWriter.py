@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from ..Writers.Writer import Writer
 from ..Writers.CompositeWriter import CompositeWriter
 

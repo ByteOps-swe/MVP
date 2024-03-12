@@ -1,3 +1,5 @@
+<div align="center">
+
 ![build](https://github.com/ByteOps-swe/MVP/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/ByteOps-swe/MVP/badge.svg?branch=main)](https://coveralls.io/github/ByteOps-swe/MVP?branch=main)
 [![codecov](https://codecov.io/gh/ByteOps-swe/MVP/graph/badge.svg?token=VSRO4CTN60)](https://codecov.io/gh/ByteOps-swe/MVP/tree/main)
@@ -5,6 +7,8 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/68c20d2874784c78bf7e4ebcb51aba95)](https://app.codacy.com/gh/ByteOps-swe/MVP/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)\
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 ![pylint]()
+
+</div>
 # InnovaCity
 
 Progetto del corso di [Ingegneria del Software 2023-2024]
@@ -32,14 +36,27 @@ docker-compose down
 
 Per connettersi a clickhouse con client e ed effettuare query:
 
-```bash
+``` bash
+docker exec -it clickhouse clickhouse-client
+```
+
+Un possibile fix in caso non funzioni:
+
+``` bash
 winpty docker exec -it clickhouse clickhouse-client
 ```
 
-TEST
-`docker exec simulators pytest`
-docker exec simulators pytest --capture=no clickHouseDataTest.py
-per avere print
+**TEST**
+
+Per avere print:
+
+``` bash
+docker exec simulators pytest
+```
+
+``` bash
+docker exec simulators pytest --capture=no clickHouseDataTest.py  
+```
 
 Per generare uml:
 
@@ -76,7 +93,9 @@ docker exec simulators pytest --capture=no clickHouseDataTest.py
 - Settings
 - Docker Engine
 - Aggiungere:
+``` JSON
   "features": {  
     "buildkit": false  
   }
+```
 - Riavviare Docker Desktop

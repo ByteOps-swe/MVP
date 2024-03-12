@@ -44,4 +44,3 @@ class Misurazione():
                 self.__coordinates == other.__coordinates and
                 self.__ID_sensore == other.__ID_sensore and
                 self.__cella == other.__cella)
-    
