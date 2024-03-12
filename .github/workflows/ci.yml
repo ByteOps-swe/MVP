@@ -42,19 +42,36 @@ jobs:
         docker compose --profile test up kafka test_base_image clickhouse -d
         docker compose --profile test up test
 
-    - name: Wait for tests to complete
-      run: |
-        while docker ps --format '{{.Names}}' | grep -q '^tests$'; do sleep 1; done
-
     - name: Copy coverage report from stopped Docker container
-      run: docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
-
+      run: |
+        docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
+        docker cp $(docker ps -a -qf "name=tests"):/app/pylint_output.txt ./pylint_output.txt
 
     - name: Install Coveralls
       run: |
         pip install coveralls
-
+      
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       uses: coverallsapp/github-action@v2
+      
+    - name: Upload coverage reports to Codecov
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: ByteOps-swe/MVP
+
+    - name: Create Pylint Badge and put in README.md
+      run: |
+        python create_pylint_badge.py
+      
+    - name: "Push README with changed badge to origin"
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: 'README.md'
+        default_author: github_actions
+        message: 'Updated pylint badge'
+        push: 'true'
