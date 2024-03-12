@@ -19,6 +19,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
     
     - name: Set DOCKER_BUILDKIT to false
       env:
