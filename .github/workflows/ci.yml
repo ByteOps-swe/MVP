@@ -77,3 +77,4 @@ jobs:
         default_author: github_actions
         message: 'Updated pylint badge'
         push: 'true'
+        github_token: ${{ secrets.ACCESS_TOKEN }}
