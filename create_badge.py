@@ -25,7 +25,7 @@ BADGE_COLOR = get_color(float(NUMERIC_SCORE))
 if not os.path.isfile(README_PATH):
     raise FileNotFoundError(f"README.md path is wrong, no file can be located at {README_PATH}")
 
-with open(README_PATH, "r", encoding="utf8") as f:
+with open(README_PATH, "r", encoding="utf16") as f:
     content = f.read()
 
 query = f"{BADGE_TEXT}-{NUMERIC_SCORE}-{BADGE_COLOR}?logo=python&logoColor=white"
@@ -37,5 +37,5 @@ if re.search(patt, content) is None:
                      "if this is your first run. Check README.md for examples!")
 
 result = re.sub(patt, badge_url, content)
-with open(README_PATH, "w", encoding="utf8") as f:
+with open(README_PATH, "w", encoding="utf16") as f:
     f.write(result)
