@@ -43,9 +43,9 @@ jobs:
 
     - name: Copy coverage report from stopped Docker container
       run: |
-        docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
         docker cp $(docker ps -a -qf "name=tests"):/app/pylint_output.txt ./pylint_output.txt
-
+      
+    # docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
     # - name: Install Coveralls
     #   run: |
     #     pip install coveralls
