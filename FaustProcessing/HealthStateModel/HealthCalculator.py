@@ -2,14 +2,15 @@ import threading
 from datetime import datetime
 from typing import List
 
-from .ListaMisurazioni import ListaMisurazioni
 from .MisurazioneSalute import MisurazioneSalute
 from .Incrementers.TemperatureIncrementer import TemperatureIncrementer
 from .Incrementers.HumidityIncrementer import HumidityIncrementer
 from .Incrementers.DustPM10Incrementer import DustPM10Incrementer
 from .HealthAlgorithm import HealthAlgorithm
+from .HealthProcessorBuffer import HealthProcessorBuffer
 from .SensorTypes import SensorTypes
-class HealthCalculator(HealthAlgorithm):
+
+class HealthCalculator(HealthAlgorithm, HealthProcessorBuffer):
     __tmpInc = TemperatureIncrementer()
     __umdInc = HumidityIncrementer()
     __dstPm10Inc = DustPM10Incrementer()
@@ -19,24 +20,20 @@ class HealthCalculator(HealthAlgorithm):
     __healthScore_measure_type_naming = SensorTypes.HEALTH_SCORE.value
 
     def __init__(self):
-        self.__listaMisurazioni = ListaMisurazioni()
         self.__lock = threading.Lock()
-
-    def add_misurazione(self, timestamp, value, type_, latitude, longitude, ID_sensore, cella):
-        with self.__lock:
-            self.__listaMisurazioni.add_misurazione(timestamp, value, type_, latitude, longitude, ID_sensore, cella)
+        super().__init__()
 
     def generate_new_health_score(self)->List[MisurazioneSalute]:
         health_scores = []
         with self.__lock:
-            for cella in self.__listaMisurazioni.get_unique_celle():
+            for cella in super().get_lista_misurazioni().get_unique_celle():
                 punteggio_cella = (
-                    HealthCalculator.__calcola_incremento_tmp(cella, self.__listaMisurazioni) +
-                    HealthCalculator.__calcola_incremento_umd(cella, self.__listaMisurazioni) +
-                    HealthCalculator.__calcola_incremento_dstPm10(cella, self.__listaMisurazioni)
+                    HealthCalculator.__calcola_incremento_tmp(cella, super().get_lista_misurazioni()) +
+                    HealthCalculator.__calcola_incremento_umd(cella, super().get_lista_misurazioni()) +
+                    HealthCalculator.__calcola_incremento_dstPm10(cella, super().get_lista_misurazioni())
                 )
                 health_scores.append(MisurazioneSalute(datetime.now(), punteggio_cella, self.__healthScore_measure_type_naming, cella))
-            self.__listaMisurazioni.clear_list()
+            super().clear_list()
             return health_scores
 
     @staticmethod
