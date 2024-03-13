@@ -68,7 +68,7 @@ jobs:
 
     - name: Create Pylint Badge and put in README.md
       run: |
-        python create_pylint_badge.py
+        python create_badge.py
       
     - name: "Push README with changed badge to origin"
       uses: EndBug/add-and-commit@v9
