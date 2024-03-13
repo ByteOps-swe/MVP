@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from ..HealthStateModel.Misurazione import Misurazione  # Replace 'your_module' with the actual module name
 
 
