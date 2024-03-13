@@ -8,7 +8,7 @@ def get_pylintScore(file = "pylint_output.txt"):
     if not os.path.isfile(file):
         raise FileNotFoundError(f"Pylint output file not found at {file}")
 
-    with open(file, "r", encoding="utf16", errors='ignore') as f:
+    with open(file, "r", encoding="utf8") as f:
         content = f.read()
         print(content)
 
