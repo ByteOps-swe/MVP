@@ -1,5 +1,5 @@
 import json
-from threading import Lock
+import threading
 from .Writer import Writer
 from .kafkaAdapter.KafkaTarget import KafkaTarget
 from .Writable import Writable
@@ -13,8 +13,6 @@ class KafkaWriter(Writer):
         __kafka_target (KafkaTarget): The Kafka target to write to.
     """
 
-    __lock: Lock = Lock()
-
     def __init__(self, kafka_target: KafkaTarget):
         """
         Initializes a KafkaWriter instance.
@@ -23,6 +21,7 @@ class KafkaWriter(Writer):
             kafka_target (KafkaTarget): The Kafka target to write to.
         """
         self.__kafka_target = kafka_target
+        self.__lock = threading.Lock()
 
     def write(self, to_write: Writable) -> None:
         """
