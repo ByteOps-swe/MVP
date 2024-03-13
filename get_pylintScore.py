@@ -8,8 +8,9 @@ def get_pylintScore(file = "pylint_output.txt"):
     if not os.path.isfile(file):
         raise FileNotFoundError(f"Pylint output file not found at {file}")
 
-    with open(file, "r", encoding="utf16") as f:
+    with open(file, "r", encoding="utf8") as f:
         content = f.read()
+        print(content)
 
     # Extract the score from the pylint output by looking fo the patter: Your code has been rated at 9.83/10 (previous run: 9.83/10, +0.00)
     pattern = r"(?<=rated at )(\d+\.\d+)"

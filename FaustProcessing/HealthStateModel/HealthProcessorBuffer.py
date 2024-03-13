@@ -16,6 +16,6 @@ class HealthProcessorBuffer(ABC):
 
     def get_lista_misurazioni(self):
         return self.__listaMisurazioni
-    
+
     def clear_list(self):
         self.__listaMisurazioni.clear_list()
