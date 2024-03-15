@@ -1,11 +1,12 @@
 from typing import List
+from .HealthConstant import HealthConstant
 from .Incrementer import Incrementer
 from ..Misurazione import Misurazione
 from ..SensorTypes import SensorTypes
 
 class HumidityIncrementer(Incrementer):
 
-    def __init__(self, upper_health_soglia: int = 70, under_health_soglia: int = 30, umidity_type_naming: str = SensorTypes.HUMIDITY.value):
+    def __init__(self, upper_health_soglia: int = HealthConstant.HUMIDITY_UPPER_HEALTH.value, under_health_soglia: int = HealthConstant.HUMIDITY_UNDER_HEALTH.value, umidity_type_naming: str = SensorTypes.HUMIDITY.value):
         self.__upper_health_soglia = upper_health_soglia
         self.__under_health_soglia = under_health_soglia
         self.__umidity_type_naming = umidity_type_naming

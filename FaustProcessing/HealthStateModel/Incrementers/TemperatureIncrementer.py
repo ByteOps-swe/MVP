@@ -1,11 +1,12 @@
 from typing import List
 from .Incrementer import Incrementer
+from .HealthConstant import HealthConstant
 from ..Misurazione import Misurazione
 from ..SensorTypes import SensorTypes
 
 class TemperatureIncrementer(Incrementer):
 
-    def __init__(self, upper_health_soglia: int = 30, under_health_soglia: int = 20, temperature_type_naming: str = SensorTypes.TEMPERATURE.value):
+    def __init__(self, upper_health_soglia: int = HealthConstant.TEMPERATURE_UPPER_HEALTH.value, under_health_soglia: int = HealthConstant.TEMPERATURE_UNDER_HEALTH.value, temperature_type_naming: str = SensorTypes.TEMPERATURE.value):
         self.__upper_health_soglia = upper_health_soglia
         self.__under_health_soglia = under_health_soglia
         self.__temperature_type_naming = temperature_type_naming
