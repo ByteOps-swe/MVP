@@ -43,25 +43,25 @@ jobs:
 
     - name: Copy coverage report from stopped Docker container
       run: |
+        docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
         docker cp $(docker ps -a -qf "name=tests"):/app/pylint_output.txt ./pylint_output.txt
       
-    # docker cp $(docker ps -a -qf "name=tests"):/app/coverage.xml ./coverage.xml
-    # - name: Install Coveralls
-    #   run: |
-    #     pip install coveralls
+    - name: Install Coveralls
+      run: |
+        pip install coveralls
       
-    # - name: Coveralls
-    #   env:
-    #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-    #   uses: coverallsapp/github-action@v2
+    - name: Coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: coverallsapp/github-action@v2
       
-    # - name: Upload coverage reports to Codecov
-    #   env:
-    #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-    #   uses: codecov/codecov-action@v4.0.1
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     slug: ByteOps-swe/MVP
+    - name: Upload coverage reports to Codecov
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: ByteOps-swe/MVP
 
     - name: Create Pylint Badge and put in README.md
       uses: actions/setup-python@v5
@@ -74,9 +74,9 @@ jobs:
       run: |
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config user.name "github-actions[bot]"
-        if [[ $(git diff --cached --name-only 'README.md') ]]; then
+        if [[ $(git diff --name-only 'README.md') ]]; then
           git add README.md
-          git commit -m "Aggiornato Pylint Badge"
+          git commit -m "Update Pylint Badge"
           git push
         else
           echo "No changes to README.md, skipping commit and push."
