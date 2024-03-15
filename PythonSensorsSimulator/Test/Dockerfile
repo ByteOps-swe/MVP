@@ -16,4 +16,4 @@ COPY ./__init__.py /app/
 
 # CMD ["sh", "-c", "pylint --rcfile=PythonSensorsSimulator/Test/pylintrc  --output-format=parseable . > pylint_output.txt; pytest --cov-report=xml --cov=./ --capture=no ./ && cp coverage.xml /app/coverage.xml"]
 #CMD ["sh", "-c","pytest --cov-report=xml --cov=./ --capture=no ./PythonSensorsSimulator/Test/System_Test/test_performance.py ./PythonSensorsSimulator/Test/System_Test/test_Clickhouse_electrical_table.py && cp coverage.xml /app/coverage.xml"]
-CMD ["sh", "-c", "pytest ./PythonSensorsSimulator/Test/Integration_Test/test_JsonFormat.py"]
+CMD ["sh", "-c", "pytest --capture=no ./PythonSensorsSimulator/Test/Integration_Test/test_JsonFormat.py"]

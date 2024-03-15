@@ -30,7 +30,7 @@ services:
     profiles: ["test", "prod"]
 
   clickhouse:
-    image: clickhouse/clickhouse-server:24.1.6.52
+    image: clickhouse/clickhouse-server:24.2.1.2248
     hostname: clickhouse
     container_name: clickhouse
     ports:

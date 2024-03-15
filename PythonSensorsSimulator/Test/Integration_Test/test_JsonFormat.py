@@ -37,7 +37,7 @@ async def test_missing_data_field(clickhouse_client,kafka_writer):
             "type": "tipo",
             "latitude": 123.45,
             "longitude": 67.89,
-            "ID_sensore": "id_json_format_correct",
+            "ID_sensore": "id_json_format_correct1",
             "cella": "cella"
         }
         mock_adapter_misurazione_sbagliata = Mock()
@@ -47,14 +47,16 @@ async def test_missing_data_field(clickhouse_client,kafka_writer):
             "type": "tipo",
             "latitude": 123.45,
             "longitude": 67.89,
-            "ID_sensore": "id_json_time_wrong",
+            "ID_sensore": "id_json_time_wrong1",
         }
         kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(2)
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct' LIMIT 1")
+        await asyncio.sleep(10)
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct1' LIMIT 1")
+        print(result.result_rows[0][3])
         assert float(result.result_rows[0][3]) == 25.5
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_wrong' LIMIT 1")
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_wrong1' LIMIT 1")
+        print(result.result_rows)
         assert not result.result_rows
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
@@ -69,7 +71,7 @@ async def test_wrong_field_order(clickhouse_client,kafka_writer):
             "type": "tipo",
             "latitude": 123.45,
             "longitude": 67.89,
-            "ID_sensore": "id_json_format_correct",
+            "ID_sensore": "id_json_format_correct2",
             "cella": "cella"
         }
         mock_adapter_misurazione_sbagliata = Mock()
@@ -78,16 +80,20 @@ async def test_wrong_field_order(clickhouse_client,kafka_writer):
             "value": 25.50,
             "latitude": 123.45,
             "type": "tipo",
-            "ID_sensore": "id_json_format_wrong",
+            "ID_sensore": "id_json_format_wrong2",
             "longitude": 67.89,
             "cella": "cella"
         }
         kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(2)
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct' LIMIT 1")
+        await asyncio.sleep(10)
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct2' LIMIT 1")
+        print(result.result_rows[0][3])
         assert float(result.result_rows[0][3]) == 25.5
-        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_wrong' LIMIT 1")
+        result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_wrong2' LIMIT 1")
+        print(result.result_rows)
         assert not result.result_rows
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
+
+#Aggiungi test per un campo in piu'
