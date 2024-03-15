@@ -6,9 +6,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a8e8861f6abf888a6552/maintainability)](https://codeclimate.com/github/ByteOps-swe/MVP/maintainability)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/68c20d2874784c78bf7e4ebcb51aba95)](https://app.codacy.com/gh/ByteOps-swe/MVP/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)\
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
-![pylint]()
+![pylint](https://img.shields.io/badge/PyLint-9.96-brightgreen?logo=python&logoColor=white)
 
 </div>
+
 # InnovaCity
 
 Progetto del corso di [Ingegneria del Software 2023-2024]
