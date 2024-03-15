@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
-from .Writable import Writable
+from .writable import writable
 #Pattern Strategy
-class Writer(ABC):
+class writer(ABC):
     """
     Abstract base class for writers.
     """
     @abstractmethod
-    def write(self, to_write: Writable) -> None:
+    def write(self, to_write: writable) -> None:
         """
         Abstract method to write data.
 

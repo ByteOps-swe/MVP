@@ -1,4 +1,4 @@
-class Coordinate():
+class coordinate():
     def __init__(self, latitude:float, longitude: float):
         self.__latitude = latitude
         self.__longitude = longitude
@@ -10,8 +10,7 @@ class Coordinate():
         return self.__longitude
 
     def __eq__(self, other):
-        if not isinstance(other, Coordinate):
+        if not isinstance(other, coordinate):
             return False
         return (self.__latitude == other.get_latitude() and
                 self.__longitude == other.get_longitude())
-    

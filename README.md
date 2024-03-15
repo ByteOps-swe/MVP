@@ -28,7 +28,7 @@ Il container clickhouse deve essere riavviato una volta in esecuzione senno non 
 - Username: admin
 - Password: admin
 
-Per fermare tutti i container 
+Per fermare tutti i container
 
 ```bash
 docker-compose down
@@ -82,7 +82,7 @@ docker exec simulators pytest --capture=no clickHouseDataTest.py
 ### Simulazioni:
 
 - Writers: Strategy, Adapter, Composite 
-- Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> Writable (che è il target) (Modello writer)
+- Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> writable (che è il target) (Modello writer)
 - Pool thread: Adapter per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
 - SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
 

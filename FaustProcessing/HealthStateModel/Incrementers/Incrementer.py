@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import List
-from ..Misurazione import Misurazione
+from ..misurazione import misurazione
 
 #strategy
-class Incrementer(ABC):
+class incrementer(ABC):
 
     @abstractmethod
-    def get_incrementation(self, misurazioni: List[Misurazione]) -> int:
+    def get_incrementation(self, misurazioni: List[misurazione]) -> int:
         pass
