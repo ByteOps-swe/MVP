@@ -9,13 +9,13 @@ KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 # Uso generale di una interfaccia Writer al fine di poter implementare quante politiche diverse di writing si vuole,
 # senza dover cambiare nulla sul resto del codice.
 
-temp_writers = CompositeWriter().add_kafkaConfluent_writer("temperature", KAFKA_HOST, KAFKA_PORT)
-umd_writers = CompositeWriter().add_kafkaConfluent_writer("humidity", KAFKA_HOST, KAFKA_PORT)
-chS_writers = CompositeWriter().add_kafkaConfluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT)
-ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT)
-waPr_writers = CompositeWriter().add_kafkaConfluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT)
-dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT)
-eletricalFault_writers = CompositeWriter().add_kafkaConfluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT)
+temp_writers = CompositeWriter().add_kafkaConfluent_writer("temperature", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+umd_writers = CompositeWriter().add_kafkaConfluent_writer("humidity", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+chS_writers = CompositeWriter().add_kafkaConfluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+ecoIs_writers = CompositeWriter().add_kafkaConfluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+waPr_writers = CompositeWriter().add_kafkaConfluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+dust_writers = CompositeWriter().add_kafkaConfluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+eletricalFault_writers = CompositeWriter().add_kafkaConfluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
 symExecAggregator = SimulatorExecutorFactory()
 
 symExecAggregator \

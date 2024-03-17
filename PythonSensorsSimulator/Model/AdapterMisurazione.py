@@ -24,7 +24,7 @@ class AdapterMisurazione(Writable):
         if isinstance(value, bool):
             return 1 if value else 0
         if isinstance(value, float):
-            return f"{value:.2f}"
+            return value
         return value
     @staticmethod
     def from_json(json_data:dict):

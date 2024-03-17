@@ -8,6 +8,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    profiles: ["test","develop","prod"]
 
   kafka:
     image: confluentinc/cp-kafka:7.4.4
@@ -30,6 +31,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    profiles: ["test","develop","prod"]
 
   schema_registry:
     image: confluentinc/cp-schema-registry:3.3.0
@@ -45,12 +47,15 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
+    profiles: ["test","develop","prod"]
     
   register_schema:
     image: appropriate/curl
     depends_on:
-      - schema_registry
-    command: ["sh", "-c", "sleep 10 && curl -vs --stderr - -XPOST -i -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"Misurazione\\\",\\\"fields\\\":[{\\\"name\\\":\\\"timestamp\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"value\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"type\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"latitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"longitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"ID_sensore\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"cella\\\",\\\"type\\\":\\\"string\\\"}]}\"}' http://schema_registry:8081/subjects/temperature/versions"]
+      kafka:
+          condition: service_healthy
+    command: ["sh", "-c", "sleep 10 && curl -vs --stderr - -XPOST -i -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"Misurazione\\\",\\\"fields\\\":[{\\\"name\\\":\\\"timestamp\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"value\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"type\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"latitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"longitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"ID_sensore\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"cella\\\",\\\"type\\\":\\\"string\\\"}]}\"}' http://schema_registry:8081/subjects/misurazione/versions"]
+    profiles: ["test","develop","prod"]
 
   kafka-gui:
     image: provectuslabs/kafka-ui:latest
@@ -63,13 +68,14 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
     depends_on:
       - kafka
-      
+    profiles: ["develop"]
   kafka-schema-registry-ui:
     image: landoop/schema-registry-ui:latest
     ports:
       - "8000:8000"
     environment:
       SCHEMAREGISTRY_URL: "http://localhost:8081"
+    profiles: ["develop"]
 
   clickhouse:
     image: clickhouse/clickhouse-server:24.2.1.2248
@@ -83,11 +89,11 @@ services:
     volumes:
       - ./InitDB:/docker-entrypoint-initdb.d
     depends_on:
-      kafka:
-        condition: service_healthy
+        kafka:
+          condition: service_healthy
     healthcheck:
         test: wget --no-verbose --tries=1 --spider http://localhost:8123/?query=SELECT%201 || exit 1
-    profiles: ["test", "prod"]
+    profiles: ["test","develop", "prod"]
 
   grafana:
     image: grafana/grafana-oss:10.0.12
@@ -103,7 +109,7 @@ services:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource, volkovlabs-variable-panel,orchestracities-map-panel
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
-    profiles: ["prod"]
+    profiles: ["prod","develop"]
 
   simulators:
     build:
@@ -116,7 +122,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["prod"]
+    profiles: ["prod","develop"]
 
   processor:
     build:
@@ -131,7 +137,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["test","prod"]
+    profiles: ["test","develop", "prod"]
 
   test_base_image:
     build:
