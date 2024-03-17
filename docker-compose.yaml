@@ -52,8 +52,7 @@ services:
   register_schema:
     image: appropriate/curl
     depends_on:
-      kafka:
-          condition: service_healthy
+        - schema_registry
     command: ["sh", "-c", "sleep 10 && curl -vs --stderr - -XPOST -i -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"Misurazione\\\",\\\"fields\\\":[{\\\"name\\\":\\\"timestamp\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"value\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"type\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"latitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"longitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"ID_sensore\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"cella\\\",\\\"type\\\":\\\"string\\\"}]}\"}' http://schema_registry:8081/subjects/misurazione/versions"]
     profiles: ["test","develop","prod"]
 
