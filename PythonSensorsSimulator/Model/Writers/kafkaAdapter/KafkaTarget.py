@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class KafkaTarget(ABC):
 
     @abstractmethod
-    def write_to_kafka(self, data: str) -> None:
+    def write_to_kafka(self, data) -> None:
         pass
 
     @abstractmethod

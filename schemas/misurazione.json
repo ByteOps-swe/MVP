@@ -1,0 +1,9 @@
+{
+        "timestamp": {"type": "string"},
+        "value": {"type": "number"},
+        "type": {"type": "string"},
+        "latitude": {"type": "number"},
+        "longitude": {"type": "number"},
+        "ID_sensore": {"type": "string"},
+        "cella": {"type": "string"}
+}
