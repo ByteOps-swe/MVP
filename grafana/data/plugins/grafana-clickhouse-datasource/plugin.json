@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "alerting": true,
+  "annotations": true,
+  "backend": true,
+  "category": "sql",
+  "dependencies": {
+    "grafanaDependency": "\u003e=9.5.0",
+    "plugins": []
+  },
+  "executable": "gpx_clickhouse",
+  "id": "grafana-clickhouse-datasource",
+  "includes": [
+    {
+      "name": "Query Analysis",
+      "path": "dashboards/query-analysis.json",
+      "type": "dashboard"
+    },
+    {
+      "name": "Data Analysis",
+      "path": "dashboards/data-analysis.json",
+      "type": "dashboard"
+    },
+    {
+      "name": "Cluster Analysis",
+      "path": "dashboards/cluster-analysis.json",
+      "type": "dashboard"
+    }
+  ],
+  "info": {
+    "author": {
+      "name": "Grafana Labs"
+    },
+    "build": {
+      "time": 1709320241178,
+      "repo": "https://github.com/grafana/clickhouse-datasource",
+      "branch": "main",
+      "hash": "c04a6f54edb67cfea3028844503d1601bf2b0254",
+      "build": 1731
+    },
+    "description": "ClickHouse datasource plugin for Grafana",
+    "keywords": [
+      "Simple"
+    ],
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/clickhouse-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/clickhouse-datasource/blob/master/LICENSE"
+      }
+    ],
+    "logos": {
+      "large": "img/logo.svg",
+      "small": "img/logo.svg"
+    },
+    "screenshots": [],
+    "updated": "2024-03-01",
+    "version": "4.0.3"
+  },
+  "logs": true,
+  "metrics": true,
+  "name": "ClickHouse",
+  "tracing": true,
+  "type": "datasource"
+}

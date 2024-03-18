@@ -106,6 +106,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      - ./grafana/data:/var/lib/grafana     # Aggiunta del volume per lo storage persistente
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/alerting:/etc/grafana/provisioning/alerting

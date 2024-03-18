@@ -11,7 +11,7 @@ def acked(err, msg):
 class KafkaConfluentAdapter(KafkaTarget):
     def __init__(self, topic: str, ip: str = "kafka", port: str = "9092", schema_registry_url: str = "http://schema_registry:8081", schema_name: str = "misurazioneSalute"):
         self.__topic = topic
-        self.__schema_registry_client =CachedSchemaRegistryClient(url=schema_registry_url)
+        self.__schema_registry_client =CachedSchemaRegistryClient({'url' : schema_registry_url})
         self.__schema = self.__schema_registry_client.get_latest_schema(schema_name)[1]
         config = {'bootstrap.servers': ip + ':' + port}
         try:
