@@ -101,11 +101,12 @@ services:
     profiles: ["test","develop", "prod"]
 
   grafana:
-    image: grafana/grafana-oss:10.0.12
+    image: grafana/grafana-oss:10.4.0
     container_name: grafana
     ports:
       - "3000:3000"
     volumes:
+      - ./grafana/data:/var/lib/grafana     # Aggiunta del volume per lo storage persistente
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
