@@ -71,13 +71,13 @@ async def test_RV1(clickhouse_client):
     KAFKA_PORT = "9092"
     try:
         list_measure = list_writer()
-        temp_writers = composite_writer().add_kafka_confluent_writer("temperature", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        umd_writers = composite_writer().add_kafka_confluent_writer("humidity", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        chS_writers = composite_writer().add_kafka_confluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        ecoIs_writers = composite_writer().add_kafka_confluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        waPr_writers = composite_writer().add_kafka_confluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        dust_writers = composite_writer().add_kafka_confluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
-        eletricalFault_writers = composite_writer().add_kafka_confluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT).add_list_writer(list_measure)
+        temp_writers = composite_writer().add_kafka_confluent_writer("temperature", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        umd_writers = composite_writer().add_kafka_confluent_writer("humidity", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        chS_writers = composite_writer().add_kafka_confluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        ecoIs_writers = composite_writer().add_kafka_confluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        waPr_writers = composite_writer().add_kafka_confluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        dust_writers = composite_writer().add_kafka_confluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
+        eletricalFault_writers = composite_writer().add_kafka_confluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione").add_list_writer(list_measure)
         symExecAggregator = SimulatorExecutorFactory()
         num_messages = 1
         num_sensor_per_type = 10

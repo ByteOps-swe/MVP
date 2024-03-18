@@ -13,7 +13,7 @@ class kafka_writer(writer):
 
     def write(self, to_write: writable) -> None:
         with self.__lock:
-            self.__kafka_target.write_to_kafka(json.dumps(to_write.to_json()))
+            self.__kafka_target.write_to_kafka(to_write.to_json())
 
     def flush_kafka_producer(self):
         self.__kafka_target.flush_kafka_producer()
