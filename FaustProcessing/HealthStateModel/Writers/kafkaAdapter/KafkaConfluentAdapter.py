@@ -1,3 +1,4 @@
+import json
 from confluent_kafka import Producer, KafkaException
 from .KafkaTarget import KafkaTarget
 
@@ -17,7 +18,7 @@ class KafkaConfluentAdapter(KafkaTarget):
 
     def write_to_kafka(self, data: str) -> None:
         try:
-            self.__producer.produce(self.__topic, value=data, callback=acked)
+            self.__producer.produce(self.__topic, value=json.dumps(data), callback=acked)
             self.__producer.poll(1)
         except KafkaException as e:
             print(f"Errore durante la scrittura in Kafka: {e}")
