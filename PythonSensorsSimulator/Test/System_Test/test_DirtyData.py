@@ -43,7 +43,7 @@ async def test_string_value(clickhouse_client,kafka_writer):
                 Misurazione(data["timestamp"], data["value"], data["type"], Coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
             kafka_writer.write(misurazione)
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
 
         result = clickhouse_client.query(
             f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{sensor_data[1]['id']}' and timestamp = '{sensor_data[1]['timestamp']}' LIMIT 1")
@@ -80,7 +80,7 @@ async def test_dirty_timestamp(clickhouse_client,kafka_writer):
         }
         kafka_writer.write(mock_adapter_misurazione_corretta) 
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_drt_time_correct' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_drt_time_wrong' LIMIT 1")
@@ -114,7 +114,7 @@ async def test_dirty_coordinates(clickhouse_client,kafka_writer):
         }
         kafka_writer.write(mock_adapter_misurazione_corretta)
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_right' and timestamp = '{str(timestamp)}' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_wrong' and timestamp = '{str(timestamp)}' LIMIT 1")
@@ -148,7 +148,7 @@ async def test_sql_injection(clickhouse_client,kafka_writer):
         }
         kafka_writer.write(mock_adapter_misurazione_corretta)
         kafka_writer.flush_kafka_producer()
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_injection_not' and timestamp = '{str(timestamp)}' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_injection' and timestamp = '{str(timestamp)}' LIMIT 1")

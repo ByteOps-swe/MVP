@@ -6,7 +6,7 @@ from HealthStateModel.Writers.CompositeWriter import CompositeWriter
 from ProcessingAdapter.FaustMeasurement import FaustMeasurement
 from ProcessingAdapter.HealthModelProcessorAdapter import HealthModelProcessorAdapter
 
-healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092").add_stdOut_writer()
+healthWriter = CompositeWriter().add_kafkaConfluent_writer("HealthScore", "kafka", "9092", "http://schema_registry:8081", "misurazioneSalute").add_stdOut_writer()
 healthCalculator = HealthCalculator()
 healthThread  = HealthCalculatorThread(healthCalculator,healthWriter,5)
 

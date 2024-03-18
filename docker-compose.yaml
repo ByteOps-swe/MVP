@@ -114,14 +114,8 @@ services:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource, volkovlabs-variable-panel,orchestracities-map-panel
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
-    user_defined_roles:
-      - name: viewer
-        role: Viewer
-    users:
-      - name: user  
-        password: user  # Replace with desired password
-        roles:
-          - viewer  # Assign the "viewer" role
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
     profiles: ["prod","develop"]
 
   simulators:
