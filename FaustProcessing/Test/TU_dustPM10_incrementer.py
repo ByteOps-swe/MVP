@@ -7,14 +7,9 @@ from ..HealthStateModel.Incrementers.dust_PM10_incrementer import dust_PM10_incr
 
 class TU_dust_PM10_incrementer(unittest.TestCase):
     def test_get_incrementation_no_measurements(self):
-        # Arrange
         incrementer = dust_PM10_incrementer()
         misurazioni = []
-
-        # Act
         result = incrementer.get_incrementation(misurazioni)
-
-        # Assert
         self.assertEqual(result, 0)
 
     def test_get_incrementation_single_measurement(self):

@@ -1,33 +1,86 @@
 version: '3.8'
 
 services:
-  kafka:
-    image: "bitnami/kafka:3.7.0"
-    container_name: kafka
-    hostname: kafka
-    ports:
-      - "9093:9093"
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
     environment:
-      KAFKA_CFG_NODE_ID: 1
-      KAFKA_CFG_LISTENERS: CONTROLLER://kafka:19092,INTERNAL://kafka:9092,EXTERNAL://localhost:9093
-      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
-      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:19092
-      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_CFG_PROCESS_ROLES: broker,controller
-      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+    profiles: ["test","develop","prod"]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     healthcheck:
-      test:
-        - "CMD"
-        - "kafka-topics.sh"
-        - "--bootstrap-server"
-        - "kafka:9092"
-        - "--list"
-      interval: 5s
-      timeout: 30s
-      retries: 10
-    profiles: ["test", "prod"]
+      test: "echo 'exit' | nc -w 1 localhost 29092 || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles: ["test","develop","prod"]
+
+  schema_registry:
+    image: confluentinc/cp-schema-registry:3.3.0
+    hostname: schema_registry
+    container_name: schema_registry
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema_registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+      SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
+      SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/subjects"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    profiles: ["test","develop","prod"]
+    
+  register_schema:
+    image: appropriate/curl
+    depends_on:
+        schema_registry:
+          condition: service_healthy
+    command: ["sh", "-c", "sleep 10 && curl -vs --stderr - -XPOST -i -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"Misurazione\\\",\\\"fields\\\":[{\\\"name\\\":\\\"timestamp\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"value\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"type\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"latitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"longitude\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"ID_sensore\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"cella\\\",\\\"type\\\":\\\"string\\\"}]}\"}' http://schema_registry:8081/subjects/misurazione/versions; curl -vs --stderr - -XPOST -i -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"MisurazioneSalute\\\",\\\"fields\\\":[{\\\"name\\\":\\\"timestamp\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"value\\\",\\\"type\\\":\\\"float\\\"},{\\\"name\\\":\\\"type\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"cella\\\",\\\"type\\\":\\\"string\\\"}]}\"}' http://schema_registry:8081/subjects/misurazioneSalute/versions;"]
+    profiles: ["test","develop","prod"]
+
+  kafka-gui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-gui
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "Kafka Cluster"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
+      KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
+    depends_on:
+      - kafka
+    profiles: ["develop"]
+  kafka-schema-registry-ui:
+    image: landoop/schema-registry-ui:latest
+    ports:
+      - "8000:8000"
+    environment:
+      SCHEMAREGISTRY_URL: "http://localhost:8081"
+    profiles: ["develop"]
 
   clickhouse:
     image: clickhouse/clickhouse-server:24.2.1.2248
@@ -41,14 +94,14 @@ services:
     volumes:
       - ./InitDB:/docker-entrypoint-initdb.d
     depends_on:
-      kafka:
-        condition: service_healthy
+        kafka:
+          condition: service_healthy
     healthcheck:
         test: wget --no-verbose --tries=1 --spider http://localhost:8123/?query=SELECT%201 || exit 1
-    profiles: ["test", "prod"]
+    profiles: ["test","develop", "prod"]
 
   grafana:
-    image: grafana/grafana-oss:10.4.0
+    image: grafana/grafana-oss:10.0.12
     container_name: grafana
     ports:
       - "3000:3000"
@@ -61,7 +114,15 @@ services:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource, volkovlabs-variable-panel,orchestracities-map-panel
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
-    profiles: ["prod"]
+    user_defined_roles:
+      - name: viewer
+        role: Viewer
+    users:
+      - name: user  
+        password: user  # Replace with desired password
+        roles:
+          - viewer  # Assign the "viewer" role
+    profiles: ["prod","develop"]
 
   simulators:
     build:
@@ -74,7 +135,9 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["prod"]
+      register_schema:
+        condition: service_completed_successfully
+    profiles: ["prod","develop"]
 
   processor:
     build:
@@ -89,12 +152,14 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["test","prod"]
+      register_schema:
+        condition: service_completed_successfully
+    profiles: ["test","develop", "prod"]
 
   test_base_image:
     build:
       context: .
-      dockerfile: PythonSensorsSimulator/Test/DockerTestBaseImage/Dockerfile
+      dockerfile: PythonSensorsSimulator/Test/Docker_test_base_image/Dockerfile
     hostname: test-base
     container_name: test-base
     profiles: ["test"]
@@ -117,5 +182,6 @@ services:
         condition: service_started
       test_base_image:
         condition: service_completed_successfully
+      register_schema:
+        condition: service_completed_successfully
     profiles: ["test"]
-
