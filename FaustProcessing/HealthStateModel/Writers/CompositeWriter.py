@@ -36,19 +36,8 @@ class CompositeWriter(Writer):
         self._writers.append(writer)
         return self
 
-    def add_kafkaConfluent_writer(self, topic:str, host:str, port:int):
-        """
-        Adds a KafkaConfluentWriter to the composite writer.
-
-        Args:
-            topic (str): The Kafka topic to write to.
-            host (str): The Kafka host.
-            port (int): The Kafka port.
-
-        Returns:
-            CompositeWriter: The composite writer object.
-        """
-        self.add_writer(KafkaWriter(KafkaConfluentAdapter(topic, host, port)))
+    def add_kafkaConfluent_writer(self, topic:str,host,port, schema_registry_url, schema_name):
+        self.add_writer(KafkaWriter(KafkaConfluentAdapter(topic,host,port ,schema_registry_url, schema_name)))
         return self
 
     def add_stdOut_writer(self):
