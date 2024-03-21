@@ -1,4 +1,4 @@
-from HealthStateModel.health_processor_buffer import health_processor_buffer
+from ..HealthStateModel.health_processor_buffer import health_processor_buffer
 from .faust_measurement import faust_measurement
 from .faust_processor import processor
 
