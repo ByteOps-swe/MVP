@@ -19,6 +19,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
     
     - name: Set DOCKER_BUILDKIT to false
       env:
@@ -69,8 +71,6 @@ jobs:
         python create_badge.py
       
     - name: "Push README with changed badge to origin"
-      with:
-        token: ${{ secrets.ACCESS_TOKEN }}
       run: |
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config user.name "github-actions[bot]"
