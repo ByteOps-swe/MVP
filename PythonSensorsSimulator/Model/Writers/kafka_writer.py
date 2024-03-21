@@ -1,4 +1,3 @@
-import json
 from threading import Lock
 from .writer import writer
 from .KafkaAdapter.kafka_target import kafka_target
@@ -8,8 +7,8 @@ class kafka_writer(writer):
 
     __lock: Lock = Lock()
 
-    def __init__(self, kafka_target: kafka_target):
-        self.__kafka_target = kafka_target
+    def __init__(self, kafka_targ: kafka_target):
+        self.__kafka_target = kafka_targ
 
     def write(self, to_write: writable) -> None:
         with self.__lock:

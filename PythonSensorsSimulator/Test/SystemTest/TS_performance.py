@@ -23,20 +23,20 @@ def clickhouse_client():
     client.close()
 
 @pytest.fixture(scope='module')
-def kafka_writer():
+def kafka_write():
     adapter_kafka = kafka_confluent_adapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-    kafka_writer = kafka_writer(adapter_kafka)
-    yield kafka_writer
+    kafka_write = kafka_writer(adapter_kafka)
+    yield kafka_write
 
 
 @pytest.mark.asyncio
-async def test_1_misurazione_time_pipeline(clickhouse_client,kafka_writer):
+async def test_1_misurazione_time_pipeline(clickhouse_client, kafka_write):
     try:
         timestamp = datetime.now()
-        misurazione = adapter_misurazione(
+        measure = adapter_misurazione(
                         misurazione(timestamp, 0, "Temperature", coordinate(45.39214, 11.859271), "id_t_perf_1", "T_perf_cell"))
-        kafka_writer.write(misurazione)
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(measure)
+        kafka_write.flush_kafka_producer()
         
         query = f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='id_t_perf_1' and timestamp = '{timestamp}' LIMIT 1"
 
@@ -61,19 +61,18 @@ async def test_1_misurazione_time_pipeline(clickhouse_client,kafka_writer):
     except Exception as e:
         pytest.fail(f"Failed to send and consume data: {e}")
 
-
 @pytest.mark.asyncio
-async def test_multi_misurazione_time_pipeline(clickhouse_client,kafka_writer):
+async def test_multi_misurazione_time_pipeline(clickhouse_client, kafka_write):
     try:
-        num_messages = 1000  # Number of messages to send
+        num_messages = 1000
         starting_value = 0
         timestamps = []
         for i in range(num_messages):
             timestamps.append(datetime.now())
-            misurazione = adapter_misurazione(
+            measure = adapter_misurazione(
                             misurazione(timestamps[i], starting_value + i, "Temperature", coordinate(45.39214, 11.859271), "id_t_perf_multi", "T_perf_cell"))
-            kafka_writer.write(misurazione)
-        kafka_writer.flush_kafka_producer()
+            kafka_write.write(measure)
+        kafka_write.flush_kafka_producer()
         time_sent = datetime.now()
         query = f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='id_t_perf_multi' and timestamp >= '{timestamps[0]}' ORDER BY (timestamp,value)   DESC LIMIT {num_messages}"
         result = clickhouse_client.query(query)

@@ -7,10 +7,14 @@ class water_presence_sensor(simulator):
 
     def __init__(self, latitude: float, longitude: float, cella: str = "Centro", threshold=0.5):
         water_presence_sensor.__count += 1
-        self.__threshold = threshold  # soglia per rilevare la presenza di acqua
-        super().__init__( latitude, longitude,cella,
-                         f"Wp{water_presence_sensor.__count}", 0,sensor_types.WATER_PRESENCE.value)
+        self.__threshold = threshold
+        super().__init__(
+            latitude,
+            longitude,
+            cella,
+            f"Wp{water_presence_sensor.__count}",
+            0,
+            sensor_types.WATER_PRESENCE.value)
 
     def _generate_measure(self):
-        # Genera casualmente se la presenza di acqua supera la soglia
         self._misurazione = random.random() < self.__threshold

@@ -9,8 +9,14 @@ class ecological_island_simulator(simulator):
 
     def __init__(self, latitude: float, longitude: float,cella: str = "Centro", initial_fill_percentage=50):
         ecological_island_simulator.__count += 1
-        super().__init__(latitude, longitude,cella,
-                         f"EcoIsl{ecological_island_simulator.__count}", initial_fill_percentage,sensor_types.ECOLOGICAL_ISLAND.value)
+        super().__init__(
+            latitude,
+            longitude,
+            cella,
+            f"EcoIsl{ecological_island_simulator.__count}",
+            initial_fill_percentage,
+            sensor_types.ECOLOGICAL_ISLAND.value
+        )
 
     def _generate_measure(self):
         self._misurazione += random.uniform(-ecological_island_simulator.__fill_rate, ecological_island_simulator.__fill_rate)

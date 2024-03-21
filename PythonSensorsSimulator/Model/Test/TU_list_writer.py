@@ -6,7 +6,7 @@ from ..Writers.list_writer import list_writer
 
 class TU_list_writer(unittest.TestCase):
 
-    def set_up(self):
+    def setUp(self):
         self.list_writer = list_writer()
         self.mock_writable = Mock(spec=writable)
 

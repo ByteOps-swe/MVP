@@ -8,8 +8,14 @@ class charging_station_simulator(simulator):
     def __init__(self, latitude: float, longitude: float, cella: str = "Centro", initial_value=0):
         charging_station_simulator.__count += 1
         charging_station_simulator.__transition_probability = 0.1
-        super().__init__(latitude, longitude,cella,
-                         f"ChS{charging_station_simulator.__count}", initial_value, sensor_types.CHARGING_STATION.value)
+        super().__init__(
+            latitude,
+            longitude,
+            cella,
+            f"ChS{charging_station_simulator.__count}",
+            initial_value,
+            sensor_types.CHARGING_STATION.value
+        )
 
     def _generate_measure(self):
         if self._misurazione:

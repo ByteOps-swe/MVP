@@ -7,8 +7,14 @@ class temperature_simulator(simulator):
 
     def __init__(self, latitude: float, longitude: float, cella: str = "Centro", initial_temperature=20):
         temperature_simulator.__count += 1
-        super().__init__( latitude, longitude,cella,
-                         f"Tmp{temperature_simulator.__count}", initial_temperature,sensor_types.TEMPERATURE.value)
+        super().__init__(
+            latitude,
+            longitude,
+            cella,
+            f"Tmp{temperature_simulator.__count}",
+            initial_temperature,
+            sensor_types.TEMPERATURE.value
+        )
 
     def _generate_measure(self) -> None:
         variation = random.uniform(-0.5, 0.5)

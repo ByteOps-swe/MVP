@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from ..HealthStateModel.Incrementers.temperature_incrementer import temperature_incrementer
 
 class TU_temperature_incrementer(unittest.TestCase):
-    def set_up(self):
+    def setUp(self):
         self.temp_incrementer = temperature_incrementer(20, 30, "temperature")
 
     def test_get_incrementation(self):

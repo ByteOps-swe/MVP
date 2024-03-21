@@ -25,13 +25,13 @@ def clickhouse_client():
     client.close()
 
 @pytest.fixture
-def kafka_writer():
+def kafka_write():
     adapter_kafka = kafka_confluent_adapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-    kafka_writer = kafka_writer(adapter_kafka)
-    yield kafka_writer
+    kafka_write = kafka_writer(adapter_kafka)
+    yield kafka_write
 
 @pytest.mark.asyncio
-async def test_string_value(clickhouse_client,kafka_writer):
+async def test_string_value(clickhouse_client, kafka_write):
     try:
         timestamp = datetime.now()
         sensor_data = [
@@ -39,10 +39,10 @@ async def test_string_value(clickhouse_client,kafka_writer):
             {"id": "correct_test_str_val","cella":"Arcella","timestamp":timestamp,"value": 503,"longitude": 11.859271,"latitude": 45.39214,"type": "Temperature"}
         ]
         for data in sensor_data:
-            misurazione = adapter_misurazione(
+            measure = adapter_misurazione(
                 misurazione(data["timestamp"], data["value"], data["type"], coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            kafka_writer.write(misurazione)
-        kafka_writer.flush_kafka_producer()
+            kafka_write.write(measure)
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(5)
 
         result = clickhouse_client.query(
@@ -56,7 +56,7 @@ async def test_string_value(clickhouse_client,kafka_writer):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
 
 @pytest.mark.asyncio
-async def test_dirty_timestamp(clickhouse_client,kafka_writer):
+async def test_dirty_timestamp(clickhouse_client, kafka_write):
     try:
         mock_adapter_misurazione_corretta = Mock()
         mock_adapter_misurazione_corretta.to_json.return_value = {
@@ -78,8 +78,8 @@ async def test_dirty_timestamp(clickhouse_client,kafka_writer):
             "ID_sensore": "id_drt_time_wrong",
             "cella": "cella"
         }
-        kafka_writer.write(mock_adapter_misurazione_corretta) 
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(mock_adapter_misurazione_corretta) 
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_drt_time_correct' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
@@ -89,7 +89,7 @@ async def test_dirty_timestamp(clickhouse_client,kafka_writer):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
 
 @pytest.mark.asyncio
-async def test_dirty_coordinates(clickhouse_client,kafka_writer):
+async def test_dirty_coordinates(clickhouse_client, kafka_write):
     try:
         timestamp = datetime.now()
         mock_adapter_misurazione_corretta = Mock()
@@ -112,8 +112,8 @@ async def test_dirty_coordinates(clickhouse_client,kafka_writer):
             "ID_sensore": "ID_drty_coord_wrong",
             "cella": "cella"
         }
-        kafka_writer.write(mock_adapter_misurazione_corretta)
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(mock_adapter_misurazione_corretta)
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_drty_coord_right' and timestamp = '{str(timestamp)}' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5
@@ -123,7 +123,7 @@ async def test_dirty_coordinates(clickhouse_client,kafka_writer):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
 
 @pytest.mark.asyncio
-async def test_sql_injection(clickhouse_client,kafka_writer):
+async def test_sql_injection(clickhouse_client, kafka_write):
     try:
         timestamp = datetime.now()
         mock_adapter_misurazione_corretta = Mock()
@@ -146,8 +146,8 @@ async def test_sql_injection(clickhouse_client,kafka_writer):
             "ID_sensore": "ID_injection",
             "cella": "'; drop table innovacity.test; --"
         }
-        kafka_writer.write(mock_adapter_misurazione_corretta)
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(mock_adapter_misurazione_corretta)
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(5)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'ID_injection_not' and timestamp = '{str(timestamp)}' LIMIT 1")
         assert float(result.result_rows[0][3]) == 25.5

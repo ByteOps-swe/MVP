@@ -6,14 +6,14 @@ from ..Simulators.misurazione import misurazione
 
 
 class TU_ecological_island_simulator(unittest.TestCase):
-    def set_up(self):
+    def setUp(self):
         ecological_island_simulator._ecological_island_simulator__count = 0
         self.simulator = ecological_island_simulator(45.0, 10.0, 'cella1')
 
     def test_init(self):
-        self.assertEqual(self.simulator._Simulator__ID_sensor, 'EcoIsl1')
-        self.assertEqual(self.simulator._Simulator__cella_sensore, 'cella1')
-        self.assertIsInstance(self.simulator._Simulator__coordinate, coordinate)
+        self.assertEqual(self.simulator._simulator__ID_sensor, 'EcoIsl1')
+        self.assertEqual(self.simulator._simulator__cella_sensore, 'cella1')
+        self.assertIsInstance(self.simulator._simulator__coordinate, coordinate)
         self.assertEqual(self.simulator._misurazione, 50)
 
     def test_generate_measure(self):
@@ -29,11 +29,11 @@ class TU_ecological_island_simulator(unittest.TestCase):
             old_measure + ecological_island_simulator._ecological_island_simulator__fill_rate)
 
     def test_simulate(self):
-        misurazione = self.simulator.simulate()
-        self.assertIsInstance(misurazione, misurazione)
+        measure = self.simulator.simulate()
+        self.assertIsInstance(measure, misurazione)
         self.assertTrue(
             ecological_island_simulator._ecological_island_simulator__min_fill_percentage
-              <= misurazione.get_value() <= 
+              <= measure.get_value() <= 
               ecological_island_simulator._ecological_island_simulator__max_fill_percentage)
 
 

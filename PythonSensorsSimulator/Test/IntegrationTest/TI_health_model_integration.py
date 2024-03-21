@@ -54,14 +54,14 @@ async def test_heatlh_score_integration(clickhouse_client, kafka_writer_tmp, kaf
         ]
 
         for data in tmp_sensor_data:
-            misurazione = adapter_misurazione(
+            measure = adapter_misurazione(
                 misurazione(data["timestamp"], data["value"], data["type"], coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            kafka_writer_tmp.write(misurazione)
+            kafka_writer_tmp.write(measure)
 
         for data in umd_sensor_data:
-            misurazione = adapter_misurazione(
+            measure = adapter_misurazione(
                 misurazione(data["timestamp"], data["value"], data["type"], coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            kafka_writer_umd.write(misurazione)
+            kafka_writer_umd.write(measure)
 
         kafka_writer_tmp.flush_kafka_producer()
         kafka_writer_umd.flush_kafka_producer()
