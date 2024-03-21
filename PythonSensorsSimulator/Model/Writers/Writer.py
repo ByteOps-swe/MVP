@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from .Writable import Writable
+from .writable import writable
 #Pattern Strategy
 @abstractmethod
-class Writer(ABC):
+class writer(ABC):
 
     @abstractmethod
-    def write(self, to_write: Writable) -> None:
+    def write(self, to_write: writable) -> None:
         pass

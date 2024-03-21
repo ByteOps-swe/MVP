@@ -1,4 +1,4 @@
-class Coordinate():
+class coordinate():
     def __init__(self, latitude:float, longitude: float):
         self.__latitude = latitude
         self.__longitude = longitude

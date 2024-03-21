@@ -1,10 +1,11 @@
-from .Coordinate import Coordinate
-class Misurazione():
-    def __init__(self, timestamp, value, type_, coordinate: Coordinate, ID_sensore, cella):
+from .coordinate import coordinate
+
+class misurazione():
+    def __init__(self, timestamp, value, type_, coord: coordinate, ID_sensore, cella):
         self.__timestamp = timestamp
         self.__value = value
         self.__type = type_
-        self.__coordinates = coordinate
+        self.__coordinates = coord
         self.__ID_sensore = ID_sensore
         self.__cella = cella
 

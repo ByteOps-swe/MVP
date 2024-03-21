@@ -1,5 +1,5 @@
--- Definizione della tabella "dustPM10_kafka" per l'input dei dati provenienti da Kafka
-CREATE TABLE innovacity.dustPM10_kafka (
+-- Definizione della tabella "dust_PM10_kafka" per l'input dei dati provenienti da Kafka
+CREATE TABLE innovacity.dust_PM10_kafka (
     timestamp DATETIME64(6),
     value Float32,
     latitude Float64,
@@ -33,7 +33,7 @@ TTL toDateTime(timestamp) + INTERVAL 1 MONTH
 
 
 CREATE MATERIALIZED VIEW mv_dust_PM10 TO innovacity.dust_PM10
-AS SELECT * FROM innovacity.dustPM10_kafka 
+AS SELECT * FROM innovacity.dust_PM10_kafka 
     WHERE (value >= 0 AND value <= 150);
 
 ALTER TABLE innovacity.dust_PM10 ADD PROJECTION dust_sensor_cell_projection (SELECT * ORDER BY cella);

@@ -3,31 +3,31 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1220.8)">
 <title>classes</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-1220.8 4280.7866,-1220.8 4280.7866,4 -4,4"/>
-<!-- PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione -->
+<!-- PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione -->
 <g id="node1" class="node">
-<title>PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione</title>
+<title>PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione</title>
 <polygon fill="none" stroke="#000000" points="1017.4299,-951.1 1017.4299,-1059.1 1235.2091,-1059.1 1235.2091,-951.1 1017.4299,-951.1"/>
-<text text-anchor="start" x="1068.7886" y="-1042.5" font-family="Times,serif" font-size="14.00" fill="#000000">AdapterMisurazione</text>
+<text text-anchor="start" x="1068.7886" y="-1042.5" font-family="Times,serif" font-size="14.00" fill="#000000">adapter_misurazione</text>
 <polyline fill="none" stroke="#000000" points="1017.4299,-1034.3 1235.2091,-1034.3 "/>
 <text text-anchor="start" x="1085.1091" y="-1017.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="1017.4299,-1009.5 1235.2091,-1009.5 "/>
 <text text-anchor="start" x="1025.4299" y="-992.9" font-family="Times,serif" font-size="14.00" fill="#000000">__format_value(value)</text>
-<text text-anchor="start" x="1025.4299" y="-976.1" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(misurazione: Misurazione)</text>
+<text text-anchor="start" x="1025.4299" y="-976.1" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(misurazione: misurazione)</text>
 <text text-anchor="start" x="1025.4299" y="-959.3" font-family="Times,serif" font-size="14.00" fill="#000000">to_json()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.Writable.Writable -->
+<!-- PythonSensorsSimulator.Model.Writers.writable.writable -->
 <g id="node25" class="node">
-<title>PythonSensorsSimulator.Model.Writers.Writable.Writable</title>
+<title>PythonSensorsSimulator.Model.Writers.writable.writable</title>
 <polygon fill="none" stroke="#000000" points="1082.3528,-1136.3 1082.3528,-1210.7 1170.2862,-1210.7 1170.2862,-1136.3 1082.3528,-1136.3"/>
-<text text-anchor="start" x="1101.8314" y="-1194.1" font-family="Times,serif" font-size="14.00" fill="#000000">Writable</text>
+<text text-anchor="start" x="1101.8314" y="-1194.1" font-family="Times,serif" font-size="14.00" fill="#000000">writable</text>
 <polyline fill="none" stroke="#000000" points="1082.3528,-1185.9 1170.2862,-1185.9 "/>
 <polyline fill="none" stroke="#000000" points="1082.3528,-1161.1 1170.2862,-1161.1 "/>
 <text text-anchor="start" x="1090.3528" y="-1145.5" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#000000">to_json</text>
 <text text-anchor="start" x="1131.5786" y="-1145.5" font-family="Times,serif" font-size="14.00" fill="#000000">(): str</text>
 </g>
-<!-- PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione&#45;&gt;PythonSensorsSimulator.Model.Writers.Writable.Writable -->
+<!-- PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione&#45;&gt;PythonSensorsSimulator.Model.Writers.writable.writable -->
 <g id="edge1" class="edge">
-<title>PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione-&gt;PythonSensorsSimulator.Model.Writers.Writable.Writable</title>
+<title>PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione-&gt;PythonSensorsSimulator.Model.Writers.writable.writable</title>
 <path fill="none" stroke="#000000" d="M1126.3195,-1059.3098C1126.3195,-1080.7778 1126.3195,-1105.2379 1126.3195,-1125.9977"/>
 <polygon fill="none" stroke="#000000" points="1122.8196,-1126.1706 1126.3195,-1136.1707 1129.8196,-1126.1707 1122.8196,-1126.1706"/>
 </g>
@@ -39,22 +39,22 @@
 <polyline fill="none" stroke="#000000" points="2472.4376,-483.9 2844.2014,-483.9 "/>
 <text text-anchor="start" x="2572.3861" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="2572.3861" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__transition_probability : float</text>
-<text text-anchor="start" x="2572.3861" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="2572.3861" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2472.4376,-425.5 2844.2014,-425.5 "/>
 <text text-anchor="start" x="2480.4376" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_value)</text>
 <text text-anchor="start" x="2480.4376" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="node16" class="node">
-<title>PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <polygon fill="none" stroke="#000000" points="2082.5445,-635.3 2082.5445,-816.1 2614.0945,-816.1 2614.0945,-635.3 2082.5445,-635.3"/>
-<text text-anchor="start" x="2320.7094" y="-799.5" font-family="Times,serif" font-size="14.00" fill="#000000">Simulator</text>
+<text text-anchor="start" x="2320.7094" y="-799.5" font-family="Times,serif" font-size="14.00" fill="#000000">simulator</text>
 <polyline fill="none" stroke="#000000" points="2082.5445,-791.3 2614.0945,-791.3 "/>
 <text text-anchor="start" x="2291.1743" y="-774.7" font-family="Times,serif" font-size="14.00" fill="#000000">__ID_sensor : str</text>
 <text text-anchor="start" x="2291.1743" y="-757.9" font-family="Times,serif" font-size="14.00" fill="#000000">__cella_sensore : str</text>
 <text text-anchor="start" x="2291.1743" y="-741.1" font-family="Times,serif" font-size="14.00" fill="#000000">__coordinate</text>
 <text text-anchor="start" x="2291.1743" y="-724.3" font-family="Times,serif" font-size="14.00" fill="#000000">__type : str</text>
-<text text-anchor="start" x="2291.1743" y="-707.5" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione : int</text>
+<text text-anchor="start" x="2291.1743" y="-707.5" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione : int</text>
 <polyline fill="none" stroke="#000000" points="2082.5445,-699.3 2614.0945,-699.3 "/>
 <text text-anchor="start" x="2090.5445" y="-683.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, sensor_id: str, misurazione_iniziale, type)</text>
 <text text-anchor="start" x="2090.5445" y="-669.7" font-family="Times,serif" font-size="14.00" fill="#000000">_filter(): bool</text>
@@ -62,9 +62,9 @@
 <text text-anchor="start" x="2198.5937" y="-655.7" font-family="Times,serif" font-size="14.00" fill="#000000">(): None</text>
 <text text-anchor="start" x="2090.5445" y="-641.7" font-family="Times,serif" font-size="14.00" fill="#000000">simulate(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.ChargingStationSimulator.ChargingStationSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.ChargingStationSimulator.ChargingStationSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge4" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.ChargingStationSimulator.ChargingStationSimulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.ChargingStationSimulator.ChargingStationSimulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M2588.7494,-509.0028C2549.7682,-544.1362 2500.3034,-588.7184 2456.3882,-628.2987"/>
 <polygon fill="none" stroke="#000000" points="2453.9104,-625.8201 2448.8254,-635.115 2458.5969,-631.0199 2453.9104,-625.8201"/>
 </g>
@@ -80,43 +80,43 @@
 <text text-anchor="start" x="2919.1354" y="-1137.1" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#000000">stop</text>
 <text text-anchor="start" x="2942.4706" y="-1137.1" font-family="Times,serif" font-size="14.00" fill="#000000">(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.CompositeWriter.CompositeWriter -->
+<!-- PythonSensorsSimulator.Model.Writers.composite_writer.composite_writer -->
 <g id="node4" class="node">
-<title>PythonSensorsSimulator.Model.Writers.CompositeWriter.CompositeWriter</title>
+<title>PythonSensorsSimulator.Model.Writers.composite_writer.composite_writer</title>
 <polygon fill="none" stroke="#000000" points="698.6641,-358.7 698.6641,-533.9 987.9749,-533.9 987.9749,-358.7 698.6641,-358.7"/>
-<text text-anchor="start" x="794.7199" y="-517.3" font-family="Times,serif" font-size="14.00" fill="#000000">CompositeWriter</text>
+<text text-anchor="start" x="794.7199" y="-517.3" font-family="Times,serif" font-size="14.00" fill="#000000">composite_writer</text>
 <polyline fill="none" stroke="#000000" points="698.6641,-509.1 987.9749,-509.1 "/>
 <text text-anchor="start" x="806.3819" y="-492.5" font-family="Times,serif" font-size="14.00" fill="#000000">_writers : list</text>
 <polyline fill="none" stroke="#000000" points="698.6641,-484.3 987.9749,-484.3 "/>
 <text text-anchor="start" x="706.6641" y="-467.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__()</text>
-<text text-anchor="start" x="706.6641" y="-450.9" font-family="Times,serif" font-size="14.00" fill="#000000">add_kafkaConfluent_writer(topic: str, host, port)</text>
+<text text-anchor="start" x="706.6641" y="-450.9" font-family="Times,serif" font-size="14.00" fill="#000000">add_kafka_confluent_writer(topic: str, host, port)</text>
 <text text-anchor="start" x="706.6641" y="-434.1" font-family="Times,serif" font-size="14.00" fill="#000000">add_list_writer()</text>
-<text text-anchor="start" x="706.6641" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">add_stdOut_writer()</text>
+<text text-anchor="start" x="706.6641" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">add_std_out_writer()</text>
 <text text-anchor="start" x="706.6641" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">add_writer(writer)</text>
 <text text-anchor="start" x="706.6641" y="-383.7" font-family="Times,serif" font-size="14.00" fill="#000000">remove_writer(writer)</text>
 <text text-anchor="start" x="706.6641" y="-366.9" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write)</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.Writer.Writer -->
+<!-- PythonSensorsSimulator.Model.Writers.writer.writer -->
 <g id="node26" class="node">
-<title>PythonSensorsSimulator.Model.Writers.Writer.Writer</title>
+<title>PythonSensorsSimulator.Model.Writers.writer.writer</title>
 <polygon fill="none" stroke="#000000" points="485.9113,-688.5 485.9113,-762.9 680.7277,-762.9 680.7277,-688.5 485.9113,-688.5"/>
-<text text-anchor="start" x="565.0537" y="-746.3" font-family="Times,serif" font-size="14.00" fill="#000000">Writer</text>
+<text text-anchor="start" x="565.0537" y="-746.3" font-family="Times,serif" font-size="14.00" fill="#000000">writer</text>
 <polyline fill="none" stroke="#000000" points="485.9113,-738.1 680.7277,-738.1 "/>
 <polyline fill="none" stroke="#000000" points="485.9113,-713.3 680.7277,-713.3 "/>
 <text text-anchor="start" x="493.9113" y="-697.7" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#000000">write</text>
-<text text-anchor="start" x="522.6743" y="-697.7" font-family="Times,serif" font-size="14.00" fill="#000000">(to_write: Writable): None</text>
+<text text-anchor="start" x="522.6743" y="-697.7" font-family="Times,serif" font-size="14.00" fill="#000000">(to_write: writable): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.CompositeWriter.CompositeWriter&#45;&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer -->
+<!-- PythonSensorsSimulator.Model.Writers.composite_writer.composite_writer&#45;&gt;PythonSensorsSimulator.Model.Writers.writer.writer -->
 <g id="edge12" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.CompositeWriter.CompositeWriter-&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer</title>
+<title>PythonSensorsSimulator.Model.Writers.composite_writer.composite_writer-&gt;PythonSensorsSimulator.Model.Writers.writer.writer</title>
 <path fill="none" stroke="#000000" d="M761.7672,-533.9373C716.3917,-582.6985 661.8268,-641.3348 625.0787,-680.8249"/>
 <polygon fill="none" stroke="#000000" points="622.2248,-678.7541 617.9746,-688.4591 627.3492,-683.5227 622.2248,-678.7541"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate -->
+<!-- PythonSensorsSimulator.Model.Simulators.coordinate.coordinate -->
 <g id="node5" class="node">
-<title>PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate</title>
+<title>PythonSensorsSimulator.Model.Simulators.coordinate.coordinate</title>
 <polygon fill="none" stroke="#000000" points="1006.337,-383.9 1006.337,-508.7 1246.302,-508.7 1246.302,-383.9 1006.337,-383.9"/>
-<text text-anchor="start" x="1095.2157" y="-492.1" font-family="Times,serif" font-size="14.00" fill="#000000">Coordinate</text>
+<text text-anchor="start" x="1095.2157" y="-492.1" font-family="Times,serif" font-size="14.00" fill="#000000">coordinate</text>
 <polyline fill="none" stroke="#000000" points="1006.337,-483.9 1246.302,-483.9 "/>
 <text text-anchor="start" x="1074.6028" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__latitude : float</text>
 <text text-anchor="start" x="1074.6028" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__longitude : float</text>
@@ -125,11 +125,11 @@
 <text text-anchor="start" x="1014.337" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">get_latitude()</text>
 <text text-anchor="start" x="1014.337" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">get_longitude()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione -->
+<!-- PythonSensorsSimulator.Model.Simulators.misurazione.misurazione -->
 <g id="node14" class="node">
-<title>PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione</title>
+<title>PythonSensorsSimulator.Model.Simulators.misurazione.misurazione</title>
 <polygon fill="none" stroke="#000000" points="903.5196,-587.7 903.5196,-863.7 1349.1194,-863.7 1349.1194,-587.7 903.5196,-587.7"/>
-<text text-anchor="start" x="1091.3321" y="-847.1" font-family="Times,serif" font-size="14.00" fill="#000000">Misurazione</text>
+<text text-anchor="start" x="1091.3321" y="-847.1" font-family="Times,serif" font-size="14.00" fill="#000000">misurazione</text>
 <polyline fill="none" stroke="#000000" points="903.5196,-838.9 1349.1194,-838.9 "/>
 <text text-anchor="start" x="1087.0544" y="-822.3" font-family="Times,serif" font-size="14.00" fill="#000000">__ID_sensore</text>
 <text text-anchor="start" x="1087.0544" y="-805.5" font-family="Times,serif" font-size="14.00" fill="#000000">__cella</text>
@@ -138,7 +138,7 @@
 <text text-anchor="start" x="1087.0544" y="-755.1" font-family="Times,serif" font-size="14.00" fill="#000000">__type</text>
 <text text-anchor="start" x="1087.0544" y="-738.3" font-family="Times,serif" font-size="14.00" fill="#000000">__value</text>
 <polyline fill="none" stroke="#000000" points="903.5196,-730.1 1349.1194,-730.1 "/>
-<text text-anchor="start" x="911.5196" y="-713.5" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(timestamp, value, type_, coordinate: Coordinate, ID_sensore, cella)</text>
+<text text-anchor="start" x="911.5196" y="-713.5" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(timestamp, value, type_, coordinate: coordinate, ID_sensore, cella)</text>
 <text text-anchor="start" x="911.5196" y="-696.7" font-family="Times,serif" font-size="14.00" fill="#000000">get_ID_sensore()</text>
 <text text-anchor="start" x="911.5196" y="-679.9" font-family="Times,serif" font-size="14.00" fill="#000000">get_cella()</text>
 <text text-anchor="start" x="911.5196" y="-663.1" font-family="Times,serif" font-size="14.00" fill="#000000">get_latitude()</text>
@@ -147,16 +147,16 @@
 <text text-anchor="start" x="911.5196" y="-612.7" font-family="Times,serif" font-size="14.00" fill="#000000">get_type()</text>
 <text text-anchor="start" x="911.5196" y="-595.9" font-family="Times,serif" font-size="14.00" fill="#000000">get_value()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate&#45;&gt;PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione -->
+<!-- PythonSensorsSimulator.Model.Simulators.coordinate.coordinate&#45;&gt;PythonSensorsSimulator.Model.Simulators.misurazione.misurazione -->
 <g id="edge19" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate-&gt;PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione</title>
+<title>PythonSensorsSimulator.Model.Simulators.coordinate.coordinate-&gt;PythonSensorsSimulator.Model.Simulators.misurazione.misurazione</title>
 <path fill="none" stroke="#000000" d="M1126.3195,-509.0028C1126.3195,-528.9376 1126.3195,-551.9145 1126.3195,-575.2935"/>
 <polygon fill="none" stroke="#000000" points="1126.3196,-575.542 1130.3195,-581.542 1126.3195,-587.542 1122.3195,-581.5419 1126.3196,-575.542"/>
 <text text-anchor="middle" x="1165.5846" y="-556.6" font-family="Times,serif" font-size="14.00" fill="#00ff00">__coordinates</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.coordinate.coordinate&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge18" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.Coordinate.Coordinate-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.coordinate.coordinate-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M1206.6174,-508.7096C1222.1329,-518.5356 1238.7386,-527.6573 1255.3195,-534.4 1519.6053,-641.8725 1843.9101,-689.0203 2070.3385,-709.672"/>
 <polygon fill="#000000" stroke="#000000" points="2070.446,-709.6816 2076.7798,-706.2345 2082.3978,-710.7553 2076.064,-714.2024 2070.446,-709.6816"/>
 <text text-anchor="middle" x="1375.8623" y="-556.6" font-family="Times,serif" font-size="14.00" fill="#00ff00">__coordinate</text>
@@ -168,14 +168,14 @@
 <text text-anchor="start" x="3003.3749" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">DustPM10Simulator</text>
 <polyline fill="none" stroke="#000000" points="2861.8247,-475.5 3260.8143,-475.5 "/>
 <text text-anchor="start" x="3023.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="3023.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="3023.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2861.8247,-433.9 3260.8143,-433.9 "/>
 <text text-anchor="start" x="2869.8247" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_dust_level)</text>
 <text text-anchor="start" x="2869.8247" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.DustPM10Simulator.DustPM10Simulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.DustPM10Simulator.DustPM10Simulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge5" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.DustPM10Simulator.DustPM10Simulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.DustPM10Simulator.DustPM10Simulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M2935.9771,-500.31C2908.8039,-511.7609 2880.1639,-523.6351 2853.3195,-534.4 2772.1053,-566.9679 2682.9865,-601.2155 2602.5213,-631.5893"/>
 <polygon fill="none" stroke="#000000" points="2600.8738,-628.4699 2592.7524,-635.2738 2603.3442,-635.0195 2600.8738,-628.4699"/>
 </g>
@@ -189,14 +189,14 @@
 <text text-anchor="start" x="3413.9527" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__fill_rate : int</text>
 <text text-anchor="start" x="3413.9527" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__max_fill_percentage : int</text>
 <text text-anchor="start" x="3413.9527" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__min_fill_percentage : int</text>
-<text text-anchor="start" x="3413.9527" y="-416.9" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="3413.9527" y="-416.9" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="3278.6192,-408.7 3704.0198,-408.7 "/>
 <text text-anchor="start" x="3286.6192" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_fill_percentage)</text>
 <text text-anchor="start" x="3286.6192" y="-375.3" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.EcologicalIslandSimulator.EcologicalIslandSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.EcologicalIslandSimulator.EcologicalIslandSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge6" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.EcologicalIslandSimulator.EcologicalIslandSimulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.EcologicalIslandSimulator.EcologicalIslandSimulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M3297.0761,-525.5877C3287.7406,-528.7031 3278.4548,-531.661 3269.3195,-534.4 3055.9934,-598.3593 2808.5907,-648.4618 2623.9535,-681.3206"/>
 <polygon fill="none" stroke="#000000" points="2623.3384,-677.875 2614.1034,-683.0679 2624.561,-684.7674 2623.3384,-677.875"/>
 </g>
@@ -208,14 +208,14 @@
 <polyline fill="none" stroke="#000000" points="3722.4376,-483.9 4094.2014,-483.9 "/>
 <text text-anchor="start" x="3839.499" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="3839.499" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">_fault_probability : float</text>
-<text text-anchor="start" x="3839.499" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione : int</text>
+<text text-anchor="start" x="3839.499" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione : int</text>
 <polyline fill="none" stroke="#000000" points="3722.4376,-425.5 4094.2014,-425.5 "/>
 <text text-anchor="start" x="3730.4376" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_value)</text>
 <text text-anchor="start" x="3730.4376" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.ElectricalFaultSimulator.ElectricalFaultSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.ElectricalFaultSimulator.ElectricalFaultSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge7" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.ElectricalFaultSimulator.ElectricalFaultSimulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.ElectricalFaultSimulator.ElectricalFaultSimulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M3783.9114,-508.8086C3760.8704,-518.5624 3736.6924,-527.6336 3713.3195,-534.4 3345.3548,-640.9243 2903.8236,-689.0284 2624.6199,-710.1211"/>
 <polygon fill="none" stroke="#000000" points="2624.0542,-706.6536 2614.3436,-710.8908 2624.5771,-713.634 2624.0542,-706.6536"/>
 </g>
@@ -226,22 +226,22 @@
 <text text-anchor="start" x="1405.8749" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">HumiditySimulator</text>
 <polyline fill="none" stroke="#000000" points="1264.3163,-475.5 1656.3227,-475.5 "/>
 <text text-anchor="start" x="1422.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="1422.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="1422.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="1264.3163,-433.9 1656.3227,-433.9 "/>
 <text text-anchor="start" x="1272.3163" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_humidity)</text>
 <text text-anchor="start" x="1272.3163" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.HumiditySimulator.HumiditySimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.HumiditySimulator.HumiditySimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge8" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.HumiditySimulator.HumiditySimulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.HumiditySimulator.HumiditySimulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M1578.7718,-500.3693C1606.8617,-512.3065 1636.92,-524.3703 1665.3195,-534.4 1797.4376,-581.0594 1947.0415,-624.0338 2072.4862,-657.381"/>
 <polygon fill="none" stroke="#000000" points="2071.6775,-660.7875 2082.2406,-659.9676 2073.4717,-654.0213 2071.6775,-660.7875"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaConfluentAdapter.KafkaConfluentAdapter -->
+<!-- PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_confluent_adapter.kafka_confluent_adapter -->
 <g id="node10" class="node">
-<title>PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaConfluentAdapter.KafkaConfluentAdapter</title>
+<title>PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_confluent_adapter.kafka_confluent_adapter</title>
 <polygon fill="none" stroke="#000000" points="0,-25.7 0,-150.5 270.639,-150.5 270.639,-25.7 0,-25.7"/>
-<text text-anchor="start" x="67.6813" y="-133.9" font-family="Times,serif" font-size="14.00" fill="#000000">KafkaConfluentAdapter</text>
+<text text-anchor="start" x="67.6813" y="-133.9" font-family="Times,serif" font-size="14.00" fill="#000000">kafka_confluent_adapter</text>
 <polyline fill="none" stroke="#000000" points="0,-125.7 270.639,-125.7 "/>
 <text text-anchor="start" x="68.4548" y="-109.1" font-family="Times,serif" font-size="14.00" fill="#000000">__producer : NoneType</text>
 <text text-anchor="start" x="68.4548" y="-92.3" font-family="Times,serif" font-size="14.00" fill="#000000">__topic : str</text>
@@ -250,69 +250,69 @@
 <text text-anchor="start" x="8" y="-50.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(topic: str, ip: str, port: str)</text>
 <text text-anchor="start" x="8" y="-33.9" font-family="Times,serif" font-size="14.00" fill="#000000">write_to_kafka(data: str): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget -->
+<!-- PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target -->
 <g id="node11" class="node">
-<title>PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget</title>
+<title>PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target</title>
 <polygon fill="none" stroke="#000000" points="10.8871,-222.1 10.8871,-296.5 259.7519,-296.5 259.7519,-222.1 10.8871,-222.1"/>
-<text text-anchor="start" x="99.9548" y="-279.9" font-family="Times,serif" font-size="14.00" fill="#000000">KafkaTarget</text>
+<text text-anchor="start" x="99.9548" y="-279.9" font-family="Times,serif" font-size="14.00" fill="#000000">kafka_target</text>
 <polyline fill="none" stroke="#000000" points="10.8871,-271.7 259.7519,-271.7 "/>
 <polyline fill="none" stroke="#000000" points="10.8871,-246.9 259.7519,-246.9 "/>
 <text text-anchor="start" x="18.8871" y="-231.3" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#000000">write_to_kafka</text>
 <text text-anchor="start" x="103.6305" y="-231.3" font-family="Times,serif" font-size="14.00" fill="#000000">(topic: str, data: str): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaConfluentAdapter.KafkaConfluentAdapter&#45;&gt;PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget -->
+<!-- PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_confluent_adapter.kafka_confluent_adapter&#45;&gt;PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target -->
 <g id="edge16" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaConfluentAdapter.KafkaConfluentAdapter-&gt;PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget</title>
+<title>PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_confluent_adapter.kafka_confluent_adapter-&gt;PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target</title>
 <path fill="none" stroke="#000000" d="M135.3195,-150.8764C135.3195,-171.0063 135.3195,-192.9528 135.3195,-211.8023"/>
 <polygon fill="none" stroke="#000000" points="131.8196,-211.9244 135.3195,-221.9245 138.8196,-211.9245 131.8196,-211.9244"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter -->
+<!-- PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer -->
 <g id="node12" class="node">
-<title>PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter</title>
+<title>PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer</title>
 <polygon fill="none" stroke="#000000" points="15.372,-392.3 15.372,-500.3 255.267,-500.3 255.267,-392.3 15.372,-392.3"/>
-<text text-anchor="start" x="99.9555" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">KafkaWriter</text>
+<text text-anchor="start" x="99.9555" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">kafka_writer</text>
 <polyline fill="none" stroke="#000000" points="15.372,-475.5 255.267,-475.5 "/>
-<text text-anchor="start" x="23.372" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__kafka_target : Optional[KafkaTarget]</text>
+<text text-anchor="start" x="23.372" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__kafka_target : Optional[kafka_target]</text>
 <text text-anchor="start" x="23.372" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__lock</text>
 <polyline fill="none" stroke="#000000" points="15.372,-433.9 255.267,-433.9 "/>
-<text text-anchor="start" x="33.2826" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(kafka_target: KafkaTarget)</text>
-<text text-anchor="start" x="33.2826" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: Writable): None</text>
+<text text-anchor="start" x="33.2826" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(kafka_target: kafka_target)</text>
+<text text-anchor="start" x="33.2826" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: writable): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget&#45;&gt;PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter -->
+<!-- PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target&#45;&gt;PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer -->
 <g id="edge24" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.kafkaAdapter.KafkaTarget.KafkaTarget-&gt;PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter</title>
+<title>PythonSensorsSimulator.Model.Writers.KafkaAdapter.kafka_target.kafka_target-&gt;PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer</title>
 <path fill="none" stroke="#000000" d="M135.3195,-296.6928C135.3195,-320.4612 135.3195,-351.9057 135.3195,-379.8309"/>
 <polygon fill="none" stroke="#000000" points="135.3196,-379.9607 139.3195,-385.9607 135.3195,-391.9607 131.3195,-385.9606 135.3196,-379.9607"/>
 <text text-anchor="middle" x="177.2999" y="-327.6" font-family="Times,serif" font-size="14.00" fill="#00ff00">__kafka_target</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter&#45;&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer -->
+<!-- PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer&#45;&gt;PythonSensorsSimulator.Model.Writers.writer.writer -->
 <g id="edge13" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.KafkaWriter.KafkaWriter-&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer</title>
+<title>PythonSensorsSimulator.Model.Writers.kafka_writer.kafka_writer-&gt;PythonSensorsSimulator.Model.Writers.writer.writer</title>
 <path fill="none" stroke="#000000" d="M212.9328,-500.3912C229.7535,-511.8085 247.5341,-523.6485 264.3195,-534.4 347.1566,-587.4596 444.364,-645.1103 509.5072,-683.1001"/>
 <polygon fill="none" stroke="#000000" points="508.079,-686.3186 518.4816,-688.3277 511.6023,-680.27 508.079,-686.3186"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.ListWriter.ListWriter -->
+<!-- PythonSensorsSimulator.Model.Writers.list_writer.list_writer -->
 <g id="node13" class="node">
-<title>PythonSensorsSimulator.Model.Writers.ListWriter.ListWriter</title>
+<title>PythonSensorsSimulator.Model.Writers.list_writer.list_writer</title>
 <polygon fill="none" stroke="#000000" points="272.9113,-383.9 272.9113,-508.7 467.7277,-508.7 467.7277,-383.9 272.9113,-383.9"/>
-<text text-anchor="start" x="341.1645" y="-492.1" font-family="Times,serif" font-size="14.00" fill="#000000">ListWriter</text>
+<text text-anchor="start" x="341.1645" y="-492.1" font-family="Times,serif" font-size="14.00" fill="#000000">list_writer</text>
 <polyline fill="none" stroke="#000000" points="272.9113,-483.9 467.7277,-483.9 "/>
 <text text-anchor="start" x="325.5979" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__data_list : list</text>
 <text text-anchor="start" x="325.5979" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__lock : lock</text>
 <polyline fill="none" stroke="#000000" points="272.9113,-442.3 467.7277,-442.3 "/>
 <text text-anchor="start" x="280.9113" y="-425.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__()</text>
 <text text-anchor="start" x="280.9113" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">get_data_list(): list</text>
-<text text-anchor="start" x="280.9113" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: Writable): None</text>
+<text text-anchor="start" x="280.9113" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: writable): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.ListWriter.ListWriter&#45;&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer -->
+<!-- PythonSensorsSimulator.Model.Writers.list_writer.list_writer&#45;&gt;PythonSensorsSimulator.Model.Writers.writer.writer -->
 <g id="edge14" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.ListWriter.ListWriter-&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer</title>
+<title>PythonSensorsSimulator.Model.Writers.list_writer.list_writer-&gt;PythonSensorsSimulator.Model.Writers.writer.writer</title>
 <path fill="none" stroke="#000000" d="M418.1209,-509.0028C457.8087,-561.0628 513.3124,-633.8691 548.7904,-680.4069"/>
 <polygon fill="none" stroke="#000000" points="546.1104,-682.6645 554.9565,-688.4952 551.6772,-678.4206 546.1104,-682.6645"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione&#45;&gt;PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione -->
+<!-- PythonSensorsSimulator.Model.Simulators.misurazione.misurazione&#45;&gt;PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione -->
 <g id="edge20" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.Misurazione.Misurazione-&gt;PythonSensorsSimulator.Model.AdapterMisurazione.AdapterMisurazione</title>
+<title>PythonSensorsSimulator.Model.Simulators.misurazione.misurazione-&gt;PythonSensorsSimulator.Model.adapter_misurazione.adapter_misurazione</title>
 <path fill="none" stroke="#000000" d="M1126.3195,-863.7629C1126.3195,-889.8633 1126.3195,-916.0398 1126.3195,-938.6476"/>
 <polygon fill="none" stroke="#000000" points="1126.3196,-938.8172 1130.3195,-944.8173 1126.3195,-950.8172 1122.3195,-944.8172 1126.3196,-938.8172"/>
 <text text-anchor="middle" x="1167.5299" y="-886.4" font-family="Times,serif" font-size="14.00" fill="#00ff00">__misurazione</text>
@@ -344,13 +344,13 @@
 <text text-anchor="start" x="2251.5165" y="-1000.9" font-family="Times,serif" font-size="14.00" fill="#000000">__simulator</text>
 <text text-anchor="start" x="2251.5165" y="-984.1" font-family="Times,serif" font-size="14.00" fill="#000000">__writers</text>
 <polyline fill="none" stroke="#000000" points="2070.1223,-975.9 2626.5167,-975.9 "/>
-<text text-anchor="start" x="2078.1223" y="-959.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(simulator: Simulator, writers: Writer, frequency: float, data_to_generate: Optional[int])</text>
+<text text-anchor="start" x="2078.1223" y="-959.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(simulator: simulator, writers: writer, frequency: float, data_to_generate: Optional[int])</text>
 <text text-anchor="start" x="2078.1223" y="-942.5" font-family="Times,serif" font-size="14.00" fill="#000000">run(): None</text>
 <text text-anchor="start" x="2078.1223" y="-925.7" font-family="Times,serif" font-size="14.00" fill="#000000">stop(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.Simulator.Simulator&#45;&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread -->
+<!-- PythonSensorsSimulator.Model.Simulators.simulator.simulator&#45;&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread -->
 <g id="edge21" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.Simulator.Simulator-&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread</title>
+<title>PythonSensorsSimulator.Model.Simulators.simulator.simulator-&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread</title>
 <path fill="none" stroke="#000000" d="M2348.3195,-816.4132C2348.3195,-844.7163 2348.3195,-876.0909 2348.3195,-904.9995"/>
 <polygon fill="none" stroke="#000000" points="2348.3196,-905.2218 2352.3195,-911.2218 2348.3195,-917.2218 2344.3195,-911.2218 2348.3196,-905.2218"/>
 <text text-anchor="middle" x="2381.7606" y="-886.4" font-family="Times,serif" font-size="14.00" fill="#00ff00">__simulator</text>
@@ -364,7 +364,7 @@
 <text text-anchor="start" x="3499.2809" y="-1034.5" font-family="Times,serif" font-size="14.00" fill="#000000">__simulator_executor</text>
 <polyline fill="none" stroke="#000000" points="3211.9529,-1026.3 3908.6861,-1026.3 "/>
 <text text-anchor="start" x="3219.9529" y="-1009.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__()</text>
-<text text-anchor="start" x="3219.9529" y="-992.9" font-family="Times,serif" font-size="14.00" fill="#000000">add_simulator(simulator: Simulator, writers: Writer, frequency: float, data_to_generate: int): 'SimulatorExecutorFactory'</text>
+<text text-anchor="start" x="3219.9529" y="-992.9" font-family="Times,serif" font-size="14.00" fill="#000000">add_simulator(simulator: simulator, writers: writer, frequency: float, data_to_generate: int): 'SimulatorExecutorFactory'</text>
 <text text-anchor="start" x="3219.9529" y="-976.1" font-family="Times,serif" font-size="14.00" fill="#000000">add_simulator_thread(thread_simulator: ComponentSimulatorThread): 'SimulatorExecutorFactory'</text>
 <text text-anchor="start" x="3219.9529" y="-959.3" font-family="Times,serif" font-size="14.00" fill="#000000">run()</text>
 <text text-anchor="start" x="3219.9529" y="-942.5" font-family="Times,serif" font-size="14.00" fill="#000000">stop()</text>
@@ -404,11 +404,11 @@
 <polygon fill="#000000" stroke="#000000" points="3659.9278,-926.704 3657.6868,-933.5581 3650.4981,-934.1256 3652.7391,-927.2716 3659.9278,-926.704"/>
 <text text-anchor="middle" x="3766.3581" y="-886.4" font-family="Times,serif" font-size="14.00" fill="#00ff00">__simulator_executor</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.StdoutWriter.StdoutWriter -->
+<!-- PythonSensorsSimulator.Model.Writers.std_out_writer.std_out_writer -->
 <g id="node20" class="node">
-<title>PythonSensorsSimulator.Model.Writers.StdoutWriter.StdoutWriter</title>
+<title>PythonSensorsSimulator.Model.Writers.std_out_writer.std_out_writer</title>
 <polygon fill="none" stroke="#000000" points="485.9113,-375.5 485.9113,-517.1 680.7277,-517.1 680.7277,-375.5 485.9113,-375.5"/>
-<text text-anchor="start" x="546.7718" y="-500.5" font-family="Times,serif" font-size="14.00" fill="#000000">StdoutWriter</text>
+<text text-anchor="start" x="546.7718" y="-500.5" font-family="Times,serif" font-size="14.00" fill="#000000">std_out_writer</text>
 <polyline fill="none" stroke="#000000" points="485.9113,-492.3 680.7277,-492.3 "/>
 <text text-anchor="start" x="515.2816" y="-475.7" font-family="Times,serif" font-size="14.00" fill="#000000">__counter_lock : lock</text>
 <text text-anchor="start" x="515.2816" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__lock : lock</text>
@@ -416,11 +416,11 @@
 <polyline fill="none" stroke="#000000" points="485.9113,-433.9 680.7277,-433.9 "/>
 <text text-anchor="start" x="493.9113" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__()</text>
 <text text-anchor="start" x="493.9113" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">__update_counter()</text>
-<text text-anchor="start" x="493.9113" y="-383.7" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: Writable): None</text>
+<text text-anchor="start" x="493.9113" y="-383.7" font-family="Times,serif" font-size="14.00" fill="#000000">write(to_write: writable): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.StdoutWriter.StdoutWriter&#45;&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer -->
+<!-- PythonSensorsSimulator.Model.Writers.std_out_writer.std_out_writer&#45;&gt;PythonSensorsSimulator.Model.Writers.writer.writer -->
 <g id="edge15" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.StdoutWriter.StdoutWriter-&gt;PythonSensorsSimulator.Model.Writers.Writer.Writer</title>
+<title>PythonSensorsSimulator.Model.Writers.std_out_writer.std_out_writer-&gt;PythonSensorsSimulator.Model.Writers.writer.writer</title>
 <path fill="none" stroke="#000000" d="M583.3195,-517.1656C583.3195,-567.6048 583.3195,-634.0044 583.3195,-678.1849"/>
 <polygon fill="none" stroke="#000000" points="579.8196,-678.3625 583.3195,-688.3625 586.8196,-678.3625 579.8196,-678.3625"/>
 </g>
@@ -431,14 +431,14 @@
 <text text-anchor="start" x="1814.9527" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">TemperatureSimulator</text>
 <polyline fill="none" stroke="#000000" points="1674.1718,-475.5 2082.4672,-475.5 "/>
 <text text-anchor="start" x="1840.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="1840.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="1840.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="1674.1718,-433.9 2082.4672,-433.9 "/>
 <text text-anchor="start" x="1682.1718" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_temperature)</text>
 <text text-anchor="start" x="1682.1718" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.TemperatureSimulator.TemperatureSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.TemperatureSimulator.TemperatureSimulator&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge9" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.TemperatureSimulator.TemperatureSimulator-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.TemperatureSimulator.TemperatureSimulator-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M1969.2187,-500.3367C2031.0177,-537.0742 2114.4716,-586.6849 2187.3471,-630.0071"/>
 <polygon fill="none" stroke="#000000" points="2185.7954,-633.1563 2196.1798,-635.2578 2189.3724,-627.1392 2185.7954,-633.1563"/>
 </g>
@@ -484,20 +484,20 @@
 <polyline fill="none" stroke="#000000" points="2100.3808,-483.9 2454.2582,-483.9 "/>
 <text text-anchor="start" x="2225.9955" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="2225.9955" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__threshold : float</text>
-<text text-anchor="start" x="2225.9955" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="2225.9955" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2100.3808,-425.5 2454.2582,-425.5 "/>
 <text text-anchor="start" x="2108.3808" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, threshold)</text>
 <text text-anchor="start" x="2108.3808" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
 </g>
-<!-- PythonSensorsSimulator.Model.Simulators.WaterPresenceSensor.WaterPresenceSensor&#45;&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator -->
+<!-- PythonSensorsSimulator.Model.Simulators.WaterPresenceSensor.WaterPresenceSensor&#45;&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator -->
 <g id="edge10" class="edge">
-<title>PythonSensorsSimulator.Model.Simulators.WaterPresenceSensor.WaterPresenceSensor-&gt;PythonSensorsSimulator.Model.Simulators.Simulator.Simulator</title>
+<title>PythonSensorsSimulator.Model.Simulators.WaterPresenceSensor.WaterPresenceSensor-&gt;PythonSensorsSimulator.Model.Simulators.simulator.simulator</title>
 <path fill="none" stroke="#000000" d="M2293.2533,-509.0028C2301.9599,-543.2651 2312.95,-586.5135 2322.8179,-625.3457"/>
 <polygon fill="none" stroke="#000000" points="2319.4453,-626.285 2325.3004,-635.115 2326.2296,-624.561 2319.4453,-626.285"/>
 </g>
-<!-- PythonSensorsSimulator.Model.Writers.Writer.Writer&#45;&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread -->
+<!-- PythonSensorsSimulator.Model.Writers.writer.writer&#45;&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread -->
 <g id="edge23" class="edge">
-<title>PythonSensorsSimulator.Model.Writers.Writer.Writer-&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread</title>
+<title>PythonSensorsSimulator.Model.Writers.writer.writer-&gt;PythonSensorsSimulator.Model.SimulatorThread.SimulatorThread</title>
 <path fill="none" stroke="#000000" d="M648.1795,-762.9681C709.44,-796.1029 804.9965,-842.5534 894.3195,-864.2 1031.8968,-897.5405 1071.2374,-870.5832 1212.3195,-882.2 1500.3849,-905.9195 1828.5404,-942.4514 2057.8331,-969.5272"/>
 <polygon fill="none" stroke="#000000" points="2058.1284,-969.5621 2064.5566,-966.2944 2070.0453,-970.9714 2063.6171,-974.2391 2058.1284,-969.5621"/>
 <text text-anchor="middle" x="1425.7536" y="-886.4" font-family="Times,serif" font-size="14.00" fill="#00ff00">__writers</text>

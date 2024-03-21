@@ -1,9 +1,0 @@
-import faust
-class FaustMeasurement(faust.Record):
-    timestamp: str
-    value: float
-    type: str
-    latitude: float
-    longitude: float
-    ID_sensore: str
-    cella: str
