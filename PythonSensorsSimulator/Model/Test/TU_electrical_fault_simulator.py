@@ -6,14 +6,14 @@ from ..Simulators.misurazione import misurazione
 
 
 class TU_electrical_fault_simulator(unittest.TestCase):
-    def set_up(self):
+    def setUp(self):
         electrical_fault_simulator._electrical_fault_simulator__count = 0
         self.simulator = electrical_fault_simulator(45.0, 10.0, 'cella1')
 
     def test_init(self):
-        self.assertEqual(self.simulator._Simulator__ID_sensor, 'GstE1')
-        self.assertEqual(self.simulator._Simulator__cella_sensore, 'cella1')
-        self.assertIsInstance(self.simulator._Simulator__coordinate, coordinate)
+        self.assertEqual(self.simulator._simulator__ID_sensor, 'GstE1')
+        self.assertEqual(self.simulator._simulator__cella_sensore, 'cella1')
+        self.assertIsInstance(self.simulator._simulator__coordinate, coordinate)
         self.assertEqual(self.simulator._misurazione, 0)
 
     def test_generate_measure(self):
@@ -26,9 +26,9 @@ class TU_electrical_fault_simulator(unittest.TestCase):
             self.assertEqual(self.simulator._fault_probability, 0.1)
 
     def test_simulate(self):
-        misurazione = self.simulator.simulate()
-        self.assertIsInstance(misurazione, misurazione)
-        self.assertIn(misurazione.get_value(), [0, 1])
+        measure = self.simulator.simulate()
+        self.assertIsInstance(measure, misurazione)
+        self.assertIn(measure.get_value(), [0, 1])
 
 
 if __name__ == '__main__':

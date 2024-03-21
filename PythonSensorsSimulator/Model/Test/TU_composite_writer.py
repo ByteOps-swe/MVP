@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import Mock
-from ..Writers import writer
-from ..Writers import composite_writer
+from ..Writers.writer import writer
+from ..Writers.composite_writer import composite_writer
 
 
 class TU_composite_writer(unittest.TestCase):
 
-    def set_up(self):
+    def setUp(self):
         self.composite_writer = composite_writer()
         self.mock_writer = Mock(spec=writer)
 

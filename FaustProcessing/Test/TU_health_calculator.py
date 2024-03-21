@@ -4,19 +4,16 @@ from ..HealthStateModel.health_calculator import health_calculator
 
 class TU_health_calculator(unittest.TestCase):
 
-    def set_up(self):
+    def setUp(self):
         self.calculator = health_calculator()
 
     def test_add_misurazione(self):
-        # Aggiungi una misurazione e genera un punteggio di salute
         self.calculator.add_misurazione("2024-03-07 09:07:00", 25, "temperature", 45.4642, 9.1900, "ID1", "cella1")
         initial_health_scores = self.calculator.generate_new_health_score()
 
-        # Aggiungi un'altra misurazione e genera un nuovo punteggio di salute
         self.calculator.add_misurazione("2024-03-07 09:08:00", 26, "temperature", 45.4642, 9.1900, "ID1", "cella1")
         new_health_scores = self.calculator.generate_new_health_score()
 
-        # Verifica che il punteggio di salute sia cambiato
         self.assertNotEqual(initial_health_scores, new_health_scores)
 
     def test_generate_new_health_score(self):

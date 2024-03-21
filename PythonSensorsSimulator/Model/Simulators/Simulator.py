@@ -15,8 +15,15 @@ class simulator(ABC):
     def simulate(self) -> misurazione:
         self._generate_measure()
         while not self._filter():
-            self._generate_measure() #First template step
-        return misurazione(datetime.now(), self._misurazione , self.__type, self.__coordinate, self.__ID_sensor,self.__cella_sensore)
+            self._generate_measure()
+        return misurazione(
+            datetime.now(),
+            self._misurazione,
+            self.__type,
+            self.__coordinate,
+            self.__ID_sensor,
+            self.__cella_sensore
+        )
 
     @abstractmethod
     def _generate_measure(self) -> None:

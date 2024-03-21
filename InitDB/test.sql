@@ -10,7 +10,7 @@ CREATE TABLE innovacity.test_kafka (
     'test',
     'CG_Clickhouse_1')
 SETTINGS kafka_format = 'JSONEachRow',
-         kafka_skip_broken_messages = 10;
+    kafka_skip_broken_messages = 10;
 
 CREATE TABLE innovacity.test
 (

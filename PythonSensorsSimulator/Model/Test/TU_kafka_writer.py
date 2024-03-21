@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock, patch
-from ..Writers.KafkaAdapter import kafka_target
-from ..Writers import writable
-from ..Writers import kafka_writer
+from ..Writers.KafkaAdapter.kafka_target import kafka_target
+from ..Writers.writable import writable
+from ..Writers.kafka_writer import kafka_writer
 
 
 class TU_kafka_writer(unittest.TestCase):
 
-    def set_up(self):
+    def setUp(self):
         self.kafka_target = Mock(spec=kafka_target)
         self.kafka_writer = kafka_writer(self.kafka_target)
         self.mock_writable = Mock(spec=writable)
@@ -16,7 +16,6 @@ class TU_kafka_writer(unittest.TestCase):
         with patch.object(self.mock_writable, 'to_json') as mock_to_json:
             self.kafka_writer.write(self.mock_writable)
             mock_to_json.assert_called_once()
-            # Verifica che il valore restituito da to_json venga passato correttamente a json.dumps
             self.kafka_target.write_to_kafka.assert_called_once()
 
     def test_flush_kafka_producer(self):

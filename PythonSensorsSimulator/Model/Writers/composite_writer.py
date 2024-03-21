@@ -6,7 +6,6 @@ from .KafkaAdapter.kafka_confluent_adapter import kafka_confluent_adapter
 
 #pattern composite https://refactoring.guru/design-patterns/composite
 class composite_writer(writer):
-
     def __init__(self):
         self._writers = []
 
@@ -16,8 +15,8 @@ class composite_writer(writer):
         self._writers.append(writ)
         return self
 
-    def add_kafka_confluent_writer(self, topic:str,host,port, schema_registry_url, schema_name):
-        self.add_writer(kafka_writer(kafka_confluent_adapter(topic,host,port ,schema_registry_url, schema_name)))
+    def add_kafka_confluent_writer(self, topic:str, host, port, schema_registry_url, schema_name):
+        self.add_writer(kafka_writer(kafka_confluent_adapter(topic, host, port, schema_registry_url, schema_name)))
         return self
 
     def add_std_out_writer(self):

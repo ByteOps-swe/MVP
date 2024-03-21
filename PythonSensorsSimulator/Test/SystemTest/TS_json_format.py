@@ -6,8 +6,8 @@ import pytest
 import asyncio
 
 import clickhouse_connect
-from ...Model.Writers import kafka_writer
-from ...Model.Writers.KafkaAdapter import kafka_confluent_adapter
+from ...Model.Writers.kafka_writer import kafka_writer
+from ...Model.Writers.KafkaAdapter.kafka_confluent_adapter import kafka_confluent_adapter
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
@@ -22,13 +22,13 @@ def clickhouse_client():
     client.close()
 
 @pytest.fixture
-def kafka_writer():
-    adapter_kafka = KafkaConfluentAdapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-    kafka_writer = kafka_writer(adapter_kafka)
-    yield kafka_writer
+def kafka_write():
+    adapter_kafka = kafka_confluent_adapter(test_topic, KAFKA_HOST, KAFKA_PORT)
+    kafka_write = kafka_writer(adapter_kafka)
+    yield kafka_write
     
 @pytest.mark.asyncio
-async def test_missing_data_field(clickhouse_client,kafka_writer):
+async def test_missing_data_field(clickhouse_client, kafka_write):
     try:
         mock_adapter_misurazione_corretta = Mock()
         mock_adapter_misurazione_corretta.to_json.return_value = {
@@ -49,8 +49,8 @@ async def test_missing_data_field(clickhouse_client,kafka_writer):
             "longitude": 67.89,
             "ID_sensore": "id_json_time_wrong1",
         }
-        kafka_writer.write(mock_adapter_misurazione_corretta) 
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(mock_adapter_misurazione_corretta) 
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(10)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct1' LIMIT 1")
         print(result.result_rows[0][3])
@@ -62,7 +62,7 @@ async def test_missing_data_field(clickhouse_client,kafka_writer):
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
         
 @pytest.mark.asyncio
-async def test_wrong_field_order(clickhouse_client,kafka_writer):
+async def test_wrong_field_order(clickhouse_client, kafka_write):
     try:
         mock_adapter_misurazione_corretta = Mock()
         mock_adapter_misurazione_corretta.to_json.return_value = {
@@ -84,8 +84,8 @@ async def test_wrong_field_order(clickhouse_client,kafka_writer):
             "longitude": 67.89,
             "cella": "cella"
         }
-        kafka_writer.write(mock_adapter_misurazione_corretta) 
-        kafka_writer.flush_kafka_producer()
+        kafka_write.write(mock_adapter_misurazione_corretta) 
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(10)
         result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore = 'id_json_format_correct2' LIMIT 1")
         print(result.result_rows[0][3])
@@ -95,5 +95,3 @@ async def test_wrong_field_order(clickhouse_client,kafka_writer):
         assert not result.result_rows
     except Exception as e:
         pytest.fail(f"Failed to connect to ClickHouse database: {e}")
-
-#Aggiungi test per un campo in piu'

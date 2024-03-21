@@ -39,7 +39,7 @@
 <polyline fill="none" stroke="#000000" points="2472.4376,-483.9 2844.2014,-483.9 "/>
 <text text-anchor="start" x="2572.3861" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="2572.3861" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__transition_probability : float</text>
-<text text-anchor="start" x="2572.3861" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="2572.3861" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2472.4376,-425.5 2844.2014,-425.5 "/>
 <text text-anchor="start" x="2480.4376" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_value)</text>
 <text text-anchor="start" x="2480.4376" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
@@ -54,7 +54,7 @@
 <text text-anchor="start" x="2291.1743" y="-757.9" font-family="Times,serif" font-size="14.00" fill="#000000">__cella_sensore : str</text>
 <text text-anchor="start" x="2291.1743" y="-741.1" font-family="Times,serif" font-size="14.00" fill="#000000">__coordinate</text>
 <text text-anchor="start" x="2291.1743" y="-724.3" font-family="Times,serif" font-size="14.00" fill="#000000">__type : str</text>
-<text text-anchor="start" x="2291.1743" y="-707.5" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione : int</text>
+<text text-anchor="start" x="2291.1743" y="-707.5" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione : int</text>
 <polyline fill="none" stroke="#000000" points="2082.5445,-699.3 2614.0945,-699.3 "/>
 <text text-anchor="start" x="2090.5445" y="-683.7" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, sensor_id: str, misurazione_iniziale, type)</text>
 <text text-anchor="start" x="2090.5445" y="-669.7" font-family="Times,serif" font-size="14.00" fill="#000000">_filter(): bool</text>
@@ -168,7 +168,7 @@
 <text text-anchor="start" x="3003.3749" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">DustPM10Simulator</text>
 <polyline fill="none" stroke="#000000" points="2861.8247,-475.5 3260.8143,-475.5 "/>
 <text text-anchor="start" x="3023.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="3023.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="3023.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2861.8247,-433.9 3260.8143,-433.9 "/>
 <text text-anchor="start" x="2869.8247" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_dust_level)</text>
 <text text-anchor="start" x="2869.8247" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
@@ -189,7 +189,7 @@
 <text text-anchor="start" x="3413.9527" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__fill_rate : int</text>
 <text text-anchor="start" x="3413.9527" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__max_fill_percentage : int</text>
 <text text-anchor="start" x="3413.9527" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__min_fill_percentage : int</text>
-<text text-anchor="start" x="3413.9527" y="-416.9" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="3413.9527" y="-416.9" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="3278.6192,-408.7 3704.0198,-408.7 "/>
 <text text-anchor="start" x="3286.6192" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_fill_percentage)</text>
 <text text-anchor="start" x="3286.6192" y="-375.3" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
@@ -208,7 +208,7 @@
 <polyline fill="none" stroke="#000000" points="3722.4376,-483.9 4094.2014,-483.9 "/>
 <text text-anchor="start" x="3839.499" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="3839.499" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">_fault_probability : float</text>
-<text text-anchor="start" x="3839.499" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione : int</text>
+<text text-anchor="start" x="3839.499" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione : int</text>
 <polyline fill="none" stroke="#000000" points="3722.4376,-425.5 4094.2014,-425.5 "/>
 <text text-anchor="start" x="3730.4376" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_value)</text>
 <text text-anchor="start" x="3730.4376" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
@@ -226,7 +226,7 @@
 <text text-anchor="start" x="1405.8749" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">HumiditySimulator</text>
 <polyline fill="none" stroke="#000000" points="1264.3163,-475.5 1656.3227,-475.5 "/>
 <text text-anchor="start" x="1422.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="1422.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="1422.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="1264.3163,-433.9 1656.3227,-433.9 "/>
 <text text-anchor="start" x="1272.3163" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_humidity)</text>
 <text text-anchor="start" x="1272.3163" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>
@@ -431,7 +431,7 @@
 <text text-anchor="start" x="1814.9527" y="-483.7" font-family="Times,serif" font-size="14.00" fill="#000000">TemperatureSimulator</text>
 <polyline fill="none" stroke="#000000" points="1674.1718,-475.5 2082.4672,-475.5 "/>
 <text text-anchor="start" x="1840.6091" y="-458.9" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
-<text text-anchor="start" x="1840.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="1840.6091" y="-442.1" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="1674.1718,-433.9 2082.4672,-433.9 "/>
 <text text-anchor="start" x="1682.1718" y="-417.3" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, initial_temperature)</text>
 <text text-anchor="start" x="1682.1718" y="-400.5" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure(): None</text>
@@ -484,7 +484,7 @@
 <polyline fill="none" stroke="#000000" points="2100.3808,-483.9 2454.2582,-483.9 "/>
 <text text-anchor="start" x="2225.9955" y="-467.3" font-family="Times,serif" font-size="14.00" fill="#000000">__count : int</text>
 <text text-anchor="start" x="2225.9955" y="-450.5" font-family="Times,serif" font-size="14.00" fill="#000000">__threshold : float</text>
-<text text-anchor="start" x="2225.9955" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">_misurazione</text>
+<text text-anchor="start" x="2225.9955" y="-433.7" font-family="Times,serif" font-size="14.00" fill="#000000">__misurazione</text>
 <polyline fill="none" stroke="#000000" points="2100.3808,-425.5 2454.2582,-425.5 "/>
 <text text-anchor="start" x="2108.3808" y="-408.9" font-family="Times,serif" font-size="14.00" fill="#000000">__init__(latitude: float, longitude: float, cella: str, threshold)</text>
 <text text-anchor="start" x="2108.3808" y="-392.1" font-family="Times,serif" font-size="14.00" fill="#000000">_generate_measure()</text>

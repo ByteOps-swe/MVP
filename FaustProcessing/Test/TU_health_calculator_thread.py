@@ -6,7 +6,7 @@ from ..HealthStateModel.health_calculator_thread import health_calculator_thread
 
 
 class TU_health_calculator_thread(unittest.TestCase):
-    def set_up(self):
+    def setUp(self):
         self.health_calculator = Mock(spec=health_algorithm)
         self.writers = Mock(spec=writer)
         self.healthThread = health_calculator_thread(self.health_calculator, self.writers)

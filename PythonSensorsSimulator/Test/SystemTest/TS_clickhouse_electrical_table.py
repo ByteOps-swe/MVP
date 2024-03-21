@@ -23,13 +23,13 @@ def clickhouse_client():
     client.close()
 
 @pytest.fixture
-def kafka_writer():
+def kafka_write():
     adapter_kafka = kafka_confluent_adapter(test_topic, KAFKA_HOST, KAFKA_PORT)
-    kafka_writer = kafka_writer(adapter_kafka)
-    yield kafka_writer
+    kafka_write = kafka_writer(adapter_kafka)
+    yield kafka_write
 
 @pytest.mark.asyncio
-async def test_outOfBound_misurazione_electrical(clickhouse_client, kafka_writer):
+async def test_out_of_bound_misurazione_electrical(clickhouse_client, kafka_write):
     try:
         timestamp = datetime.now()
         low_bound_limit = 0
@@ -41,11 +41,11 @@ async def test_outOfBound_misurazione_electrical(clickhouse_client, kafka_writer
         ]
 
         for data in sensor_data:
-            misurazione = adapter_misurazione(
+            measure = adapter_misurazione(
                 misurazione(data["timestamp"], data["value"], data["type"], coordinate(data["latitude"],data["longitude"]), data["id"], data["cella"]))
-            kafka_writer.write(misurazione)
+            kafka_write.write(measure)
 
-        kafka_writer.flush_kafka_producer()
+        kafka_write.flush_kafka_producer()
         await asyncio.sleep(5)
 
         for data in sensor_data:

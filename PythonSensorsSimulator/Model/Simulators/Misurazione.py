@@ -1,12 +1,12 @@
 from datetime import datetime
 from .coordinate import coordinate
-#TYPE per poter gestire anche db monotabella oppure dividere celsius e fahrenheit
+
 class misurazione():
-    def __init__(self, timestamp:datetime, value, type_:str, coordinate: coordinate, ID_sensore:str, cella:str):
+    def __init__(self, timestamp: datetime, value, type_: str, coord: coordinate, ID_sensore: str, cella: str):
         self.__timestamp = timestamp
         self.__value = value
         self.__type = type_
-        self.__coordinates = coordinate
+        self.__coordinates = coord
         self.__ID_sensore = ID_sensore
         self.__cella = cella
 
@@ -38,9 +38,10 @@ class misurazione():
         if not isinstance(other, misurazione):
             return False
         return (
-                str(self.__timestamp) == str(other.__timestamp) and
-                self.__value == other.__value and
-                self.__type == other.__type and
-                self.__coordinates == other.__coordinates and
-                self.__ID_sensore == other.__ID_sensore and
-                self.__cella == other.__cella)
+            str(self.__timestamp) == str(other.__timestamp) and
+            self.__value == other.__value and
+            self.__type == other.__type and
+            self.__coordinates == other.__coordinates and
+            self.__ID_sensore == other.__ID_sensore and
+            self.__cella == other.__cella
+        )

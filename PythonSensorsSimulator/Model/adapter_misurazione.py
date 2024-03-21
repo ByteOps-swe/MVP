@@ -4,8 +4,8 @@ from .Simulators.misurazione import misurazione
 from .Simulators.coordinate import coordinate
 
 class adapter_misurazione(writable):
-    def __init__(self, misurazione : misurazione):
-        self.__misurazione = misurazione
+    def __init__(self, measure : misurazione):
+        self.__misurazione = measure
 
     def to_json(self):
         return {
@@ -19,11 +19,13 @@ class adapter_misurazione(writable):
         }
     def get_misurazione(self) -> misurazione:
         return self.__misurazione
+
     @staticmethod
     def __format_value(value):
         if isinstance(value, bool):
             return 1 if value else 0
         return value
+
     @staticmethod
     def from_json(json_data:dict):
         timestamp = json_data["timestamp"]
@@ -33,5 +35,5 @@ class adapter_misurazione(writable):
         longitude = json_data["longitude"]
         ID_sensore = json_data["ID_sensore"]
         cella = json_data["cella"]
-        coordinate = coordinate(latitude, longitude)
-        return misurazione(datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f'), value, type_, coordinate, ID_sensore, cella)
+        coord = coordinate(latitude, longitude)
+        return misurazione(datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f'), value, type_, coord, ID_sensore, cella)

@@ -4,8 +4,9 @@ from ..HealthStateModel.adapter_misurazione_salute import adapter_misurazione
 
 
 class TU_adapter_misurazione(unittest.TestCase):
-    def set_up(self):
-        self.misurazione = Mock()  # Crea un oggetto mock
+
+    def setUp(self):
+        self.misurazione = Mock()
         self.adapter = adapter_misurazione(self.misurazione)
 
     def test_to_json(self):
