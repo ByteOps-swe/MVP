@@ -147,8 +147,6 @@ services:
         condition: service_healthy
       register_schema:
         condition: service_completed_successfully
-      test_base_image:
-        condition: service_completed_successfully
     profiles: ["test","develop", "prod"]
 
   test_base_image:
@@ -157,6 +155,9 @@ services:
       dockerfile: PythonSensorsSimulator/Test/DockerTestBaseImage/Dockerfile
     hostname: test-base
     container_name: test-base
+    depends_on:
+      processor:
+        condition: service_started
     profiles: ["test"]
 
   test:
