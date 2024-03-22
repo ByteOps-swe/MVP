@@ -157,6 +157,9 @@ services:
       dockerfile: PythonSensorsSimulator/Test/DockerTestBaseImage/Dockerfile
     hostname: test-base
     container_name: test-base
+    depends_on:
+      test_base_image:
+        condition: service_started
     profiles: ["test"]
 
   test:
