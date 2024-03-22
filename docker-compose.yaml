@@ -156,7 +156,7 @@ services:
     hostname: test-base
     container_name: test-base
     depends_on:
-      test_base_image:
+      processor:
         condition: service_started
     profiles: ["test"]
 
