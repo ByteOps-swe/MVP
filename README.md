@@ -22,13 +22,14 @@ Avvio tramite _docker_
 docker-compose up -d 
 ```
 
-Il container clickhouse deve essere riavviato una volta in esecuzione senno non prende le tabelle.
-
 ### Accesso dashboard
-
+##Admin
 - Username: admin
 - Password: admin
-
+##User
+- Username: user
+- Password: user
+  
 Per fermare tutti i container
 
 ```bash
@@ -78,14 +79,6 @@ pyreverse -f ALL .\PythonSensorsSimulator\
 docker exec simulators pytest --capture=no clickHouseDataTest.py
 ```
 
-## Pattern
-
-### Simulazioni:
-
-- Writers: Strategy, Adapter, Composite 
-- Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> writable (che è il target) (Modello writer)
-- Pool thread: Adapter per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
-- SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
 
 ### Problemi docker su pull immagini locali:
 
