@@ -1,11 +1,11 @@
 import threading
 import time
 from .health_algorithm import health_algorithm
-from .Writers import writer
+from .Writers.component_writer import component_writer
 from .adapter_misurazione_salute import adapter_misurazione
 
 class health_calculator_thread(threading.Thread):
-    def __init__(self, health_calculator: health_algorithm, writers: writer, frequency:float = 10, data_to_generate:int = -1 ):
+    def __init__(self, health_calculator: health_algorithm, writers: component_writer, frequency:float = 10, data_to_generate:int = -1 ):
         super().__init__()
         self.__health_calculator = health_calculator
         self.__frequency = frequency

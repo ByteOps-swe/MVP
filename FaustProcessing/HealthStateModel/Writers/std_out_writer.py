@@ -1,8 +1,8 @@
 import threading
-from .writer import writer
+from .writer_strategy import writer_strategy
 from .writable import writable
 
-class std_out_writer(writer):
+class std_out_writer(writer_strategy):
 
     def __init__(self):
         self.__lock = threading.Lock()

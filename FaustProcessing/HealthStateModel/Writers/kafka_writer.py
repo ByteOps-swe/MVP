@@ -1,9 +1,9 @@
 import threading
-from .writer import writer
+from .writer_strategy import writer_strategy
 from .KafkaAdapter.kafka_target import kafka_target
 from .writable import writable
 
-class kafka_writer(writer):
+class kafka_writer(writer_strategy):
 
     def __init__(self, kafka_targ: kafka_target):
         self.__kafka_target = kafka_targ

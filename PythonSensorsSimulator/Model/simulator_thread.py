@@ -1,7 +1,7 @@
 import time
 from .Simulators import simulator
 from .component_simulator_thread import component_simulator_thread
-from .Writers.writer import writer
+from .Writers.component_writer import writer
 from .adapter_misurazione import adapter_misurazione
 
 class simulator_thread(component_simulator_thread):

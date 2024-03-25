@@ -3,7 +3,7 @@ from .simulator_thread_pool import simulator_thread_pool
 from .simulator_thread import simulator_thread
 from .ThreadPoolAdapter.thread_pool_executor_adapter import thread_pool_executor_adapter
 from .component_simulator_thread import component_simulator_thread
-from .Writers.writer import writer
+from .Writers.component_writer import writer
 
 class simulator_executor_factory(component_simulator_thread):
     def __init__(self):

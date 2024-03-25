@@ -1,16 +1,16 @@
-from .writer import writer
+from .component_writer import component_writer
 from .kafka_writer import kafka_writer
 from .std_out_writer import std_out_writer
 from .list_writer import list_writer
 from .KafkaAdapter.kafka_confluent_adapter import kafka_confluent_adapter
 
 #pattern composite https://refactoring.guru/design-patterns/composite
-class composite_writer(writer):
+class composite_writer(component_writer):
     def __init__(self):
         self._writers = []
 
     def add_writer(self, writ):
-        if not isinstance(writ, writer):
+        if not isinstance(writ, component_writer):
             raise ValueError("Object is not a writer instance")
         self._writers.append(writ)
         return self

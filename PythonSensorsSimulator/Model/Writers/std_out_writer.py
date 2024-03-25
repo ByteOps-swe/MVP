@@ -1,8 +1,8 @@
 import threading
-from .writer import writer
+from .writer_strategy import writer_strategy
 from .writable import writable
 
-class std_out_writer(writer):
+class std_out_writer(writer_strategy):
     __counter_lock = threading.Lock()
     __message_counter = 0
 

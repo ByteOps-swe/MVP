@@ -1,9 +1,9 @@
 from threading import Lock
-from .writer import writer
+from .writer_strategy import writer_strategy
 from .writable import writable
 
 
-class list_writer(writer):
+class list_writer(writer_strategy):
 
     def __init__(self):
         self.__data_list = []

@@ -1,9 +1,9 @@
 from threading import Lock
-from .writer import writer
+from .writer_strategy import writer_strategy
 from .KafkaAdapter.kafka_target import kafka_target
 from .writable import writable
 
-class kafka_writer(writer):
+class kafka_writer(writer_strategy):
 
     __lock: Lock = Lock()
 

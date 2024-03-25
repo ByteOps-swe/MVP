@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from ..Writers.writer import writer
+from ..Writers.component_writer import writer
 from ..Writers.composite_writer import composite_writer
 
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from .writable import writable
 #Pattern Strategy
-class writer(ABC):
+class component_writer(ABC):
     """
     Abstract base class for writers.
     """
