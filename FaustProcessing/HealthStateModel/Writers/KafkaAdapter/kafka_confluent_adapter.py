@@ -31,4 +31,4 @@ class kafka_confluent_adapter(kafka_target):
         try:
             self.__producer.flush()
         except Exception as e:
-            print(f"Error while flushing Kafka producer: {e}")
+            print(f"Error while flushing Kafka Producer: {e}")
