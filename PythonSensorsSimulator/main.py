@@ -7,13 +7,13 @@ from Model.simulator_executor_factory import simulator_executor_factory
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
 
-temp_writers = composite_writer().add_kafka_confluent_writer("temperature", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-umd_writers = composite_writer().add_kafka_confluent_writer("humidity", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-chS_writers = composite_writer().add_kafka_confluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-ecoIs_writers = composite_writer().add_kafka_confluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-waPr_writers = composite_writer().add_kafka_confluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-dust_writers = composite_writer().add_kafka_confluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
-eletricalFault_writers = composite_writer().add_kafka_confluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081", "misurazione")
+temp_writers = composite_writer().add_kafka_confluent_writer("temperature", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+umd_writers = composite_writer().add_kafka_confluent_writer("humidity", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+chS_writers = composite_writer().add_kafka_confluent_writer("chargingStation", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+ecoIs_writers = composite_writer().add_kafka_confluent_writer("ecoIslands", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+waPr_writers = composite_writer().add_kafka_confluent_writer("waterPresence", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+dust_writers = composite_writer().add_kafka_confluent_writer("dust_PM10", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
+eletricalFault_writers = composite_writer().add_kafka_confluent_writer("electricalFault", KAFKA_HOST, KAFKA_PORT, "http://schema_registry:8081")
 sym_exec_aggregator = simulator_executor_factory()
 
 sym_exec_aggregator \

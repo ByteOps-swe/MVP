@@ -9,7 +9,7 @@ from ProcessingAdapter.health_model_processor_adapter import health_model_proces
 
 schema_registry_url ="http://schema_registry:8081"
 schema_name ="misurazione"
-healthWriter = composite_writer().add_kafka_confluent_writer("HealthScore", "kafka", "9092",schema_registry_url , "misurazioneSalute").add_std_out_writer()
+healthWriter = composite_writer().add_kafka_confluent_writer("HealthScore", "kafka", "9092",schema_registry_url).add_std_out_writer()
 health_calculator = health_calculator()
 healthThread  = health_calculator_thread(health_calculator,healthWriter,5)
 
