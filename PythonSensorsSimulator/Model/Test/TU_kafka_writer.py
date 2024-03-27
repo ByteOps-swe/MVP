@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from ..Writers.KafkaAdapter.kafka_target import kafka_target
+from ..Writers.kafkaAdapter.kafka_target import kafka_target
 from ..Writers.writable import writable
 from ..Writers.kafka_writer import kafka_writer
 

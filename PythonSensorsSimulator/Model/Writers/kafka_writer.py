@@ -1,6 +1,6 @@
 from threading import Lock
 from .writer import writer
-from .KafkaAdapter.kafka_target import kafka_target
+from .kafkaAdapter.kafka_target import kafka_target
 from .writable import writable
 
 class kafka_writer(writer):
