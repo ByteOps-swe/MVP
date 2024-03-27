@@ -13,7 +13,7 @@ from ...Model.adapter_misurazione import adapter_misurazione
 
 KAFKA_HOST = os.environ.get("KAFKA_HOST", "kafka")
 KAFKA_PORT = os.environ.get("KAFKA_PORT", "9092")
-test_topic = "test_kafka_only"
+test_topic = "test"
 
 @pytest.fixture
 def kafka_consumer():
