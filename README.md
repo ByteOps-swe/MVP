@@ -3,7 +3,6 @@
 ![build](https://github.com/ByteOps-swe/MVP/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/ByteOps-swe/MVP/badge.svg?branch=main)](https://coveralls.io/github/ByteOps-swe/MVP?branch=main)
 [![codecov](https://codecov.io/gh/ByteOps-swe/MVP/graph/badge.svg?token=VSRO4CTN60)](https://codecov.io/gh/ByteOps-swe/MVP/tree/main)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a8e8861f6abf888a6552/maintainability)](https://codeclimate.com/github/ByteOps-swe/MVP/maintainability)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/68c20d2874784c78bf7e4ebcb51aba95)](https://app.codacy.com/gh/ByteOps-swe/MVP/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)\
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 ![pylint](https://img.shields.io/badge/PyLint-9.74-brightgreen?logo=python&logoColor=white)
@@ -19,23 +18,23 @@ Progetto del corso di [Ingegneria del Software 2023-2024]
 Avvio tramite _docker_
 
 ```bash
-docker-compose up -d 
+docker compose --profile prod up -d 
 ```
 
 ### Accesso dashboard
-##Admin
+## Admin
 - Username: admin
 - Password: admin
-##User
+## User
 - Username: user
 - Password: user
   
 Per fermare tutti i container
 
 ```bash
-docker-compose down
+docker compose --profile prod down
 ```
-
+<!-- docekr exec clickhouse dovrebe essere tolta mi pare -->
 Per connettersi a clickhouse con client e ed effettuare query:
 
 ``` bash
@@ -50,14 +49,21 @@ winpty docker exec -it clickhouse clickhouse-client
 
 **TEST**
 
-Per avere print:
+Per eseguire i test manualmente:
 
 ``` bash
 docker exec simulators pytest
 ```
+Per avere print:
 
 ``` bash
-docker exec simulators pytest --capture=no clickHouseDataTest.py  
+docker exec simulators pytest --capture=no test.py  
+```
+
+Per eseguire i test automaticamente:
+
+``` bash
+docker compose --profile test up -d
 ```
 
 Per generare uml:
@@ -76,7 +82,7 @@ pyreverse -f ALL .\PythonSensorsSimulator\
 ## Per avviare specifici test con possibilità di vedere le print
 
 ```bash
-docker exec simulators pytest --capture=no clickHouseDataTest.py
+docker exec simulators pytest --capture=no test.py
 ```
 
 
