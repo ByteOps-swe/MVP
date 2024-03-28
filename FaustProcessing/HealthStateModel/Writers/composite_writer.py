@@ -15,8 +15,8 @@ class composite_writer(writer):
         self._writers.append(writ)
         return self
 
-    def add_kafka_confluent_writer(self, topic:str, host:str, port, schema_registry_url:str, schema_name:str):
-        self.add_writer(kafka_writer(kafka_confluent_adapter(topic, host, port, schema_registry_url, schema_name)))
+    def add_kafka_confluent_writer(self, topic:str, host:str, port, schema_registry_url:str):
+        self.add_writer(kafka_writer(kafka_confluent_adapter(topic, host, port, schema_registry_url)))
         return self
 
     def add_std_out_writer(self):

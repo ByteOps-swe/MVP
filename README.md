@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/ByteOps-swe/MVP/graph/badge.svg?token=VSRO4CTN60)](https://codecov.io/gh/ByteOps-swe/MVP/tree/main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/68c20d2874784c78bf7e4ebcb51aba95)](https://app.codacy.com/gh/ByteOps-swe/MVP/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)\
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
-![pylint](https://img.shields.io/badge/PyLint-9.96-brightgreen?logo=python&logoColor=white)
+![pylint](https://img.shields.io/badge/PyLint-9.82-brightgreen?logo=python&logoColor=white)
 
 </div>
 
