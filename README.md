@@ -49,40 +49,41 @@ winpty docker exec -it clickhouse clickhouse-client
 
 **TEST**
 
-Per eseguire i test manualmente:
-
-``` bash
-docker exec simulators pytest
-```
-Per avere print:
-
-``` bash
-docker exec simulators pytest --capture=no test.py  
-```
-
 Per eseguire i test automaticamente:
 
 ``` bash
 docker compose --profile test up -d
 ```
 
-Per generare uml:
+Per riavviare il container dei test:
 
-```bash
-pyreverse .\PythonSensorsSimulator\
+``` bash
+docker restart tests
 ```
 
-Con attributi:
+Per avviare specifici test
+
 ```bash
-pyreverse -f ALL .\PythonSensorsSimulator\
+docker exec tests pytest <file_path>
+```
+
+Per avviare specifici test con possibilità di vedere le print
+
+```bash
+docker exec tests pytest --capture=no <file_path>
 ```
  
 ## Gli UML sono presenti in \UMLModel
 
-## Per avviare specifici test con possibilità di vedere le print
+Per generare uml:
 
 ```bash
-docker exec simulators pytest --capture=no test.py
+pyreverse <folder_path>
+```
+
+Con attributi:
+```bash
+pyreverse -f ALL <folder_path>
 ```
 
 
