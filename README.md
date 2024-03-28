@@ -18,22 +18,23 @@ Progetto del corso di [Ingegneria del Software 2023-2024]
 Avvio tramite _docker_
 
 ```bash
-docker-compose up -d 
+docker compose --profile prod up -d 
 ```
 
-Il container clickhouse deve essere riavviato una volta in esecuzione senno non prende le tabelle.
-
 ### Accesso dashboard
-
+## Admin
 - Username: admin
 - Password: admin
-
+## User
+- Username: user
+- Password: user
+  
 Per fermare tutti i container
 
 ```bash
-docker-compose down
+docker compose --profile prod down
 ```
-
+<!-- docekr exec clickhouse dovrebe essere tolta mi pare -->
 Per connettersi a clickhouse con client e ed effettuare query:
 
 ``` bash
@@ -48,43 +49,43 @@ winpty docker exec -it clickhouse clickhouse-client
 
 **TEST**
 
-Per avere print:
+Per eseguire i test automaticamente:
 
 ``` bash
-docker exec simulators pytest
+docker compose --profile test up -d
 ```
+
+Per riavviare il container dei test:
 
 ``` bash
-docker exec simulators pytest --capture=no clickHouseDataTest.py  
+docker restart tests
 ```
 
-Per generare uml:
+Per avviare specifici test
 
 ```bash
-pyreverse .\PythonSensorsSimulator\
+docker exec tests pytest <file_path>
 ```
 
-Con attributi:
+Per avviare specifici test con possibilità di vedere le print
+
 ```bash
-pyreverse -f ALL .\PythonSensorsSimulator\
+docker exec tests pytest --capture=no <file_path>
 ```
  
 ## Gli UML sono presenti in \UMLModel
 
-## Per avviare specifici test con possibilità di vedere le print
+Per generare uml:
 
 ```bash
-docker exec simulators pytest --capture=no clickHouseDataTest.py
+pyreverse <folder_path>
 ```
 
-## Pattern
+Con attributi:
+```bash
+pyreverse -f ALL <folder_path>
+```
 
-### Simulazioni:
-
-- Writers: Strategy, Adapter, Composite 
-- Simulator: Template method (simulate), Adapter Misurazione (del modello simulatori) -> writable (che è il target) (Modello writer)
-- Pool thread: Adapter per la threadpool, Thread pool pattern (non tipico), Adapter anche per gli writable 
-- SimulatorThread: Composite dove il component padre è componentSImulatorThread e la leaf SimulatorThread
 
 ### Problemi docker su pull immagini locali:
 
