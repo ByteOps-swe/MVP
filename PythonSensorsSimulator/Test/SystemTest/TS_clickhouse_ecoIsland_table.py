@@ -46,7 +46,7 @@ async def test_out_of_bound_misurazione_eco(clickhouse_client, kafka_write):
             kafka_write.write(measure)
 
         kafka_write.flush_kafka_producer()
-        await asyncio.sleep(5)
+        await asyncio.sleep(10)
 
         for data in sensor_data:
             result = clickhouse_client.query(f"SELECT * FROM innovacity.{table_to_test} where ID_sensore ='{data['id']}' and timestamp = '{data['timestamp']}' LIMIT 1")
