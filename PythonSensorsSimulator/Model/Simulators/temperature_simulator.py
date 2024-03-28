@@ -18,5 +18,10 @@ class temperature_simulator(simulator):
 
     def _generate_measure(self) -> None:
         variation = random.uniform(-0.5, 0.5)
-        self._misurazione += variation
-        self._misurazione = max(0, min(100, self._misurazione))
+        new_measurement = self._misurazione + variation
+        if -15 <= new_measurement <= 45:
+            self._misurazione = new_measurement
+        if self._misurazione < -15:
+            self._misurazione += 0.5
+        if self._misurazione > 45:
+            self._misurazione -= 0.5

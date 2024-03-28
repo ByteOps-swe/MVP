@@ -14,7 +14,7 @@ class simulator(ABC):
     #TEMPLATEMETHOD
     def simulate(self) -> misurazione:
         self._generate_measure()
-        while not self._filter():
+        while not self._adapt():
             self._generate_measure()
         return misurazione(
             datetime.now(),
@@ -30,5 +30,5 @@ class simulator(ABC):
         pass
 
     #Template empty method to override
-    def _filter(self) -> bool:
+    def _adapt(self) -> bool:
         return True
