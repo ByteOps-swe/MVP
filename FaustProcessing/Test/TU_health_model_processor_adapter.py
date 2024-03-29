@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
-from ..ProcessingAdapter.health_model_processor_adapter import health_model_processor_adapter, health_processor_buffer, faust_measurement
+from ..ProcessingAdapter.health_model_processor_adapter import health_model_processor_adapter, faust_measurement
+from ..HealthStateModel.health_processor_buffer import health_processor_buffer
 
 import asyncio
 
