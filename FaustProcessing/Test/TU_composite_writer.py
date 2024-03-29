@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from ..HealthStateModel.Writers.writer import writer
 from ..HealthStateModel.Writers.composite_writer import composite_writer
 
