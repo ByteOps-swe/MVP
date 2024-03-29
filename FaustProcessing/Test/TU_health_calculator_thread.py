@@ -1,9 +1,9 @@
+import time
 import unittest
 from unittest.mock import Mock
 from ..HealthStateModel.health_algorithm import health_algorithm
 from ..HealthStateModel.Writers.writer import writer
-from ..HealthStateModel.health_calculator_thread import health_calculator_thread, adapter_misurazione
-import time
+from ..HealthStateModel.health_calculator_thread import health_calculator_thread
 
 class TU_health_calculator_thread(unittest.TestCase):
     def setUp(self):
