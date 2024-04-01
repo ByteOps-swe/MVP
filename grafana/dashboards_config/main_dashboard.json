@@ -1392,7 +1392,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard umidità",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=umidities&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=humidity&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
@@ -1638,7 +1638,7 @@
         {
           "targetBlank": true,
           "title": "Dashboard polveri sottili",
-          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=dustPM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
+          "url": "http://127.0.0.1:3000/d/c102cb76-e36e-4fdb-924e-788ff2dfef24/zoom-in-dashboard?orgId=1&var-Cella=All&var-tabella=dust_PM10&var-sensors_id=All&var-AggregazioneTemporale=Automatico&var-Max=100&var-Min=-100"
         }
       ],
       "maxDataPoints": 600,
