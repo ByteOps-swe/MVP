@@ -7,9 +7,10 @@ CREATE TABLE innovacity.healthScore_kafka (
     'kafka:9092',
     'HealthScore',
     'CG_Clickhouse_1'
-) SETTINGS kafka_format = 'JSONEachRow',
-           kafka_skip_broken_messages = 10;
-
+) SETTINGS  kafka_format = 'JSONEachRow',
+            kafka_skip_broken_messages = 65536,
+            kafka_max_block_size = 65536 ;
+--kafka_max_block_size (default 65536) — the threshold to commit the block to ClickHouse in number of rows, configured on a table level
 
 CREATE TABLE innovacity.healthScore
 (

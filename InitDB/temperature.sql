@@ -10,8 +10,9 @@ CREATE TABLE innovacity.temperatures_kafka (
     'kafka:9092',
     'temperature',
     'CG_Clickhouse_1'
-) SETTINGS kafka_format = 'JSONEachRow',
-           kafka_skip_broken_messages = 10;
+) SETTINGS  kafka_format = 'JSONEachRow',
+            kafka_skip_broken_messages = 65536,
+            kafka_max_block_size = 65536 ;
 
 CREATE TABLE innovacity.temperatures
 (
